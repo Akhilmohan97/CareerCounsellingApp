@@ -1,17 +1,23 @@
 ﻿using CareerCounsellingApp.Services;
+using CareerCounsellingApp.Views;
 using CommunityToolkit.Mvvm.Input;
+using System;
 using System.ComponentModel;
 using System.Windows.Input;
+using Avalonia.Controls;
+using Avalonia.Controls.ApplicationLifetimes;
 
 namespace CareerCounsellingApp.ViewModels;
 
 public class MainWindowViewModel : INotifyPropertyChanged
 {
     private readonly AuthService _authService = new();
+    public MainWindow? LoginWindow { get; set; }
 
     private string _username = "";
     private string _password = "";
     private string _message = "";
+    private bool _isLoading = false;
 
     public string Username
     {
@@ -20,6 +26,7 @@ public class MainWindowViewModel : INotifyPropertyChanged
         {
             _username = value;
             OnPropertyChanged(nameof(Username));
+            ((RelayCommand)LoginCommand).NotifyCanExecuteChanged();
         }
     }
 
@@ -30,6 +37,7 @@ public class MainWindowViewModel : INotifyPropertyChanged
         {
             _password = value;
             OnPropertyChanged(nameof(Password));
+            ((RelayCommand)LoginCommand).NotifyCanExecuteChanged();
         }
     }
 
@@ -43,31 +51,91 @@ public class MainWindowViewModel : INotifyPropertyChanged
         }
     }
 
+    public bool IsLoading
+    {
+        get => _isLoading;
+        set
+        {
+            _isLoading = value;
+            OnPropertyChanged(nameof(IsLoading));
+            ((RelayCommand)LoginCommand).NotifyCanExecuteChanged();
+        }
+    }
+
     public ICommand LoginCommand { get; }
+    public ICommand ClearCommand { get; }
 
     public MainWindowViewModel()
     {
-        LoginCommand = new RelayCommand(Login);
+        LoginCommand = new RelayCommand(Login, CanLogin);
+        ClearCommand = new RelayCommand(Clear);
+    }
+
+    private bool CanLogin()
+    {
+        return !IsLoading && !string.IsNullOrWhiteSpace(Username) && !string.IsNullOrWhiteSpace(Password);
     }
 
     private void Login()
     {
-        var user = _authService.Login(Username, Password);
-
-        if (user == null)
+        if (string.IsNullOrWhiteSpace(Username))
         {
-            Message = "Invalid username or password";
+            Message = "❌ Please enter a username";
             return;
         }
 
-        if (user.Role == "Admin")
+        if (string.IsNullOrWhiteSpace(Password))
         {
-            new AdminDashboardWindow().Show();
+            Message = "❌ Please enter a password";
+            return;
         }
-        else if (user.Role == "Student")
+
+        IsLoading = true;
+        try
         {
-            new StudentDashboardWindow(user).Show();
+            var user = _authService.Login(Username, Password);
+
+            if (user == null)
+            {
+                Message = "❌ Invalid username or password. Please try again.";
+                Password = "";
+                return;
+            }
+
+            Message = $"✓ Login successful! Redirecting...";
+
+            if (user.Role == "Admin")
+            {
+                new AdminDashboardWindow().Show();
+            }
+            else if (user.Role == "Student")
+            {
+                new StudentDashboardWindow(user).Show();
+            }
+
+            // Close the login window after successful authentication
+            LoginWindow?.Close();
+
+            // Clear credentials after successful login
+            Username = "";
+            Password = "";
+            Message = "";
         }
+        catch (Exception ex)
+        {
+            Message = $"❌ Login error: {ex.Message}";
+        }
+        finally
+        {
+            IsLoading = false;
+        }
+    }
+
+    private void Clear()
+    {
+        Username = "";
+        Password = "";
+        Message = "";
     }
 
     public event PropertyChangedEventHandler? PropertyChanged;
@@ -77,3 +145,5 @@ public class MainWindowViewModel : INotifyPropertyChanged
         PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
     }
 }
+
+

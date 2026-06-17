@@ -2,36 +2,70 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+        mc:Ignorable="d" d:DesignWidth="700" d:DesignHeight="500"
         x:Class="CareerCounsellingApp.ThankYouWindow"
-        Width="600"
-        Height="350"
-        Title="Assessment Submitted">
-    <StackPanel HorizontalAlignment="Center"
-                VerticalAlignment="Center"
-                Spacing="20">
+        Width="700"
+        Height="500"
+        Title="Assessment Submitted"
+        Background="{StaticResource BackgroundBrush}"
+        WindowStartupLocation="CenterScreen">
+    
+    <Grid>
+        <Border Background="{StaticResource SurfaceBrush}">
+            <StackPanel HorizontalAlignment="Center"
+                        VerticalAlignment="Center"
+                        Spacing="30"
+                        MaxWidth="500">
 
-        <TextBlock Text="✔ Assessment Submitted Successfully"
-                   FontSize="24"
-                   FontWeight="Bold"
-                   HorizontalAlignment="Center"/>
+                <StackPanel HorizontalAlignment="Center" Spacing="10">
+                    <TextBlock Text="✓"
+                               FontSize="80"
+                               Foreground="{StaticResource AccentBrush}"
+                               HorizontalAlignment="Center"/>
+                    <TextBlock Text="Assessment Submitted Successfully"
+                               FontSize="24"
+                               FontWeight="Bold"
+                               HorizontalAlignment="Center"
+                               Foreground="{StaticResource TextPrimaryBrush}"/>
+                </StackPanel>
 
-        <TextBlock Text="Thank you for completing the assessment."
-                   FontSize="18"
-                   HorizontalAlignment="Center"/>
+                <Separator Height="2" Background="{StaticResource BorderBrush}"/>
 
-        <TextBlock Text="Your responses have been recorded."
-                   HorizontalAlignment="Center"/>
+                <StackPanel Spacing="12" HorizontalAlignment="Center">
+                    <TextBlock Text="Thank you for completing the career assessment."
+                               FontSize="16"
+                               HorizontalAlignment="Center"
+                               Foreground="{StaticResource TextSecondaryBrush}"
+                               TextWrapping="Wrap"/>
 
-        <TextBlock Text="Please contact your counselor for results."
-                   HorizontalAlignment="Center"/>
+                    <TextBlock Text="Your responses have been securely recorded and will be analyzed to provide you with personalized career recommendations."
+                               FontSize="14"
+                               HorizontalAlignment="Center"
+                               Foreground="{StaticResource TextSecondaryBrush}"
+                               TextWrapping="Wrap"/>
 
-        <Button Name="CloseButton"
-                Width="150"
-                Height="40">
-            <TextBlock Text="Close"/>
-        </Button>
+                    <TextBlock Text="Please contact your counselor for your detailed results and career guidance."
+                               FontSize="14"
+                               HorizontalAlignment="Center"
+                               Foreground="{StaticResource TextSecondaryBrush}"
+                               TextWrapping="Wrap"/>
+                </StackPanel>
 
-    </StackPanel>
+                <Button Name="CloseButton"
+                        Width="200"
+                        Height="45"
+                        HorizontalAlignment="Center"
+                        Cursor="Hand"
+                        Margin="0,20,0,0"
+                        Classes="primary">
+                    <TextBlock Text="Close"
+                               FontSize="15"
+                               FontWeight="SemiBold"
+                               Foreground="White"/>
+                </Button>
+
+            </StackPanel>
+        </Border>
+    </Grid>
 
 </Window>

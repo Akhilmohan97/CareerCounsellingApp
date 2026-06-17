@@ -2,88 +2,156 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+        mc:Ignorable="d" d:DesignWidth="1000" d:DesignHeight="650"
         x:Class="CareerCounsellingApp.QuestionManagementWindow"
         xmlns:vm="using:CareerCounsellingApp.ViewModels"
         x:DataType="vm:QuestionManagementViewModel"
-        Width="900"
-        Height="600"
-        Title="Question Management">
-    <Grid Margin="20"
-          ColumnDefinitions="350,*">
+        Width="1100"
+        Height="700"
+        Title="Question Management"
+        Background="{StaticResource BackgroundBrush}"
+        WindowStartupLocation="CenterScreen">
+    
+    <Grid RowDefinitions="Auto,*">
+      <!-- Header -->
+      <Border Grid.Row="0"
+              Background="{StaticResource PrimaryBrush}"
+              Padding="30,20">
+        <TextBlock Text="Question Management"
+                   FontSize="28"
+                   FontWeight="Bold"
+                   Foreground="White"/>
+      </Border>
 
-        <!-- Left -->
+      <!-- Content -->
+      <Grid Grid.Row="1"
+            Margin="30"
+            ColumnDefinitions="400,*"
+            ColumnSpacing="30">
 
+        <!-- Left Panel -->
         <Border Grid.Column="0"
-                Padding="15">
+                Background="{StaticResource SurfaceBrush}"
+                Padding="25"
+                CornerRadius="8"
+                BoxShadow="0 1 3 #00000010">
 
-            <StackPanel Spacing="10">
+          <StackPanel Spacing="15">
 
-                <TextBlock Text="Add Question"
-                           FontSize="20"
-                           FontWeight="Bold"/>
+            <TextBlock Text="Add New Question"
+                       FontSize="18"
+                       FontWeight="Bold"
+                       Foreground="{StaticResource TextPrimaryBrush}"/>
 
-                <TextBox PlaceholderText="Question Text"
-                         Text="{Binding QuestionText}"/>
+            <Separator Height="1" Background="{StaticResource BorderBrush}"/>
 
-                <ComboBox
-                    ItemsSource="{Binding Categories}"
-                    SelectedItem="{Binding SelectedCategory}">
-
-                    <ComboBox.ItemTemplate>
-                        <DataTemplate>
-                            <TextBlock Text="{Binding Name}"/>
-                        </DataTemplate>
-                    </ComboBox.ItemTemplate>
-
-                </ComboBox>
-
-                <Button Command="{Binding AddQuestionCommand}">
-                    <TextBlock Text="Add Question"/>
-                </Button>
-                <Button Name="ManageOptionsButton"> 
-                    <TextBlock Text="Manage Options"/> 
-                </Button>
-
+            <StackPanel Spacing="4">
+              <TextBlock Text="Question Text"
+                         FontSize="12"
+                         FontWeight="SemiBold"
+                         Foreground="{StaticResource TextPrimaryBrush}"/>
+              <TextBox PlaceholderText="Enter question"
+                       Text="{Binding QuestionText}"
+                       Height="80"
+                       Padding="12"
+                       AcceptsReturn="True"
+                       TextWrapping="Wrap"/>
             </StackPanel>
+
+            <StackPanel Spacing="4">
+              <TextBlock Text="Category"
+                         FontSize="12"
+                         FontWeight="SemiBold"
+                         Foreground="{StaticResource TextPrimaryBrush}"/>
+              <ComboBox
+                  Height="40"
+                  Padding="12"
+                  ItemsSource="{Binding Categories}"
+                  SelectedItem="{Binding SelectedCategory}">
+
+                <ComboBox.ItemTemplate>
+                  <DataTemplate>
+                    <TextBlock Text="{Binding Name}"/>
+                  </DataTemplate>
+                </ComboBox.ItemTemplate>
+
+              </ComboBox>
+            </StackPanel>
+
+            <StackPanel Orientation="Horizontal" Spacing="10">
+              <Button Command="{Binding AddQuestionCommand}"
+                      Height="40"
+                      Foreground="White"
+                      FontWeight="SemiBold"
+                      Cursor="Hand"
+                      Classes="accent">
+                <TextBlock Text="Add Question"/>
+              </Button>
+            </StackPanel>
+
+            <Button Name="ManageOptionsButton"
+                    Height="40"
+                    Foreground="White"
+                    FontWeight="SemiBold"
+                    Cursor="Hand"
+                    Classes="primary">
+              <TextBlock Text="Manage Options"/>
+            </Button>
+
+          </StackPanel>
 
         </Border>
 
-        <!-- Right -->
-
+        <!-- Right Panel -->
         <Border Grid.Column="1"
-                Padding="15">
+                Background="{StaticResource SurfaceBrush}"
+                Padding="25"
+                CornerRadius="8"
+                BoxShadow="0 1 3 #00000010">
 
-            <StackPanel>
+          <Grid RowDefinitions="Auto,*">
 
-                <TextBlock Text="Questions"
-                           FontSize="20"
-                           FontWeight="Bold"/>
+            <TextBlock Grid.Row="0"
+                       Text="Questions"
+                       FontSize="18"
+                       FontWeight="Bold"
+                       Foreground="{StaticResource TextPrimaryBrush}"/>
 
-                <ListBox ItemsSource="{Binding Questions}"
-                         SelectedItem="{Binding SelectedQuestion}">
+            <ListBox Grid.Row="1"
+                     Margin="0,15,0,0"
+                     ItemsSource="{Binding Questions}"
+                     SelectedItem="{Binding SelectedQuestion}"
+                     Background="{StaticResource BackgroundBrush}">
 
-                    <ListBox.ItemTemplate>
+              <ListBox.ItemTemplate>
 
-                        <DataTemplate>
+                <DataTemplate>
 
-                            <Border Margin="5"
-                                    Padding="10">
+                  <Border Margin="0,5"
+                          Padding="15"
+                          Background="{StaticResource BackgroundBrush}"
+                          BorderBrush="{StaticResource BorderBrush}"
+                          BorderThickness="1"
+                          CornerRadius="4">
 
-                                <TextBlock Text="{Binding QuestionText}"/>
+                    <TextBlock Text="{Binding QuestionText}"
+                               FontSize="13"
+                               Foreground="{StaticResource TextPrimaryBrush}"
+                               TextWrapping="Wrap"/>
 
-                            </Border>
+                  </Border>
 
-                        </DataTemplate>
+                </DataTemplate>
 
-                    </ListBox.ItemTemplate>
+              </ListBox.ItemTemplate>
 
-                </ListBox>
+            </ListBox>
 
-            </StackPanel>
+          </Grid>
 
         </Border>
 
+      </Grid>
     </Grid>
 
 </Window>

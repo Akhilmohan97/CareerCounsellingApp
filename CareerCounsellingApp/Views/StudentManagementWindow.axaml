@@ -3,162 +3,288 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:vm="using:CareerCounsellingApp.ViewModels"
-        mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+        mc:Ignorable="d" d:DesignWidth="1200" d:DesignHeight="700"
         x:Class="CareerCounsellingApp.StudentManagementWindow"
         x:DataType="vm:StudentManagementViewModel"
-        Width="1200"
-        Height="700"
-        Title="Student Management">
-    <Grid Margin="20"
-          ColumnDefinitions="450,*">
+        Width="1400"
+        Height="800"
+        Title="Student Management"
+        Background="{StaticResource BackgroundBrush}"
+        WindowStartupLocation="CenterScreen">
+    
+    <Grid RowDefinitions="Auto,*">
+      <!-- Header -->
+      <Border Grid.Row="0"
+              Background="{StaticResource PrimaryBrush}"
+              Padding="30,20">
+        <TextBlock Text="Student Management"
+                   FontSize="28"
+                   FontWeight="Bold"
+                   Foreground="White"/>
+      </Border>
+
+      <!-- Content -->
+      <Grid Grid.Row="1"
+            Margin="30"
+            ColumnDefinitions="500,*"
+            ColumnSpacing="30">
 
         <!-- Left Panel -->
-
         <Border Grid.Column="0"
-                Padding="15">
+                Background="{StaticResource SurfaceBrush}"
+                Padding="25"
+                CornerRadius="8"
+                BoxShadow="0 1 3 #00000010">
 
-            <ScrollViewer>
+          <ScrollViewer>
+            <StackPanel Spacing="15">
 
-                <StackPanel Spacing="10">
+              <TextBlock Text="Student Details"
+                         FontSize="20"
+                         FontWeight="Bold"
+                         Foreground="{StaticResource TextPrimaryBrush}"/>
 
-                    <TextBlock Text="Student Details"
-                               FontSize="24"
-                               FontWeight="Bold"/>
+              <Separator Height="1" Background="{StaticResource BorderBrush}"/>
 
-                    <!-- Photo -->
+              <!-- Photo -->
+              <Border Width="180"
+                      Height="180"
+                      HorizontalAlignment="Center"
+                      Background="{StaticResource BackgroundBrush}"
+                      BorderBrush="{StaticResource BorderBrush}"
+                      BorderThickness="2"
+                      CornerRadius="4">
+                <TextBlock HorizontalAlignment="Center"
+                           VerticalAlignment="Center"
+                           Text="?? Photo"
+                           FontSize="14"
+                           Foreground="{StaticResource TextSecondaryBrush}"/>
+              </Border>
 
-                    <Border Width="150"
-                            Height="150"
-                            HorizontalAlignment="Center">
+              <Button Name="BrowsePhotoButton"
+                      Height="40"
+                      Foreground="White"
+                      FontWeight="SemiBold"
+                      HorizontalAlignment="Center"
+                      Cursor="Hand"
+                      Classes="primary">
+                <TextBlock Text="Browse Photo"/>
+              </Button>
 
-                        <TextBlock HorizontalAlignment="Center"
-                                   VerticalAlignment="Center"
-                                   Text="Photo Preview"/>
-                    </Border>
+              <StackPanel Spacing="4">
+                <TextBlock Text="Admission Number"
+                           FontSize="12"
+                           FontWeight="SemiBold"
+                           Foreground="{StaticResource TextPrimaryBrush}"/>
+                <TextBox PlaceholderText="Enter admission number"
+                         Text="{Binding AdmissionNo}"
+                         Height="40"
+                         Padding="12" />
+              </StackPanel>
 
-                    <Button Name="BrowsePhotoButton"
-                            Width="150"
-                            HorizontalAlignment="Center">
-                        <TextBlock Text="Browse Photo"/>
-                    </Button>
+              <StackPanel Spacing="4">
+                <TextBlock Text="Full Name"
+                           FontSize="12"
+                           FontWeight="SemiBold"
+                           Foreground="{StaticResource TextPrimaryBrush}"/>
+                <TextBox PlaceholderText="Enter full name"
+                         Text="{Binding FullName}"
+                         Height="40"
+                         Padding="12" />
+              </StackPanel>
 
-                    <TextBox PlaceholderText="Admission Number"
-                             Text="{Binding AdmissionNo}" />
+              <StackPanel Spacing="4">
+                <TextBlock Text="Gender"
+                           FontSize="12"
+                           FontWeight="SemiBold"
+                           Foreground="{StaticResource TextPrimaryBrush}"/>
+                <ComboBox SelectedItem="{Binding Gender}"
+                          Height="40"
+                          Padding="12">
+                  <ComboBoxItem Content="Male"/>
+                  <ComboBoxItem Content="Female"/>
+                  <ComboBoxItem Content="Other"/>
+                </ComboBox>
+              </StackPanel>
 
-                    <TextBox PlaceholderText="Full Name"
-                             Text="{Binding FullName}" />
+              <StackPanel Spacing="4">
+                <TextBlock Text="Email"
+                           FontSize="12"
+                           FontWeight="SemiBold"
+                           Foreground="{StaticResource TextPrimaryBrush}"/>
+                <TextBox PlaceholderText="Enter email"
+                         Text="{Binding Email}"
+                         Height="40"
+                         Padding="12" />
+              </StackPanel>
 
-                    <ComboBox SelectedItem="{Binding Gender}">
+              <StackPanel Spacing="4">
+                <TextBlock Text="Course"
+                           FontSize="12"
+                           FontWeight="SemiBold"
+                           Foreground="{StaticResource TextPrimaryBrush}"/>
+                <TextBox PlaceholderText="Enter course"
+                         Text="{Binding Course}"
+                         Height="40"
+                         Padding="12" />
+              </StackPanel>
 
-                        <ComboBoxItem Content="Male"/>
-                        <ComboBoxItem Content="Female"/>
-                        <ComboBoxItem Content="Other"/>
+              <StackPanel Spacing="4">
+                <TextBlock Text="Institution"
+                           FontSize="12"
+                           FontWeight="SemiBold"
+                           Foreground="{StaticResource TextPrimaryBrush}"/>
+                <TextBox PlaceholderText="Enter institution"
+                         Text="{Binding Institution}"
+                         Height="40"
+                         Padding="12" />
+              </StackPanel>
 
-                    </ComboBox>
+              <StackPanel Spacing="4">
+                <TextBlock Text="Username"
+                           FontSize="12"
+                           FontWeight="SemiBold"
+                           Foreground="{StaticResource TextPrimaryBrush}"/>
+                <TextBox PlaceholderText="Enter username"
+                         Text="{Binding Username}"
+                         Height="40"
+                         Padding="12" />
+              </StackPanel>
 
-                    <TextBox PlaceholderText="Email"
-                             Text="{Binding Email}" />
+              <StackPanel Spacing="4">
+                <TextBlock Text="Password"
+                           FontSize="12"
+                           FontWeight="SemiBold"
+                           Foreground="{StaticResource TextPrimaryBrush}"/>
+                <TextBox PlaceholderText="Enter password"
+                         Text="{Binding Password}"
+                         Height="40"
+                         Padding="12" />
+              </StackPanel>
 
-                    <TextBox PlaceholderText="Course"
-                             Text="{Binding Course}" />
+              <Separator Height="1" Background="{StaticResource BorderBrush}" Margin="0,10,0,0"/>
 
-                    <TextBox PlaceholderText="Institution"
-                             Text="{Binding Institution}" />
+              <StackPanel Orientation="Horizontal"
+                          Spacing="10">
 
-                    <TextBox PlaceholderText="Username"
-                             Text="{Binding Username}" />
+                <Button Height="45"
+                        Command="{Binding AddStudentCommand}"
+                        Foreground="White"
+                        FontWeight="SemiBold"
+                        Cursor="Hand"
+                        Classes="accent">
+                  <TextBlock Text="Add"/>
+                </Button>
 
-                    <TextBox PlaceholderText="Password"
-                             Text="{Binding Password}" />
+                <Button Height="45"
+                        Command="{Binding UpdateStudentCommand}"
+                        Foreground="White"
+                        FontWeight="SemiBold"
+                        Cursor="Hand"
+                        Classes="primary">
+                  <TextBlock Text="Update"/>
+                </Button>
 
-                    <StackPanel Orientation="Horizontal"
-                                Spacing="10">
+                <Button Height="45"
+                        Command="{Binding DeleteStudentCommand}"
+                        Foreground="White"
+                        FontWeight="SemiBold"
+                        Cursor="Hand"
+                        Classes="error">
+                  <TextBlock Text="Delete"/>
+                </Button>
 
-                        <Button Width="100"
-                                Command="{Binding AddStudentCommand}">
-                            <TextBlock Text="Add"/>
-                        </Button>
+              </StackPanel>
 
-                        <Button Width="100"
-                                Command="{Binding UpdateStudentCommand}">
-                            <TextBlock Text="Update"/>
-                        </Button>
-
-                        <Button Width="100"
-                                Command="{Binding DeleteStudentCommand}">
-                            <TextBlock Text="Delete"/>
-                        </Button>
-
-                    </StackPanel>
-
-                </StackPanel>
-
-            </ScrollViewer>
+            </StackPanel>
+          </ScrollViewer>
 
         </Border>
 
         <!-- Right Panel -->
-
         <Border Grid.Column="1"
-                Padding="15">
+                Background="{StaticResource SurfaceBrush}"
+                Padding="25"
+                CornerRadius="8"
+                BoxShadow="0 1 3 #00000010">
 
-            <Grid RowDefinitions="Auto,*">
+          <Grid RowDefinitions="Auto,*">
 
-                <TextBlock Grid.Row="0"
-                           Text="Students"
-                           FontSize="24"
-                           FontWeight="Bold"/>
+            <TextBlock Grid.Row="0"
+                       Text="Students"
+                       FontSize="20"
+                       FontWeight="Bold"
+                       Foreground="{StaticResource TextPrimaryBrush}"/>
 
-                <ListBox Grid.Row="1"
-                         Margin="0,15,0,0"
-                         ItemsSource="{Binding Students}"
-                         SelectedItem="{Binding SelectedStudent}">
+            <ListBox Grid.Row="1"
+                     Margin="0,15,0,0"
+                     ItemsSource="{Binding Students}"
+                     SelectedItem="{Binding SelectedStudent}"
+                     Background="{StaticResource BackgroundBrush}">
 
-                    <ListBox.ItemTemplate>
+              <ListBox.ItemTemplate>
 
-                        <DataTemplate>
+                <DataTemplate>
 
-                            <Border Margin="5"
-                                    Padding="10">
+                  <Border Margin="0,5"
+                          Padding="15"
+                          Background="{StaticResource BackgroundBrush}"
+                          BorderBrush="{StaticResource BorderBrush}"
+                          BorderThickness="1"
+                          CornerRadius="4"
+                          Cursor="Hand">
 
-                                <Grid ColumnDefinitions="80,*">
+                    <Grid ColumnDefinitions="90,*" ColumnSpacing="15">
 
-                                    <Border Width="60"
-                                            Height="60">
+                      <Border Grid.Column="0"
+                              Width="70"
+                              Height="70"
+                              Background="{StaticResource BackgroundBrush}"
+                              BorderBrush="{StaticResource BorderBrush}"
+                              BorderThickness="1"
+                              CornerRadius="4">
+                        <TextBlock HorizontalAlignment="Center"
+                                   VerticalAlignment="Center"
+                                   Text="??"
+                                   FontSize="24"/>
+                      </Border>
 
-                                        <TextBlock HorizontalAlignment="Center"
-                                                   VerticalAlignment="Center"
-                                                   Text="IMG"/>
-                                    </Border>
+                      <StackPanel Grid.Column="1" Spacing="4">
 
-                                    <StackPanel Grid.Column="1">
+                        <TextBlock Text="{Binding FullName}"
+                                   FontWeight="Bold"
+                                   FontSize="14"
+                                   Foreground="{StaticResource TextPrimaryBrush}"/>
 
-                                        <TextBlock Text="{Binding FullName}"
-                                                   FontWeight="Bold"
-                                                   FontSize="16"/>
+                        <TextBlock Text="{Binding AdmissionNo}"
+                                   FontSize="12"
+                                   Foreground="{StaticResource TextSecondaryBrush}"/>
 
-                                        <TextBlock Text="{Binding AdmissionNo}"/>
+                        <TextBlock Text="{Binding Course}"
+                                   FontSize="12"
+                                   Foreground="{StaticResource TextSecondaryBrush}"/>
 
-                                        <TextBlock Text="{Binding Course}"/>
+                        <TextBlock Text="{Binding Institution}"
+                                   FontSize="11"
+                                   Foreground="{StaticResource TextSecondaryBrush}"/>
 
-                                        <TextBlock Text="{Binding Institution}"/>
+                      </StackPanel>
 
-                                    </StackPanel>
+                    </Grid>
 
-                                </Grid>
+                  </Border>
 
-                            </Border>
+                </DataTemplate>
 
-                        </DataTemplate>
+              </ListBox.ItemTemplate>
 
-                    </ListBox.ItemTemplate>
+            </ListBox>
 
-                </ListBox>
-
-            </Grid>
+          </Grid>
 
         </Border>
 
+      </Grid>
     </Grid>
 
 </Window>

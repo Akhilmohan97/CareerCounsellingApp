@@ -1,72 +1,209 @@
 <Window xmlns="https://github.com/avaloniaui"
-        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
-        x:Class="CareerCounsellingApp.AssessmentWindow"
-        xmlns:model="using:CareerCounsellingApp.Models"
-        xmlns:vm="using:CareerCounsellingApp.ViewModels"
-        x:DataType="vm:AssessmentViewModel"
-        Width="1000"
-        Height="700"
-        Title="Assessment">
-    <DockPanel Margin="20">
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d" d:DesignWidth="1000" d:DesignHeight="700"
+    x:Class="CareerCounsellingApp.AssessmentWindow"
+    xmlns:model="using:CareerCounsellingApp.Models"
+    xmlns:vm="using:CareerCounsellingApp.ViewModels"
+    xmlns:converters="using:CareerCounsellingApp.Converters"
+    x:DataType="vm:AssessmentViewModel"
+    Width="1000"
+    Height="800"
+    Title="Career Assessment"
+    Background="{StaticResource BackgroundBrush}"
+    WindowStartupLocation="CenterScreen">
 
-        <Button DockPanel.Dock="Bottom"
-                Height="40"
-                Margin="0,20,0,0"
-                Command="{Binding SubmitAssessmentCommand}">
+<Window.Resources>
+    <converters:ObjectEqualityConverter x:Key="ObjectEqualityConverter"/>
+</Window.Resources>
+    
+<DockPanel>
+      <!-- Header -->
+      <Border DockPanel.Dock="Top"
+              Background="{StaticResource PrimaryBrush}"
+              Padding="30,20">
+        <Grid>
+          <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="Auto"/>
+          </Grid.ColumnDefinitions>
+          
+          <StackPanel Grid.Column="0">
+            <TextBlock Text="Career Assessment"
+                       FontSize="28"
+                       FontWeight="Bold"
+                       Foreground="White"/>
+            <TextBlock Text="Answer all questions to receive your personalized career recommendations"
+                       FontSize="13"
+                       Foreground="White"
+                       Opacity="0.9"
+                       Margin="0,10,0,0"/>
+          </StackPanel>
+          
+          <Border Grid.Column="1"
+                  Background="#2C3E50"
+                  CornerRadius="6"
+                  Padding="20,15"
+                  VerticalAlignment="Center"
+                  BoxShadow="0 2 8 #00000020">
+            <StackPanel Spacing="8">
+              <TextBlock Text="Progress"
+                         FontSize="11"
+                         FontWeight="SemiBold"
+                         Foreground="White"
+                         Opacity="0.9"
+                         HorizontalAlignment="Center"/>
+              <TextBlock Text="{Binding ProgressText}"
+                         FontSize="16"
+                         FontWeight="Bold"
+                         Foreground="White"
+                         HorizontalAlignment="Center"/>
+              <ProgressBar Value="{Binding AnsweredCount}"
+                           Maximum="{Binding TotalQuestions}"
+                           Height="6"
+                           CornerRadius="3"
+                           MinWidth="150"
+                           Foreground="#FFC107"
+                           Background="#FFFFFF30"/>
+            </StackPanel>
+          </Border>
+        </Grid>
+      </Border>
 
-            <TextBlock Text="Submit Assessment"/>
-
+      <!-- Submit Button -->
+      <Border DockPanel.Dock="Bottom"
+              Background="{StaticResource SurfaceBrush}"
+              BorderBrush="{StaticResource BorderBrush}"
+              BorderThickness="0,1,0,0"
+              Padding="30,20">
+        <Button Height="45"
+                Foreground="White"
+                FontSize="15"
+                FontWeight="SemiBold"
+                Command="{Binding SubmitAssessmentCommand}"
+                Cursor="Hand"
+                Classes="accent">
+          <TextBlock Text="Submit Assessment"/>
         </Button>
+      </Border>
 
+      <!-- Questions Content -->
+      <Border Padding="30">
         <ScrollViewer>
-
-            <ItemsControl ItemsSource="{Binding Questions}">
-
-                <ItemsControl.ItemTemplate>
-
-                    <DataTemplate x:DataType="model:AssessmentQuestion">
-
-                        <Border Margin="0,0,0,15"
-                                Padding="15">
-
-                            <StackPanel Spacing="10">
-
-                                <TextBlock
-                                    FontSize="18"
-                                    FontWeight="Bold"
-                                    Text="{Binding Question.QuestionText}"/>
-
-                                <ComboBox
-                                    ItemsSource="{Binding Options}"
-                                    SelectedItem="{Binding SelectedOption}">
-
-                                    <ComboBox.ItemTemplate>
-
-                                        <DataTemplate>
-
-                                            <TextBlock
-                                                Text="{Binding OptionText}"/>
-
-                                        </DataTemplate>
-
-                                    </ComboBox.ItemTemplate>
-
-                                </ComboBox>
-
-                            </StackPanel>
-
+          <ItemsControl ItemsSource="{Binding Questions}">
+            <ItemsControl.ItemsPanel>
+              <ItemsPanelTemplate>
+                <StackPanel Spacing="20"/>
+              </ItemsPanelTemplate>
+            </ItemsControl.ItemsPanel>
+            <ItemsControl.ItemTemplate>
+              <DataTemplate x:DataType="model:AssessmentQuestion">
+                <Border Padding="25"
+                        Background="{StaticResource SurfaceBrush}"
+                        BorderBrush="{StaticResource BorderBrush}"
+                        BorderThickness="1"
+                        CornerRadius="6"
+                        BoxShadow="0 1 3 #00000010">
+                  <StackPanel Spacing="18">
+                    <!-- Question Header with Number -->
+                    <StackPanel Spacing="10">
+                      <Grid>
+                        <Grid.ColumnDefinitions>
+                          <ColumnDefinition Width="Auto"/>
+                          <ColumnDefinition Width="*"/>
+                          <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+                        
+                        <Border Grid.Column="0"
+                                Background="{StaticResource PrimaryBrush}"
+                                CornerRadius="4"
+                                Padding="10,6"
+                                HorizontalAlignment="Left">
+                          <TextBlock Text="{Binding Question.Id, StringFormat='Question {0}'}"
+                                     FontSize="12"
+                                     FontWeight="Bold"
+                                     Foreground="White"/>
                         </Border>
+                        
+                        <!-- Answered indicator -->
+                        <Border Grid.Column="2"
+                                Background="#4CAF50"
+                                CornerRadius="4"
+                                Padding="8,6"
+                                IsVisible="{Binding SelectedOption, Converter={x:Static ObjectConverters.IsNotNull}}">
+                          <StackPanel Orientation="Horizontal" Spacing="5">
+                            <TextBlock Text="?"
+                                       FontSize="14"
+                                       FontWeight="Bold"
+                                       Foreground="White"/>
+                            <TextBlock Text="Answered"
+                                       FontSize="11"
+                                       FontWeight="SemiBold"
+                                       Foreground="White"/>
+                          </StackPanel>
+                        </Border>
+                      </Grid>
+                      
+                      <TextBlock FontSize="16"
+                                 FontWeight="SemiBold"
+                                 Text="{Binding Question.QuestionText}"
+                                 Foreground="{StaticResource TextPrimaryBrush}"
+                                 TextWrapping="Wrap"
+                                 LineHeight="24"/>
+                    </StackPanel>
 
-                    </DataTemplate>
-
-                </ItemsControl.ItemTemplate>
-
-            </ItemsControl>
-
+                    <!-- Radio Button Options -->
+                    <Border Background="{StaticResource BackgroundBrush}"
+                            BorderBrush="{StaticResource BorderBrush}"
+                            BorderThickness="1"
+                            CornerRadius="4"
+                            Padding="15">
+                      <StackPanel Spacing="4">
+                        <TextBlock Text="Select your answer:"
+                                   FontSize="12"
+                                   FontWeight="SemiBold"
+                                   Foreground="{StaticResource TextPrimaryBrush}"
+                                   Opacity="0.7"
+                                   Margin="0,0,0,8"/>
+                        <ItemsControl ItemsSource="{Binding Options}">
+                          <ItemsControl.ItemsPanel>
+                            <ItemsPanelTemplate>
+                              <StackPanel Spacing="8"/>
+                            </ItemsPanelTemplate>
+                          </ItemsControl.ItemsPanel>
+                          <ItemsControl.ItemTemplate>
+                            <DataTemplate x:DataType="model:QuestionOption">
+                              <Border Background="Transparent"
+                                      BorderBrush="{StaticResource BorderBrush}"
+                                      BorderThickness="1"
+                                      CornerRadius="4"
+                                      Padding="4">
+                                <RadioButton GroupName="{Binding QuestionId}"
+                                             Tag="{Binding .}"
+                                             Click="RadioButton_Click"
+                                             Padding="8,8"
+                                             Cursor="Hand">
+                                  <RadioButton.Content>
+                                    <TextBlock Text="{Binding OptionText}"
+                                               FontSize="14"
+                                               Foreground="{StaticResource TextPrimaryBrush}"
+                                               TextWrapping="Wrap"/>
+                                  </RadioButton.Content>
+                                </RadioButton>
+                              </Border>
+                            </DataTemplate>
+                          </ItemsControl.ItemTemplate>
+                        </ItemsControl>
+                      </StackPanel>
+                    </Border>
+                  </StackPanel>
+                </Border>
+              </DataTemplate>
+            </ItemsControl.ItemTemplate>
+          </ItemsControl>
         </ScrollViewer>
+      </Border>
 
     </DockPanel>
 </Window>

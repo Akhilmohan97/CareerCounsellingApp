@@ -4,40 +4,159 @@
     xmlns:vm="using:CareerCounsellingApp.ViewModels"
     x:DataType="vm:MainWindowViewModel"
     x:Class="CareerCounsellingApp.Views.MainWindow"
-    Width="500"
-    Height="350"
-    Title="Career Counselling System">
+    Width="900"
+    Height="600"
+    Title="Career Counselling System"
+    Background="{StaticResource BackgroundBrush}"
+    WindowStartupLocation="CenterScreen">
 
-    <StackPanel
-        HorizontalAlignment="Center"
-        VerticalAlignment="Center"
-        Spacing="10">
+    <Grid ColumnDefinitions="*,*">
+        <!-- Left Side - Branding -->
+        <Border Grid.Column="0" Background="{StaticResource PrimaryBrush}">
+            <StackPanel 
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center"
+                Spacing="20">
+                <TextBlock
+                    Text="Career"
+                    FontSize="48"
+                    FontWeight="Bold"
+                    Foreground="White"
+                    TextAlignment="Center"/>
+                <TextBlock
+                    Text="Counselling"
+                    FontSize="48"
+                    FontWeight="Bold"
+                    Foreground="White"
+                    TextAlignment="Center"/>
+                <TextBlock
+                    Text="System"
+                    FontSize="48"
+                    FontWeight="Bold"
+                    Foreground="White"
+                    TextAlignment="Center"/>
+                <Separator Height="2" Background="White" Opacity="0.3" Margin="0,20,0,0"/>
+                <TextBlock
+                    Text="Professional Career Guidance Platform"
+                    FontSize="16"
+                    Foreground="White"
+                    Opacity="0.9"
+                    TextAlignment="Center"
+                    Margin="0,20,0,0"/>
+            </StackPanel>
+        </Border>
 
-        <TextBlock
-            FontSize="24"
-            FontWeight="Bold"
-            Text="Login"/>
+        <!-- Right Side - Login Form -->
+        <Border 
+            Grid.Column="1" 
+            Background="{StaticResource SurfaceBrush}"
+            Padding="50">
+            <StackPanel
+                HorizontalAlignment="Stretch"
+                VerticalAlignment="Center"
+                Spacing="20">
 
-        <TextBox
-            Width="250"
-            PlaceholderText="Username"
-            Text="{Binding Username}" />
+                <TextBlock
+                    FontSize="28"
+                    FontWeight="Bold"
+                    Text="Welcome Back"
+                    Foreground="{StaticResource TextPrimaryBrush}"/>
 
-        <TextBox
-            Width="250"
-            PasswordChar="*"
-            PlaceholderText="Password"
-            Text="{Binding Password}" />
+                <TextBlock
+                    FontSize="14"
+                    Text="Sign in to your account"
+                    Foreground="{StaticResource TextSecondaryBrush}"/>
 
-        <Button
-            Width="250"
-            Content="Login"
-            Command="{Binding LoginCommand}" />
+                <Separator Height="1" Background="{StaticResource BorderBrush}"/>
 
-        <TextBlock
-            Foreground="Red"
-            Text="{Binding Message}" />
+                <StackPanel Spacing="4">
+                    <TextBlock 
+                        Text="Username"
+                        FontSize="12"
+                        FontWeight="SemiBold"
+                        Foreground="{StaticResource TextPrimaryBrush}"/>
+                    <TextBox
+                        Height="45"
+                        Padding="12,12"
+                        PlaceholderText="Enter your username (admin / student)"
+                        Text="{Binding Username}"
+                        FontSize="14"
+                        ToolTip.Tip="Enter your registered username" />
+                </StackPanel>
 
-    </StackPanel>
+                <StackPanel Spacing="4">
+                    <TextBlock 
+                        Text="Password"
+                        FontSize="12"
+                        FontWeight="SemiBold"
+                        Foreground="{StaticResource TextPrimaryBrush}"/>
+                    <TextBox
+                        Height="45"
+                        Padding="12,12"
+                        PasswordChar="?"
+                        PlaceholderText="Enter your password"
+                        Text="{Binding Password}"
+                        FontSize="14"
+                        ToolTip.Tip="Enter your password" />
+                </StackPanel>
+
+                <!-- Loading Indicator -->
+                <Border IsVisible="{Binding IsLoading}"
+                        Background="#00000020"
+                        CornerRadius="4"
+                        Padding="15"
+                        HorizontalAlignment="Center">
+                    <StackPanel Orientation="Horizontal" Spacing="10">
+                        <TextBlock Text="?" 
+                                   FontSize="20" 
+                                   Foreground="{StaticResource PrimaryBrush}"
+                                   RenderTransform="rotate(0deg)"/>
+                        <TextBlock Text="Signing in..."
+                                   FontSize="14"
+                                   Foreground="{StaticResource TextSecondaryBrush}"
+                                   VerticalAlignment="Center"/>
+                    </StackPanel>
+                </Border>
+
+                <!-- Button Panel -->
+                <Grid ColumnDefinitions="*,*" ColumnSpacing="10">
+                    <Button
+                        Grid.Column="0"
+                        Height="45"
+                        Command="{Binding LoginCommand}"
+                        FontSize="14"
+                        FontWeight="SemiBold"
+                        Cursor="Hand"
+                        IsEnabled="{Binding !IsLoading}"
+                        Classes="primary"
+                        ToolTip.Tip="Click to sign in (Ctrl+Enter)">
+                        <TextBlock Text="Sign In" Foreground="White" FontWeight="SemiBold"/>
+                    </Button>
+                    <Button
+                        Grid.Column="1"
+                        Height="45"
+                        Command="{Binding ClearCommand}"
+                        FontSize="14"
+                        FontWeight="SemiBold"
+                        Cursor="Hand"
+                        IsEnabled="{Binding !IsLoading}"
+                        Background="#E5E7EB"
+                        Foreground="{StaticResource TextPrimaryBrush}"
+                        ToolTip.Tip="Clear all fields">
+                        <TextBlock Text="Clear" FontWeight="SemiBold"/>
+                    </Button>
+                </Grid>
+
+                <!-- Message Display -->
+                <TextBlock
+                    Foreground="{StaticResource ErrorBrush}"
+                    FontSize="12"
+                    Text="{Binding Message}"
+                    TextWrapping="Wrap"
+                    IsVisible="{Binding Message, Converter={x:Static StringConverters.IsNotNullOrEmpty}}" />
+
+            </StackPanel>
+        </Border>
+    </Grid>
 
 </Window>

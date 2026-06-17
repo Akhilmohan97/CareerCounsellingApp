@@ -3,103 +3,180 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:model="using:CareerCounsellingApp.Models"
-        mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+        mc:Ignorable="d" d:DesignWidth="1200" d:DesignHeight="700"
         x:Class="CareerCounsellingApp.AssessmentResultsWindow"
         xmlns:vm="using:CareerCounsellingApp.ViewModels"
         x:DataType="vm:AssessmentResultsViewModel"
-        Width="1200"
-        Height="700"
-        Title="Assessment Results">
-     <Grid Margin="20"
-          ColumnDefinitions="350,*">
+        Width="1400"
+        Height="800"
+        Title="Assessment Results"
+        Background="{StaticResource BackgroundBrush}"
+        WindowStartupLocation="CenterScreen">
+    
+    <Grid RowDefinitions="Auto,*">
+      <!-- Header -->
+      <Border Grid.Row="0"
+              Background="{StaticResource PrimaryBrush}"
+              Padding="30,20">
+        <TextBlock Text="Assessment Results"
+                   FontSize="28"
+                   FontWeight="Bold"
+                   Foreground="White"/>
+      </Border>
 
-        <!-- Students -->
+      <!-- Content -->
+      <Grid Grid.Row="1"
+            Margin="30"
+            ColumnDefinitions="380,*"
+            ColumnSpacing="30">
 
-        <StackPanel Grid.Column="0">
+        <!-- Left Panel - Students List -->
+        <Border Grid.Column="0"
+                Background="{StaticResource SurfaceBrush}"
+                Padding="25"
+                CornerRadius="8"
+                BoxShadow="0 1 3 #00000010">
 
-            <TextBlock Text="Students"
-                       FontSize="24"
-                       FontWeight="Bold"/>
+          <Grid RowDefinitions="Auto,*">
 
-            <ListBox ItemsSource="{Binding Results}"
-                     SelectedItem="{Binding SelectedResult}">
+            <TextBlock Grid.Row="0"
+                       Text="Students"
+                       FontSize="18"
+                       FontWeight="Bold"
+                       Foreground="{StaticResource TextPrimaryBrush}"/>
 
-                <ListBox.ItemTemplate>
+            <ListBox Grid.Row="1"
+                     Margin="0,15,0,0"
+                     ItemsSource="{Binding Results}"
+                     SelectedItem="{Binding SelectedResult}"
+                     Background="{StaticResource BackgroundBrush}">
 
-                    <DataTemplate x:DataType="model:StudentAssessmentResult">
+              <ListBox.ItemTemplate>
 
-                        <Border Margin="5"
-                                Padding="10">
+                <DataTemplate x:DataType="model:StudentAssessmentResult">
 
-                            <StackPanel>
+                  <Border Margin="0,5"
+                          Padding="15"
+                          Background="{StaticResource BackgroundBrush}"
+                          BorderBrush="{StaticResource BorderBrush}"
+                          BorderThickness="1"
+                          CornerRadius="4">
 
-                                <TextBlock Text="{Binding StudentName}"
-                                           FontWeight="Bold"/>
+                    <StackPanel Spacing="5">
 
-                                <TextBlock
-                                    Text="{Binding AssessmentDate}"/>
+                      <TextBlock Text="{Binding StudentName}"
+                                 FontWeight="Bold"
+                                 FontSize="14"
+                                 Foreground="{StaticResource TextPrimaryBrush}"/>
 
-                            </StackPanel>
+                      <TextBlock Text="{Binding AssessmentDate}"
+                                 FontSize="12"
+                                 Foreground="{StaticResource TextSecondaryBrush}"/>
 
-                        </Border>
+                    </StackPanel>
 
-                    </DataTemplate>
+                  </Border>
 
-                </ListBox.ItemTemplate>
+                </DataTemplate>
+
+              </ListBox.ItemTemplate>
 
             </ListBox>
 
-        </StackPanel>
+          </Grid>
 
-        <!-- Scores -->
+        </Border>
 
-        <StackPanel Grid.Column="1"
-                    Margin="20,0,0,0">
+        <!-- Right Panel - Scores Details -->
+        <Border Grid.Column="1"
+                Background="{StaticResource SurfaceBrush}"
+                Padding="25"
+                CornerRadius="8"
+                BoxShadow="0 1 3 #00000010">
 
-            <TextBlock Text="Category Scores"
-                       FontSize="24"
-                       FontWeight="Bold"/>
+          <Grid RowDefinitions="Auto,*,Auto">
 
-            <ListBox ItemsSource="{Binding CategoryScores}">
+            <TextBlock Grid.Row="0"
+                       Text="Category Scores"
+                       FontSize="18"
+                       FontWeight="Bold"
+                       Foreground="{StaticResource TextPrimaryBrush}"/>
 
-                <ListBox.ItemTemplate>
+            <ListBox Grid.Row="1"
+                     Margin="0,15,0,0"
+                     ItemsSource="{Binding CategoryScores}"
+                     Background="{StaticResource BackgroundBrush}">
 
-                    <DataTemplate x:DataType="model:CategoryScore">
+              <ListBox.ItemTemplate>
 
-                        <Grid ColumnDefinitions="*,100">
+                <DataTemplate x:DataType="model:CategoryScore">
 
-                            <TextBlock
-                                Text="{Binding CategoryName}"/>
+                  <Border Margin="0,5"
+                          Padding="15"
+                          Background="{StaticResource BackgroundBrush}"
+                          BorderBrush="{StaticResource BorderBrush}"
+                          BorderThickness="1"
+                          CornerRadius="4">
 
-                            <TextBlock
-                                Grid.Column="1"
-                                Text="{Binding Score}"
-                                HorizontalAlignment="Right"/>
+                    <Grid ColumnDefinitions="*,120">
 
-                        </Grid>
+                      <StackPanel>
+                        <TextBlock Text="{Binding CategoryName}"
+                                   FontWeight="SemiBold"
+                                   FontSize="14"
+                                   Foreground="{StaticResource TextPrimaryBrush}"/>
+                      </StackPanel>
 
-                    </DataTemplate>
+                      <Border Grid.Column="1"
+                              Background="{StaticResource AccentBrush}"
+                              CornerRadius="4"
+                              Padding="12,6"
+                              HorizontalAlignment="Right">
+                        <TextBlock Text="{Binding Score}"
+                                   HorizontalAlignment="Center"
+                                   FontWeight="Bold"
+                                   Foreground="White"
+                                   FontSize="14"/>
+                      </Border>
 
-                </ListBox.ItemTemplate>
+                    </Grid>
+
+                  </Border>
+
+                </DataTemplate>
+
+              </ListBox.ItemTemplate>
 
             </ListBox>
 
-            <Border Margin="0,20,0,0"
-                    Padding="15">
+            <!-- Highest Category -->
+            <Border Grid.Row="2"
+                    Margin="0,20,0,0"
+                    Padding="20"
+                    Background="{StaticResource PrimaryLightColor}"
+                    CornerRadius="6">
 
-                <StackPanel>
+              <StackPanel Spacing="8">
 
-                    <TextBlock Text="Highest Category"
-                               FontWeight="Bold"/>
+                <TextBlock Text="Highest Category"
+                           FontSize="12"
+                           FontWeight="SemiBold"
+                           Foreground="White"
+                           Opacity="0.9"/>
 
-                    <TextBlock Text="{Binding HighestCategory}"
-                               FontSize="20"/>
+                <TextBlock Text="{Binding HighestCategory}"
+                           FontSize="20"
+                           FontWeight="Bold"
+                           Foreground="White"/>
 
-                </StackPanel>
+              </StackPanel>
 
             </Border>
 
-        </StackPanel>
+          </Grid>
 
+        </Border>
+
+      </Grid>
     </Grid>
 </Window>

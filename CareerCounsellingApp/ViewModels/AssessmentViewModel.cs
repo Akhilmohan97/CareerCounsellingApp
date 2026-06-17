@@ -15,16 +15,24 @@ namespace CareerCounsellingApp.ViewModels;
 public class AssessmentViewModel : INotifyPropertyChanged
 {
     private readonly Student _student;
+    private readonly Action? _onAssessmentSubmitted;
 
     public ObservableCollection<AssessmentQuestion>
         Questions
     { get; } = new();
 
+    public int AnsweredCount => Questions.Count(q => q.SelectedOption != null);
+    
+    public int TotalQuestions => Questions.Count;
+    
+    public string ProgressText => $"{AnsweredCount} of {TotalQuestions} answered";
+
     public ICommand SubmitAssessmentCommand { get; }
 
-    public AssessmentViewModel(Student student)
+    public AssessmentViewModel(Student student, Action? onAssessmentSubmitted = null)
     {
         _student = student;
+        _onAssessmentSubmitted = onAssessmentSubmitted;
 
         SubmitAssessmentCommand =
             new RelayCommand(SubmitAssessment);
@@ -45,6 +53,15 @@ public class AssessmentViewModel : INotifyPropertyChanged
                 {
                     Question = question
                 };
+
+            assessmentQuestion.PropertyChanged += (s, e) =>
+            {
+                if (e.PropertyName == nameof(AssessmentQuestion.SelectedOption))
+                {
+                    OnPropertyChanged(nameof(AnsweredCount));
+                    OnPropertyChanged(nameof(ProgressText));
+                }
+            };
 
             foreach (var option in db.QuestionOptions
                          .Where(x => x.QuestionId == question.Id))
@@ -85,12 +102,16 @@ public class AssessmentViewModel : INotifyPropertyChanged
         }
 
         db.SaveChanges();
-        var thankYou =
-    new ThankYouWindow();
-
+        
+        var thankYou = new ThankYouWindow(_onAssessmentSubmitted);
         thankYou.Show();
     }
 
     public event PropertyChangedEventHandler?
         PropertyChanged;
+
+    private void OnPropertyChanged(string propertyName)
+    {
+        PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+    }
 }
