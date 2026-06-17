@@ -1,0 +1,56 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+        x:Class="CareerCounsellingApp.AdminDashboardWindow"
+        Width="800"
+        Height="500"
+        Title="Admin Dashboard">
+     <StackPanel Margin="20"
+                Spacing="10">
+
+        <TextBlock Text="Career Counselling System"
+                   FontSize="24"
+                   FontWeight="Bold"/>
+
+        <Button
+                Foreground="White"
+                Name="CategoryButton"
+                Width="220"
+                Height="40">
+            <TextBlock Text="Manage Categories"/>
+            </Button>
+
+         <Button Name="QuestionButton" 
+                Width="220"
+                Height="40">
+            <TextBlock Text="Manage Questions"/>
+        </Button>
+
+        <Button Name="StudentButton"
+                Width="220"
+                Height="40">
+            <TextBlock Text="Manage Students"/>
+        </Button>
+         <Button Name="AssessmentResultsButton"
+        Foreground="White"
+        Width="220"
+        Height="40">
+
+    <TextBlock Text="Assessment Results"/>
+
+</Button>
+        <Button Width="220"
+                Height="40">
+            <TextBlock Text="Reports"/>
+        </Button>
+
+        <Button Width="220"
+                Height="40">
+            <TextBlock Text="Logout"/>
+        </Button>
+
+    </StackPanel>
+
+</Window>

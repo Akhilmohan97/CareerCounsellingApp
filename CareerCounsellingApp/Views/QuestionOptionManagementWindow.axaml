@@ -1,0 +1,57 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+        x:Class="CareerCounsellingApp.QuestionOptionManagementWindow"
+        xmlns:vm="using:CareerCounsellingApp.ViewModels"
+        x:DataType="vm:QuestionOptionManagementViewModel"
+        Width="700"
+        Height="500"
+        Title="Question Options">
+    <StackPanel Margin="20"
+                Spacing="10">
+
+        <TextBlock Text="Question Options"
+                   FontSize="22"
+                   FontWeight="Bold"/>
+
+        <TextBox PlaceholderText="Option Text"
+                 Text="{Binding OptionText}"/>
+
+        <NumericUpDown Value="{Binding Score}"
+                       Minimum="0"
+                       Maximum="100"/>
+
+       <StackPanel Orientation="Horizontal"
+            Spacing="10">
+
+    <Button Command="{Binding AddOptionCommand}">
+        <TextBlock Text="Add"/>
+    </Button>
+
+    <Button Command="{Binding UpdateOptionCommand}">
+        <TextBlock Text="Update"/>
+    </Button>
+
+    <Button Command="{Binding DeleteOptionCommand}">
+        <TextBlock Text="Delete"/>
+    </Button>
+
+</StackPanel>
+
+        <ListBox ItemsSource="{Binding Options}"
+                 SelectedItem="{Binding SelectedOption}">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel Orientation="Horizontal"
+                                Spacing="20">
+                        <TextBlock Text="{Binding OptionText}"/>
+                        <TextBlock Text="{Binding Score}"/>
+                    </StackPanel>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
+
+    </StackPanel>
+</Window>

@@ -1,0 +1,89 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+        x:Class="CareerCounsellingApp.QuestionManagementWindow"
+        xmlns:vm="using:CareerCounsellingApp.ViewModels"
+        x:DataType="vm:QuestionManagementViewModel"
+        Width="900"
+        Height="600"
+        Title="Question Management">
+    <Grid Margin="20"
+          ColumnDefinitions="350,*">
+
+        <!-- Left -->
+
+        <Border Grid.Column="0"
+                Padding="15">
+
+            <StackPanel Spacing="10">
+
+                <TextBlock Text="Add Question"
+                           FontSize="20"
+                           FontWeight="Bold"/>
+
+                <TextBox PlaceholderText="Question Text"
+                         Text="{Binding QuestionText}"/>
+
+                <ComboBox
+                    ItemsSource="{Binding Categories}"
+                    SelectedItem="{Binding SelectedCategory}">
+
+                    <ComboBox.ItemTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding Name}"/>
+                        </DataTemplate>
+                    </ComboBox.ItemTemplate>
+
+                </ComboBox>
+
+                <Button Command="{Binding AddQuestionCommand}">
+                    <TextBlock Text="Add Question"/>
+                </Button>
+                <Button Name="ManageOptionsButton"> 
+                    <TextBlock Text="Manage Options"/> 
+                </Button>
+
+            </StackPanel>
+
+        </Border>
+
+        <!-- Right -->
+
+        <Border Grid.Column="1"
+                Padding="15">
+
+            <StackPanel>
+
+                <TextBlock Text="Questions"
+                           FontSize="20"
+                           FontWeight="Bold"/>
+
+                <ListBox ItemsSource="{Binding Questions}"
+                         SelectedItem="{Binding SelectedQuestion}">
+
+                    <ListBox.ItemTemplate>
+
+                        <DataTemplate>
+
+                            <Border Margin="5"
+                                    Padding="10">
+
+                                <TextBlock Text="{Binding QuestionText}"/>
+
+                            </Border>
+
+                        </DataTemplate>
+
+                    </ListBox.ItemTemplate>
+
+                </ListBox>
+
+            </StackPanel>
+
+        </Border>
+
+    </Grid>
+
+</Window>

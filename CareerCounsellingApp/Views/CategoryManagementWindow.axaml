@@ -1,0 +1,97 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+        x:Class="CareerCounsellingApp.CategoryManagementWindow"
+        xmlns:vm="clr-namespace:CareerCounsellingApp.ViewModels"
+        x:DataType="vm:CategoryManagementViewModel"
+         Width="800"
+        Height="500"
+        Title="Category Management">
+  <Grid Margin="20"
+      ColumnDefinitions="300,*"
+      RowDefinitions="Auto,*">
+
+    <TextBlock Grid.ColumnSpan="2"
+               Text="Category Management"
+               FontSize="24"
+               FontWeight="Bold"
+               Margin="0,0,0,20"/>
+
+    <!-- Left Panel -->
+
+    <Border Grid.Row="1"
+            Grid.Column="0"
+            Padding="15"
+            Margin="0,0,15,0">
+
+        <StackPanel Spacing="10">
+
+            <TextBlock Text="Add Category"
+                       FontSize="18"
+                       FontWeight="Bold"/>
+
+            <TextBox PlaceholderText="Category Name"
+                     Text="{Binding CategoryName}" />
+
+            <TextBox PlaceholderText="Description"
+                     Text="{Binding CategoryDescription}" />
+
+            <Button Command="{Binding AddCategoryCommand}"
+                    Height="40">
+
+                <TextBlock Text="Add Category"/>
+
+                </Button>
+                <Button Command="{Binding UpdateCategoryCommand}"
+            Width="120"
+            Height="40">
+        <TextBlock Text="Update"/>
+</Button>
+            <Button Command="{Binding DeleteCategoryCommand}"
+        Width="120"
+        Height="40">
+    <TextBlock Text="Delete"/>
+</Button>
+
+        </StackPanel>
+
+    </Border>
+
+    <!-- Right Panel -->
+
+   <Border Grid.Row="1"
+        Grid.Column="1"
+        Padding="15">
+
+    <Grid RowDefinitions="Auto,*">
+
+        <TextBlock Grid.Row="0"
+                   Text="Existing Categories"
+                   FontSize="18"
+                   FontWeight="Bold"
+                   Margin="0,0,0,10"/>
+
+        <ListBox Grid.Row="1"
+                 ItemsSource="{Binding Categories}"
+                 SelectedItem="{Binding SelectedCategory}">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <Border Margin="5" Padding="10">
+                        <StackPanel>
+                            <TextBlock Text="{Binding Name}"
+                                       FontWeight="Bold"/>
+                            <TextBlock Text="{Binding Description}"/>
+                        </StackPanel>
+                    </Border>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
+
+    </Grid>
+
+</Border>
+
+</Grid>
+</Window>

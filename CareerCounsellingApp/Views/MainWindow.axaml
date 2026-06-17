@@ -1,0 +1,43 @@
+<Window
+    xmlns="https://github.com/avaloniaui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:vm="using:CareerCounsellingApp.ViewModels"
+    x:DataType="vm:MainWindowViewModel"
+    x:Class="CareerCounsellingApp.Views.MainWindow"
+    Width="500"
+    Height="350"
+    Title="Career Counselling System">
+
+    <StackPanel
+        HorizontalAlignment="Center"
+        VerticalAlignment="Center"
+        Spacing="10">
+
+        <TextBlock
+            FontSize="24"
+            FontWeight="Bold"
+            Text="Login"/>
+
+        <TextBox
+            Width="250"
+            PlaceholderText="Username"
+            Text="{Binding Username}" />
+
+        <TextBox
+            Width="250"
+            PasswordChar="*"
+            PlaceholderText="Password"
+            Text="{Binding Password}" />
+
+        <Button
+            Width="250"
+            Content="Login"
+            Command="{Binding LoginCommand}" />
+
+        <TextBlock
+            Foreground="Red"
+            Text="{Binding Message}" />
+
+    </StackPanel>
+
+</Window>

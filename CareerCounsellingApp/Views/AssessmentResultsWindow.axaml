@@ -1,0 +1,105 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:model="using:CareerCounsellingApp.Models"
+        mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+        x:Class="CareerCounsellingApp.AssessmentResultsWindow"
+        xmlns:vm="using:CareerCounsellingApp.ViewModels"
+        x:DataType="vm:AssessmentResultsViewModel"
+        Width="1200"
+        Height="700"
+        Title="Assessment Results">
+     <Grid Margin="20"
+          ColumnDefinitions="350,*">
+
+        <!-- Students -->
+
+        <StackPanel Grid.Column="0">
+
+            <TextBlock Text="Students"
+                       FontSize="24"
+                       FontWeight="Bold"/>
+
+            <ListBox ItemsSource="{Binding Results}"
+                     SelectedItem="{Binding SelectedResult}">
+
+                <ListBox.ItemTemplate>
+
+                    <DataTemplate x:DataType="model:StudentAssessmentResult">
+
+                        <Border Margin="5"
+                                Padding="10">
+
+                            <StackPanel>
+
+                                <TextBlock Text="{Binding StudentName}"
+                                           FontWeight="Bold"/>
+
+                                <TextBlock
+                                    Text="{Binding AssessmentDate}"/>
+
+                            </StackPanel>
+
+                        </Border>
+
+                    </DataTemplate>
+
+                </ListBox.ItemTemplate>
+
+            </ListBox>
+
+        </StackPanel>
+
+        <!-- Scores -->
+
+        <StackPanel Grid.Column="1"
+                    Margin="20,0,0,0">
+
+            <TextBlock Text="Category Scores"
+                       FontSize="24"
+                       FontWeight="Bold"/>
+
+            <ListBox ItemsSource="{Binding CategoryScores}">
+
+                <ListBox.ItemTemplate>
+
+                    <DataTemplate x:DataType="model:CategoryScore">
+
+                        <Grid ColumnDefinitions="*,100">
+
+                            <TextBlock
+                                Text="{Binding CategoryName}"/>
+
+                            <TextBlock
+                                Grid.Column="1"
+                                Text="{Binding Score}"
+                                HorizontalAlignment="Right"/>
+
+                        </Grid>
+
+                    </DataTemplate>
+
+                </ListBox.ItemTemplate>
+
+            </ListBox>
+
+            <Border Margin="0,20,0,0"
+                    Padding="15">
+
+                <StackPanel>
+
+                    <TextBlock Text="Highest Category"
+                               FontWeight="Bold"/>
+
+                    <TextBlock Text="{Binding HighestCategory}"
+                               FontSize="20"/>
+
+                </StackPanel>
+
+            </Border>
+
+        </StackPanel>
+
+    </Grid>
+</Window>

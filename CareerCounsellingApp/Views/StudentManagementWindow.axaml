@@ -1,0 +1,164 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:vm="using:CareerCounsellingApp.ViewModels"
+        mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+        x:Class="CareerCounsellingApp.StudentManagementWindow"
+        x:DataType="vm:StudentManagementViewModel"
+        Width="1200"
+        Height="700"
+        Title="Student Management">
+    <Grid Margin="20"
+          ColumnDefinitions="450,*">
+
+        <!-- Left Panel -->
+
+        <Border Grid.Column="0"
+                Padding="15">
+
+            <ScrollViewer>
+
+                <StackPanel Spacing="10">
+
+                    <TextBlock Text="Student Details"
+                               FontSize="24"
+                               FontWeight="Bold"/>
+
+                    <!-- Photo -->
+
+                    <Border Width="150"
+                            Height="150"
+                            HorizontalAlignment="Center">
+
+                        <TextBlock HorizontalAlignment="Center"
+                                   VerticalAlignment="Center"
+                                   Text="Photo Preview"/>
+                    </Border>
+
+                    <Button Name="BrowsePhotoButton"
+                            Width="150"
+                            HorizontalAlignment="Center">
+                        <TextBlock Text="Browse Photo"/>
+                    </Button>
+
+                    <TextBox PlaceholderText="Admission Number"
+                             Text="{Binding AdmissionNo}" />
+
+                    <TextBox PlaceholderText="Full Name"
+                             Text="{Binding FullName}" />
+
+                    <ComboBox SelectedItem="{Binding Gender}">
+
+                        <ComboBoxItem Content="Male"/>
+                        <ComboBoxItem Content="Female"/>
+                        <ComboBoxItem Content="Other"/>
+
+                    </ComboBox>
+
+                    <TextBox PlaceholderText="Email"
+                             Text="{Binding Email}" />
+
+                    <TextBox PlaceholderText="Course"
+                             Text="{Binding Course}" />
+
+                    <TextBox PlaceholderText="Institution"
+                             Text="{Binding Institution}" />
+
+                    <TextBox PlaceholderText="Username"
+                             Text="{Binding Username}" />
+
+                    <TextBox PlaceholderText="Password"
+                             Text="{Binding Password}" />
+
+                    <StackPanel Orientation="Horizontal"
+                                Spacing="10">
+
+                        <Button Width="100"
+                                Command="{Binding AddStudentCommand}">
+                            <TextBlock Text="Add"/>
+                        </Button>
+
+                        <Button Width="100"
+                                Command="{Binding UpdateStudentCommand}">
+                            <TextBlock Text="Update"/>
+                        </Button>
+
+                        <Button Width="100"
+                                Command="{Binding DeleteStudentCommand}">
+                            <TextBlock Text="Delete"/>
+                        </Button>
+
+                    </StackPanel>
+
+                </StackPanel>
+
+            </ScrollViewer>
+
+        </Border>
+
+        <!-- Right Panel -->
+
+        <Border Grid.Column="1"
+                Padding="15">
+
+            <Grid RowDefinitions="Auto,*">
+
+                <TextBlock Grid.Row="0"
+                           Text="Students"
+                           FontSize="24"
+                           FontWeight="Bold"/>
+
+                <ListBox Grid.Row="1"
+                         Margin="0,15,0,0"
+                         ItemsSource="{Binding Students}"
+                         SelectedItem="{Binding SelectedStudent}">
+
+                    <ListBox.ItemTemplate>
+
+                        <DataTemplate>
+
+                            <Border Margin="5"
+                                    Padding="10">
+
+                                <Grid ColumnDefinitions="80,*">
+
+                                    <Border Width="60"
+                                            Height="60">
+
+                                        <TextBlock HorizontalAlignment="Center"
+                                                   VerticalAlignment="Center"
+                                                   Text="IMG"/>
+                                    </Border>
+
+                                    <StackPanel Grid.Column="1">
+
+                                        <TextBlock Text="{Binding FullName}"
+                                                   FontWeight="Bold"
+                                                   FontSize="16"/>
+
+                                        <TextBlock Text="{Binding AdmissionNo}"/>
+
+                                        <TextBlock Text="{Binding Course}"/>
+
+                                        <TextBlock Text="{Binding Institution}"/>
+
+                                    </StackPanel>
+
+                                </Grid>
+
+                            </Border>
+
+                        </DataTemplate>
+
+                    </ListBox.ItemTemplate>
+
+                </ListBox>
+
+            </Grid>
+
+        </Border>
+
+    </Grid>
+
+</Window>

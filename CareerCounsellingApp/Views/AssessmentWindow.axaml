@@ -1,0 +1,72 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+        x:Class="CareerCounsellingApp.AssessmentWindow"
+        xmlns:model="using:CareerCounsellingApp.Models"
+        xmlns:vm="using:CareerCounsellingApp.ViewModels"
+        x:DataType="vm:AssessmentViewModel"
+        Width="1000"
+        Height="700"
+        Title="Assessment">
+    <DockPanel Margin="20">
+
+        <Button DockPanel.Dock="Bottom"
+                Height="40"
+                Margin="0,20,0,0"
+                Command="{Binding SubmitAssessmentCommand}">
+
+            <TextBlock Text="Submit Assessment"/>
+
+        </Button>
+
+        <ScrollViewer>
+
+            <ItemsControl ItemsSource="{Binding Questions}">
+
+                <ItemsControl.ItemTemplate>
+
+                    <DataTemplate x:DataType="model:AssessmentQuestion">
+
+                        <Border Margin="0,0,0,15"
+                                Padding="15">
+
+                            <StackPanel Spacing="10">
+
+                                <TextBlock
+                                    FontSize="18"
+                                    FontWeight="Bold"
+                                    Text="{Binding Question.QuestionText}"/>
+
+                                <ComboBox
+                                    ItemsSource="{Binding Options}"
+                                    SelectedItem="{Binding SelectedOption}">
+
+                                    <ComboBox.ItemTemplate>
+
+                                        <DataTemplate>
+
+                                            <TextBlock
+                                                Text="{Binding OptionText}"/>
+
+                                        </DataTemplate>
+
+                                    </ComboBox.ItemTemplate>
+
+                                </ComboBox>
+
+                            </StackPanel>
+
+                        </Border>
+
+                    </DataTemplate>
+
+                </ItemsControl.ItemTemplate>
+
+            </ItemsControl>
+
+        </ScrollViewer>
+
+    </DockPanel>
+</Window>

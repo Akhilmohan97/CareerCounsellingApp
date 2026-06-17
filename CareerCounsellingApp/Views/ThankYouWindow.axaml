@@ -1,0 +1,37 @@
+﻿<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+        x:Class="CareerCounsellingApp.ThankYouWindow"
+        Width="600"
+        Height="350"
+        Title="Assessment Submitted">
+    <StackPanel HorizontalAlignment="Center"
+                VerticalAlignment="Center"
+                Spacing="20">
+
+        <TextBlock Text="✔ Assessment Submitted Successfully"
+                   FontSize="24"
+                   FontWeight="Bold"
+                   HorizontalAlignment="Center"/>
+
+        <TextBlock Text="Thank you for completing the assessment."
+                   FontSize="18"
+                   HorizontalAlignment="Center"/>
+
+        <TextBlock Text="Your responses have been recorded."
+                   HorizontalAlignment="Center"/>
+
+        <TextBlock Text="Please contact your counselor for results."
+                   HorizontalAlignment="Center"/>
+
+        <Button Name="CloseButton"
+                Width="150"
+                Height="40">
+            <TextBlock Text="Close"/>
+        </Button>
+
+    </StackPanel>
+
+</Window>

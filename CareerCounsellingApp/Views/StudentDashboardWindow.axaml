@@ -1,0 +1,29 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+        xmlns:vm="using:CareerCounsellingApp.ViewModels"
+        x:Class="CareerCounsellingApp.StudentDashboardWindow"
+        x:DataType="vm:StudentDashboardViewModel"
+        Width="800"
+        Height="500"
+        Title="Student Dashboard">
+    <StackPanel Margin="20"
+                Spacing="15">
+
+        <TextBlock Text="{Binding WelcomeMessage}"
+                   FontSize="24"
+                   FontWeight="Bold"/>
+
+        <Button Name="StartAssessmentButton"
+                Width="200"
+                Height="40">
+
+            <TextBlock Text="Start Assessment"/>
+
+        </Button>
+
+    </StackPanel>
+
+</Window>
