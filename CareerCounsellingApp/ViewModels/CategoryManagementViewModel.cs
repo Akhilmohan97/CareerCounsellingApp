@@ -17,7 +17,18 @@ namespace CareerCounsellingApp.ViewModels
         private string _categoryName = "";
         private string _categoryDescription = "";
         private Category? _selectedCategory;
-
+        public ObservableCollection<ParentCategory> ParentCat { get; set; }
+        = new();
+        private ParentCategory? _selectedParentCategory;
+        public ParentCategory? SelectedParentCat
+        {
+            get => _selectedParentCategory;
+            set
+            {
+                _selectedParentCategory = value;
+                OnPropertyChanged(nameof(SelectedParentCat));
+            }
+        }
         public Category? SelectedCategory
         {
             get => _selectedCategory;
@@ -66,6 +77,8 @@ namespace CareerCounsellingApp.ViewModels
 
         public CategoryManagementViewModel()
         {
+
+            LoadParentCategories();
             LoadCategories();
 
             AddCategoryCommand = new RelayCommand(AddCategory);
@@ -123,6 +136,16 @@ namespace CareerCounsellingApp.ViewModels
             foreach (var category in db.Categories)
             {
                 Categories.Add(category);
+            }
+        }
+        private void LoadParentCategories()
+        {
+            using var db = new AppDbContext();
+
+            ParentCat.Clear();
+            foreach (var category in db.ParentCategories)
+            {
+                ParentCat.Add(category);
             }
         }
 

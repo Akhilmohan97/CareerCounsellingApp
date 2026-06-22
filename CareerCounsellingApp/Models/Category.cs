@@ -13,5 +13,7 @@ namespace CareerCounsellingApp.Models
         public string Name { get; set; } = "";
 
         public string Description { get; set; } = "";
+        public int ParentCategoryId { get; set; }
+        public ParentCategory ParentCategory { get; set; }
     }
 }
