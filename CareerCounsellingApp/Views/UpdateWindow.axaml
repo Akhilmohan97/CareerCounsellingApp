@@ -3,6 +3,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+        Height="400" Width="400"
         x:Class="CareerCounsellingApp.UpdateWindow"
         xmlns:vm="clr-namespace:CareerCounsellingApp.ViewModels"
         x:DataType="vm:UpdateViewModel"
@@ -70,13 +71,15 @@
             Spacing="10">
 
             <Button
-                Content="Later"
-                Width="90"/>
+                Width="90">
+                <TextBlock Text="Later"/>
+            </Button>
 
             <Button
                 Command="{Binding InstallUpdateCommand}"
-                Content="Install"
-                Width="120"/>
+                Width="120">
+                <TextBlock Text="Install Update"/>
+                </Button>
 
         </StackPanel>
 
