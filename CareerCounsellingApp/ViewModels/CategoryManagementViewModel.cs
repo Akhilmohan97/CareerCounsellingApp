@@ -104,6 +104,8 @@ namespace CareerCounsellingApp.ViewModels
 
             CategoryName = "";
             CategoryDescription = "";
+            SelectedParentCat = null;
+            SelectedCategory = null;
 
             LoadCategories();
         }
