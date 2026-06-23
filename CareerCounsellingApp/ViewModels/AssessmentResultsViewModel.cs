@@ -16,7 +16,7 @@ namespace CareerCounsellingApp.ViewModels
 
         public ObservableCollection<StudentAssessmentResult> Results { get; } = new();
 
-        public ObservableCollection<CategoryScore> CategoryScores { get; } = new();
+        public ObservableCollection<ParentCategoryScore> CategoryScores { get; } = new();
 
         private string _highestCategory = "";
 
@@ -89,26 +89,29 @@ namespace CareerCounsellingApp.ViewModels
                     on answer.QuestionId equals question.Id
                 join category in db.Categories
                     on question.CategoryId equals category.Id
+                join parentCategory in db.ParentCategories
+                    on category.ParentCategoryId equals parentCategory.Id
                 where answer.AssessmentId == assessmentId
-                group option by category.Name into g
+                group option by new { parent=parentCategory.Name, category.Name } into g
                 select new CategoryScore
                 {
-                    CategoryName = g.Key,
+                    CategoryName = g.Key.Name,
+                    ParentCategoryName = g.Key.parent,
                     Score = g.Sum(x => x.Score)
                 };
-
-            foreach (var score in scores)
+            var groupedScores = scores.GroupBy(x => x.ParentCategoryName)
+                .Select(g => new ParentCategoryScore
+                {
+                    ParentCategoryName = g.Key,
+                    Categories = g.Select(x => new CategoryScore { 
+                    CategoryName=x.CategoryName,
+                    Score=x.Score}).ToList()
+                }).ToList();
+            foreach (var parentCategoryScore in groupedScores)
             {
-                CategoryScores.Add(score);
+                CategoryScores.Add(parentCategoryScore);
             }
 
-            var highest =
-                CategoryScores
-                .OrderByDescending(x => x.Score)
-                .FirstOrDefault();
-
-            HighestCategory =
-                highest?.CategoryName ?? "";
         }
 
         public event PropertyChangedEventHandler?

@@ -6,11 +6,10 @@ using System.Threading.Tasks;
 
 namespace CareerCounsellingApp.Models
 {
-    public class CategoryScore
+    public class ParentCategoryScore
     {
-        public string CategoryName { get; set; } = "";
-
-        public int Score { get; set; }
         public string ParentCategoryName { get; set; }
+
+        public List<CategoryScore> Categories { get; set; } = new();
     }
 }

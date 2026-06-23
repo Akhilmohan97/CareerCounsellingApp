@@ -24,7 +24,7 @@ namespace CareerCounsellingApp.Data
             string folder = Path.Combine(
                 Environment.GetFolderPath(
                     Environment.SpecialFolder.LocalApplicationData),
-                "CareerCounselling_v1");
+                "CareerCounselling_v2");
 
             Directory.CreateDirectory(folder);
 
