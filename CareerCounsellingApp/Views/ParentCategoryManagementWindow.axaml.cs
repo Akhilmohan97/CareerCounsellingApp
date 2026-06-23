@@ -9,5 +9,6 @@ public partial class ParentCategoryManagementWindow : Window
     public ParentCategoryManagementWindow()
     {
         InitializeComponent();
+        DataContext = new ViewModels.ParentCategoryManagementViewModel();
     }
 }

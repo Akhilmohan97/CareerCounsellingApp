@@ -2,8 +2,13 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+        mc:Ignorable="d" d:DesignWidth="400" d:DesignHeight="400"
+        xmlns:vm="clr-namespace:CareerCounsellingApp.ViewModels"
+        x:DataType="vm:ParentCategoryManagementViewModel"
+        Height="400" Width="400"
         x:Class="CareerCounsellingApp.ParentCategoryManagementWindow"
+        Background="{StaticResource BackgroundBrush}"
+        WindowStartupLocation="CenterScreen"
         Title="ParentCategoryManagementWindow">
     <StackPanel Margin="25"
                 Spacing="15">
@@ -12,10 +17,12 @@
                    FontWeight="Bold"/>
 
         <TextBox
-            PlaceholderText="Enter parent category"/>
+            PlaceholderText="Enter parent category"
+            Text="{Binding ParentCategory}"/>
 
         <Button
             HorizontalAlignment="Right"
+            Command="{Binding AddParentCategoryCommand}"
             Width="100"
             Classes="accent">
             <TextBlock Text="Add"/>

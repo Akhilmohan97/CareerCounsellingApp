@@ -159,7 +159,8 @@ namespace CareerCounsellingApp.ViewModels
             var category = new Category
             {
                 Name = CategoryName,
-                Description = CategoryDescription
+                Description = CategoryDescription,
+                ParentCategoryId = SelectedParentCat?.Id ?? 0
             };
 
             db.Categories.Add(category);
