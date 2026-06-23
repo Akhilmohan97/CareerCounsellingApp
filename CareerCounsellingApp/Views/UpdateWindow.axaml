@@ -1,0 +1,85 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+        x:Class="CareerCounsellingApp.UpdateWindow"
+        xmlns:vm="clr-namespace:CareerCounsellingApp.ViewModels"
+        x:DataType="vm:UpdateViewModel"
+        Title="UpdateWindow">
+    <StackPanel Margin="25" Spacing="15">
+
+        <TextBlock
+            Text="Career Counselling App"
+            FontSize="26"
+            FontWeight="Bold"/>
+
+        <Grid ColumnDefinitions="150,*">
+
+            <TextBlock Text="Current Version"/>
+
+            <TextBlock
+                Grid.Column="1"
+                Text="{Binding CurrentVersion}"/>
+
+        </Grid>
+
+        <Grid ColumnDefinitions="150,*">
+
+            <TextBlock Text="Latest Version"/>
+
+            <TextBlock
+                Grid.Column="1"
+                Text="{Binding LatestVersion}"/>
+
+        </Grid>
+
+        <TextBlock
+            Text="Release Notes"
+            FontWeight="Bold"/>
+
+        <Border
+            BorderThickness="1"
+            Padding="10"
+            Height="180">
+
+            <ScrollViewer>
+
+                <TextBlock
+                    Text="{Binding ReleaseNotes}"
+                    TextWrapping="Wrap"/>
+
+            </ScrollViewer>
+
+        </Border>
+
+        <ProgressBar
+            Height="18"
+            Minimum="0"
+            Maximum="100"
+            Value="{Binding Progress}"
+            IsVisible="{Binding IsDownloading}"/>
+
+        <TextBlock
+            Text="{Binding Status}"
+            HorizontalAlignment="Center"/>
+
+        <StackPanel
+            Orientation="Horizontal"
+            HorizontalAlignment="Right"
+            Spacing="10">
+
+            <Button
+                Content="Later"
+                Width="90"/>
+
+            <Button
+                Command="{Binding InstallUpdateCommand}"
+                Content="Install"
+                Width="120"/>
+
+        </StackPanel>
+
+    </StackPanel>
+
+</Window>
