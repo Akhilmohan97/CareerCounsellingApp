@@ -1,6 +1,7 @@
 ﻿using CareerCounsellingApp.Data;
 using CareerCounsellingApp.Helpers;
 using CareerCounsellingApp.Models;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -29,6 +30,16 @@ namespace CareerCounsellingApp.ViewModels
                 OnPropertyChanged(nameof(SelectedParentCat));
             }
         }
+        private int selectedParentCatId;
+
+        public int SelectedParentCatId
+        {
+            get { return selectedParentCatId; }
+            set { selectedParentCatId = value; 
+            OnPropertyChanged(nameof(SelectedParentCatId));
+            }
+        }
+
         public Category? SelectedCategory
         {
             get => _selectedCategory;
@@ -43,6 +54,7 @@ namespace CareerCounsellingApp.ViewModels
 
                     OnPropertyChanged(nameof(CategoryName));
                     OnPropertyChanged(nameof(CategoryDescription));
+                    SelectedParentCatId= value.ParentCategoryId;
                 }
 
                 OnPropertyChanged(nameof(SelectedCategory));
@@ -124,6 +136,7 @@ namespace CareerCounsellingApp.ViewModels
 
             category.Name = CategoryName;
             category.Description = CategoryDescription;
+            category.ParentCategoryId = SelectedParentCatId;
 
             db.SaveChanges();
 
@@ -135,7 +148,7 @@ namespace CareerCounsellingApp.ViewModels
 
             Categories.Clear();
 
-            foreach (var category in db.Categories)
+            foreach (var category in db.Categories.Include(c=>c.ParentCategory))
             {
                 Categories.Add(category);
             }

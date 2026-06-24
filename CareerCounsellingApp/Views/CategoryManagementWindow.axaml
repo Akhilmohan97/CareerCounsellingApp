@@ -49,6 +49,8 @@
                                 Padding="12"
                                 Width="250"
                                 ItemsSource="{Binding ParentCat}"
+                                SelectedValue="{Binding SelectedParentCatId}"
+                                SelectedValueBinding="{Binding Id}"
                                 SelectedItem="{Binding SelectedParentCat}"
                                 DisplayMemberBinding="{Binding Name}">
                                 </ComboBox>

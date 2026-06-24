@@ -15,6 +15,7 @@ namespace CareerCounsellingApp.Views
 
         private async void MainWindow_Opened(object? sender, System.EventArgs e)
         {
+#if !DEBUG
             await Task.Delay(5000);
 
             var updateService = new UpdateService();
@@ -25,7 +26,8 @@ namespace CareerCounsellingApp.Views
             {
                 var window = new UpdateWindow(update);
                 await window.ShowDialog(this);
-            }
+            } 
+#endif
         }
 
         protected override void OnDataContextChanged(System.EventArgs e)
