@@ -35,11 +35,14 @@ public class AssessmentViewModel : INotifyPropertyChanged
         _onAssessmentSubmitted = onAssessmentSubmitted;
 
         SubmitAssessmentCommand =
-            new RelayCommand(SubmitAssessment);
+            new RelayCommand(SubmitAssessment, CanSubmitAssessment);
 
         LoadQuestions();
     }
-
+    private bool CanSubmitAssessment()
+    {
+        return AnsweredCount == TotalQuestions;
+    }
     private void LoadQuestions()
     {
         using var db = new AppDbContext();
@@ -60,6 +63,7 @@ public class AssessmentViewModel : INotifyPropertyChanged
                 {
                     OnPropertyChanged(nameof(AnsweredCount));
                     OnPropertyChanged(nameof(ProgressText));
+                    ((RelayCommand)SubmitAssessmentCommand).RaiseCanExecuteChanged();
                 }
             };
 
