@@ -44,7 +44,7 @@
                     TextAlignment="Center"
                     Margin="0,20,0,0"/>
                 <TextBlock
-                    Text="Version 1.0.1"
+                    Text="Version 1.0.0"
                     FontSize="14"
                     Foreground="White"
                     Opacity="0.8"
