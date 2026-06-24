@@ -25,6 +25,14 @@ public class QuestionManagementViewModel : INotifyPropertyChanged
         set
         {
             _selectedQuestion = value;
+            if(value != null)
+            {
+                QuestionText = value.QuestionText;
+                SelectedCategory = Categories.FirstOrDefault(c => c.Id == value.CategoryId);
+               
+                OnPropertyChanged(nameof(QuestionText));
+                OnPropertyChanged(nameof(SelectedCategory));
+            }
             OnPropertyChanged(nameof(SelectedQuestion));
         }
     }
