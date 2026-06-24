@@ -62,6 +62,7 @@
                                 FontWeight="SemiBold"
                                 Cursor="Hand"
                                 Margin="0,16,0,0"
+                                Command="{Binding AddParentCategoryCommand}"
                                 Classes="accent">
 
                             <TextBlock Text="Add"/>

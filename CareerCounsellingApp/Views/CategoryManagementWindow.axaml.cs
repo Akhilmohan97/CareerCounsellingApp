@@ -12,7 +12,7 @@ public partial class CategoryManagementWindow : Window
     {
         InitializeComponent();
         DataContext = new CategoryManagementViewModel();
-        SetUpEventListeners();
+       // SetUpEventListeners();
     }
 
     private void SetUpEventListeners()

@@ -1,4 +1,7 @@
-﻿using CareerCounsellingApp.Data;
+﻿using Avalonia;
+using Avalonia.Controls;
+using Avalonia.Controls.ApplicationLifetimes;
+using CareerCounsellingApp.Data;
 using CareerCounsellingApp.Helpers;
 using CareerCounsellingApp.Models;
 using Microsoft.EntityFrameworkCore;
@@ -86,6 +89,7 @@ namespace CareerCounsellingApp.ViewModels
         public ICommand AddCategoryCommand { get; }
         public ICommand UpdateCategoryCommand { get; }
         public ICommand DeleteCategoryCommand { get; }
+        public ICommand AddParentCategoryCommand { get; }
 
         public CategoryManagementViewModel()
         {
@@ -96,6 +100,16 @@ namespace CareerCounsellingApp.ViewModels
             AddCategoryCommand = new RelayCommand(AddCategory);
             UpdateCategoryCommand = new RelayCommand(UpdateCategory);
             DeleteCategoryCommand = new RelayCommand(DeleteCategory);
+            AddParentCategoryCommand=new RelayCommand(AddParentCategory);
+        }
+        private async void AddParentCategory()
+        {
+            if (Application.Current?.ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
+            {
+                 await new ParentCategoryManagementWindow().ShowDialog<bool>(desktop.Windows[desktop.Windows.Count-1]);
+                LoadParentCategories();
+                
+            }
         }
         private void DeleteCategory()
         {
