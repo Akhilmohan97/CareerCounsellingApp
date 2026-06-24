@@ -166,7 +166,7 @@ namespace CareerCounsellingApp.ViewModels
 
         private void AddCategory()
         {
-            if (string.IsNullOrWhiteSpace(CategoryName))
+            if (string.IsNullOrWhiteSpace(CategoryName)||SelectedParentCatId == 0)
                 return;
 
             using var db = new AppDbContext();
@@ -175,7 +175,7 @@ namespace CareerCounsellingApp.ViewModels
             {
                 Name = CategoryName,
                 Description = CategoryDescription,
-                ParentCategoryId = SelectedParentCat?.Id ?? 0
+                ParentCategoryId = SelectedParentCatId
             };
 
             db.Categories.Add(category);
