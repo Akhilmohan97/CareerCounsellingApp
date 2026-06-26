@@ -1,158 +1,380 @@
-<Window xmlns="https://github.com/avaloniaui"
-xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-xmlns:vm="using:CareerCounsellingApp.ViewModels"
-mc:Ignorable="d" d:DesignWidth="1000" d:DesignHeight="600"
-x:Class="CareerCounsellingApp.AdminDashboardWindow"
-x:DataType="vm:AdminDashboardViewModel"
-Width="1200"
-Height="700"
-Title="Admin Dashboard"
-Background="{StaticResource BackgroundBrush}"
-WindowStartupLocation="CenterScreen">
-    
+﻿<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:vm="using:CareerCounsellingApp.ViewModels"
+        mc:Ignorable="d" d:DesignWidth="1300" d:DesignHeight="700"
+        x:Class="CareerCounsellingApp.AdminDashboardWindow"
+        x:DataType="vm:AdminDashboardViewModel"
+        Title="Admin Dashboard"
+        WindowState="Maximized"
+        Background="{StaticResource BackgroundBrush}"
+        WindowStartupLocation="CenterScreen">
+
     <Grid ColumnDefinitions="250,*" RowDefinitions="Auto,*">
         <!-- Header -->
-        <Border Grid.ColumnSpan="2" 
+        <Border Grid.ColumnSpan="2"
                 Grid.Row="0"
                 Background="{StaticResource SurfaceBrush}"
                 BorderBrush="{StaticResource BorderBrush}"
                 BorderThickness="0,0,0,1"
                 Padding="30,20">
-            <Grid ColumnDefinitions="*,Auto" ColumnSpacing="20">
-                <TextBlock Text="Admin Dashboard"
-                           FontSize="28"
-                           FontWeight="Bold"
-                           Foreground="{StaticResource TextPrimaryBrush}"/>
-                
-                <!-- Header Action Buttons -->
-                <StackPanel Grid.Column="1" Orientation="Horizontal" Spacing="10">
-                    <Button Name="RefreshButton"
-                            Width="45"
-                            Height="45"
-                            CornerRadius="4"
-                            Background="{StaticResource PrimaryBrush}"
-                            Foreground="White"
-                            BorderThickness="0"
-                            ToolTip.Tip="Refresh dashboard statistics (Ctrl+R)"
-                            Cursor="Hand">
-                        <TextBlock Text="??" FontSize="16"/>
-                    </Button>
+            <Grid
+                ColumnDefinitions="*,Auto"
+                Margin="10">
+
+                <StackPanel>
+
+                    <TextBlock
+                        Text="Admin Dashboard"
+                        FontSize="30"
+                        FontWeight="Bold"/>
+
+                    <TextBlock
+                        Text="Manage students, questions and assessments"
+                        Foreground="Gray"
+                        FontSize="14"/>
+
                 </StackPanel>
+
+                <Button
+                    Grid.Column="1"
+                    CornerRadius="22">
+
+                    <TextBlock
+                        Text="🔄"
+                        FontSize="18"/>
+
+                </Button>
+
             </Grid>
         </Border>
 
         <!-- Sidebar -->
-        <Border Grid.Column="0"
-                Grid.Row="1"
-                Background="{StaticResource PrimaryDarkColor}"
-                Padding="0">
-            <StackPanel Spacing="2">
-                <Button Name="CategoryButton" 
-                        Height="60"
-                        Foreground="White"
-                        BorderThickness="0"
-                        Margin="0"
-                        Padding="20,15"
-                        HorizontalAlignment="Stretch"
-                        HorizontalContentAlignment="Left"
-                        FontSize="14"
-                        FontWeight="SemiBold"
-                        Cursor="Hand"
-                        ToolTip.Tip="Manage career categories">
-                    <StackPanel>
-                        <TextBlock Text="?? Manage Categories"/>
-                    </StackPanel>
-                </Button>
+        <Border
+            Grid.Column="0"
+            Grid.RowSpan="2"
+            Grid.Row="1"
+            Background="#1E3A8A">
 
-                <Button Name="QuestionButton" 
-                        Height="60"
-                        Foreground="White"
-                        BorderThickness="0"
-                        Margin="0"
-                        Padding="20,15"
-                        HorizontalAlignment="Stretch"
-                        HorizontalContentAlignment="Left"
-                        FontSize="14"
-                        FontWeight="SemiBold"
-                        Cursor="Hand"
-                        ToolTip.Tip="Add and manage assessment questions">
-                    <StackPanel>
-                        <TextBlock Text="? Manage Questions"/>
-                    </StackPanel>
-                </Button>
+            <Grid RowDefinitions="Auto,*,Auto">
 
-                <Button Name="StudentButton"
-                        Height="60"
-                        Foreground="White"
-                        BorderThickness="0"
-                        Margin="0"
-                        Padding="20,15"
-                        HorizontalAlignment="Stretch"
-                        HorizontalContentAlignment="Left"
-                        FontSize="14"
-                        FontWeight="SemiBold"
-                        Cursor="Hand"
-                        ToolTip.Tip="Manage student information">
-                    <StackPanel>
-                        <TextBlock Text="?? Manage Students"/>
-                    </StackPanel>
-                </Button>
+                <!-- Branding -->
+                <StackPanel
+                    Margin="20"
+                    HorizontalAlignment="Center"
+                    Spacing="5">
 
-                <Button Name="AssessmentResultsButton"
-                        Height="60"
-                        Foreground="White"
-                        BorderThickness="0"
-                        Margin="0"
-                        Padding="20,15"
-                        HorizontalAlignment="Stretch"
-                        HorizontalContentAlignment="Left"
-                        FontSize="14"
-                        FontWeight="SemiBold"
-                        Cursor="Hand"
-                        ToolTip.Tip="View student assessment results and scores">
-                    <StackPanel>
-                        <TextBlock Text="?? Assessment Results"/>
-                    </StackPanel>
-                </Button>
+                    <Image
+                        Source="/Assets/logo.png"
+                        Width="120"
+                        Height="150"/>
 
-                <Button Height="60"
+                    <TextBlock
+                        Text="Career Counselling"
+                        FontSize="20"
+                        FontWeight="Bold"
                         Foreground="White"
-                        BorderThickness="0"
-                        Margin="0"
-                        Padding="20,15"
-                        HorizontalAlignment="Stretch"
-                        HorizontalContentAlignment="Left"
-                        FontSize="14"
-                        FontWeight="SemiBold"
-                        Cursor="Hand"
-                        ToolTip.Tip="Generate system reports">
-                    <StackPanel>
-                        <TextBlock Text="?? Reports"/>
-                    </StackPanel>
-                </Button>
+                        HorizontalAlignment="Center"/>
 
-                <Separator Height="1" Background="White" Opacity="0.2" Margin="0,20"/>
+                    <TextBlock
+                        Text="Administration"
+                        FontSize="13"
+                        Foreground="#D1D5DB"
+                        HorizontalAlignment="Center"/>
 
-                <Button Name="LogoutButton"
-                        Height="60"
-                        Foreground="White"
-                        BorderThickness="0"
-                        Margin="0"
-                        Padding="20,15"
-                        HorizontalAlignment="Stretch"
-                        HorizontalContentAlignment="Left"
-                        FontSize="14"
-                        FontWeight="SemiBold"
-                        Cursor="Hand"
-                        ToolTip.Tip="Logout and return to login screen">
-                    <StackPanel>
-                        <TextBlock Text="?? Logout"/>
+                </StackPanel>
+
+                <!-- Navigation -->
+                <StackPanel Grid.Row="1"
+                            Margin="10"
+                            Spacing="8">
+                    <StackPanel Spacing="2">
+                        <Button
+                            Name="CategoryButton"
+                            Height="52"
+                            Width="230"
+                            Background="Transparent"
+                            BorderThickness="0"
+                            CornerRadius="12"
+                            HorizontalContentAlignment="Left"
+                            Padding="18,0">
+
+                            <StackPanel
+                                Orientation="Horizontal"
+                                Spacing="12">
+
+                                <TextBlock
+                                    Text="📂"
+                                    FontSize="18"/>
+
+                                <TextBlock
+                                    Text="Manage Categories"
+                                    FontSize="15"
+                                    FontWeight="SemiBold"
+                                    Foreground="White"/>
+
+                            </StackPanel>
+
+                        </Button>
+
+                        <Button Name="QuestionButton"
+                                Height="52"
+                                Background="Transparent"
+                                CornerRadius="12"
+                                Width="230"
+                                Foreground="White"
+                                BorderThickness="0"
+                                Margin="0"
+                                Padding="18,0"
+                                HorizontalContentAlignment="Left"
+                                Cursor="Hand"
+                                ToolTip.Tip="Add and manage assessment questions">
+                            <StackPanel
+                                Orientation="Horizontal"
+                                Spacing="12">
+
+                                <TextBlock
+                                    Text="❓"
+                                    FontSize="18"/>
+
+                                <TextBlock
+                                    Text="Manage Questions"
+                                    FontSize="15"
+                                    FontWeight="SemiBold"
+                                    Foreground="White"/>
+
+                            </StackPanel>
+                        </Button>
+
+                        <Button Name="StudentButton"
+                                Height="52"
+                                Background="Transparent"
+                                Foreground="White"
+                                BorderThickness="0"
+                                Margin="0"
+                                Padding="18,0"
+                                HorizontalContentAlignment="Left"
+                                Cursor="Hand"
+                                ToolTip.Tip="Manage student information">
+                            <StackPanel
+                                Orientation="Horizontal"
+                                Spacing="12">
+
+                                <TextBlock
+                                    Text="👨‍🎓"
+                                    FontSize="18"/>
+
+                                <TextBlock
+                                    Text="Manage Students"
+                                    FontSize="15"
+                                    FontWeight="SemiBold"
+                                    Foreground="White"/>
+
+                            </StackPanel>
+                        </Button>
+
+                        <Button Name="AssessmentResultsButton"
+                                Height="52"
+                                Width="230"
+                                Foreground="White"
+                                Background="Transparent"
+                                BorderThickness="0"
+                                Padding="18,0"
+                                HorizontalContentAlignment="Left"
+                                Cursor="Hand"
+                                ToolTip.Tip="View student assessment results and scores">
+                            <StackPanel
+                                Orientation="Horizontal"
+                                Spacing="12">
+
+                                <TextBlock
+                                    Text="📊"
+                                    FontSize="18"/>
+
+                                <TextBlock
+                                    Text="Assessment Results"
+                                    FontSize="15"
+                                    FontWeight="SemiBold"
+                                    Foreground="White"/>
+
+                            </StackPanel>
+                        </Button>
+
+                        <Button Height="52"
+                                Foreground="White"
+                                BorderThickness="0"
+                                Padding="18,0"
+                                Background="Transparent"
+                                Width="230"
+                                HorizontalAlignment="Stretch"
+                                HorizontalContentAlignment="Left"
+                                Cursor="Hand"
+                                ToolTip.Tip="Generate system reports">
+                            <StackPanel
+                                Orientation="Horizontal"
+                                Spacing="12">
+
+                                <TextBlock
+                                    Text="📈"
+                                    FontSize="18"/>
+
+                                <TextBlock
+                                    Text="Reports"
+                                    FontSize="15"
+                                    FontWeight="SemiBold"
+                                    Foreground="White"/>
+
+                            </StackPanel>
+                        </Button>
+
+                        <Separator Height="1" Background="White" Opacity="0.2" Margin="0,20"/>
+
+                        <Button Name="LogoutButton"
+                                Height="52"
+                                Background="Transparent"
+                                Width="230"
+                                Foreground="White"
+                                BorderThickness="0"
+                                Margin="0"
+                                Padding="18,0"
+                                HorizontalContentAlignment="Left"
+                                FontWeight="SemiBold"
+                                Cursor="Hand"
+                                ToolTip.Tip="Logout and return to login screen">
+                            <StackPanel
+                                Orientation="Horizontal"
+                                Spacing="12">
+
+                                <TextBlock
+                                    Text="🚪"
+                                    FontSize="18"/>
+
+                                <TextBlock
+                                    Text="Logout"
+                                    FontSize="15"
+                                    FontWeight="SemiBold"
+                                    Foreground="White"/>
+
+                            </StackPanel>
+                        </Button>
                     </StackPanel>
-                </Button>
-            </StackPanel>
+                    <!-- Buttons here -->
+
+                </StackPanel>
+
+            </Grid>
+
         </Border>
+        <!-- <Border Grid.Column="0"
+        Grid.Row="1"
+        Background="{StaticResource PrimaryDarkColor}"
+        Padding="0">
+        <StackPanel Spacing="2">
+        <Button Name="CategoryButton"
+        Height="60"
+        Foreground="White"
+        BorderThickness="0"
+        Margin="0"
+        Padding="20,15"
+        HorizontalAlignment="Stretch"
+        HorizontalContentAlignment="Left"
+        FontSize="14"
+        FontWeight="SemiBold"
+        Cursor="Hand"
+        ToolTip.Tip="Manage career categories">
+        <StackPanel>
+        <TextBlock Text="?? Manage Categories"/>
+        </StackPanel>
+        </Button>
+
+        <Button Name="QuestionButton"
+        Height="60"
+        Foreground="White"
+        BorderThickness="0"
+        Margin="0"
+        Padding="20,15"
+        HorizontalAlignment="Stretch"
+        HorizontalContentAlignment="Left"
+        FontSize="14"
+        FontWeight="SemiBold"
+        Cursor="Hand"
+        ToolTip.Tip="Add and manage assessment questions">
+        <StackPanel>
+        <TextBlock Text="? Manage Questions"/>
+        </StackPanel>
+        </Button>
+
+        <Button Name="StudentButton"
+        Height="60"
+        Foreground="White"
+        BorderThickness="0"
+        Margin="0"
+        Padding="20,15"
+        HorizontalAlignment="Stretch"
+        HorizontalContentAlignment="Left"
+        FontSize="14"
+        FontWeight="SemiBold"
+        Cursor="Hand"
+        ToolTip.Tip="Manage student information">
+        <StackPanel>
+        <TextBlock Text="?? Manage Students"/>
+        </StackPanel>
+        </Button>
+
+        <Button Name="AssessmentResultsButton"
+        Height="60"
+        Foreground="White"
+        BorderThickness="0"
+        Margin="0"
+        Padding="20,15"
+        HorizontalAlignment="Stretch"
+        HorizontalContentAlignment="Left"
+        FontSize="14"
+        FontWeight="SemiBold"
+        Cursor="Hand"
+        ToolTip.Tip="View student assessment results and scores">
+        <StackPanel>
+        <TextBlock Text="?? Assessment Results"/>
+        </StackPanel>
+        </Button>
+
+        <Button Height="60"
+        Foreground="White"
+        BorderThickness="0"
+        Margin="0"
+        Padding="20,15"
+        HorizontalAlignment="Stretch"
+        HorizontalContentAlignment="Left"
+        FontSize="14"
+        FontWeight="SemiBold"
+        Cursor="Hand"
+        ToolTip.Tip="Generate system reports">
+        <StackPanel>
+        <TextBlock Text="?? Reports"/>
+        </StackPanel>
+        </Button>
+
+        <Separator Height="1" Background="White" Opacity="0.2" Margin="0,20"/>
+
+        <Button Name="LogoutButton"
+        Height="60"
+        Foreground="White"
+        BorderThickness="0"
+        Margin="0"
+        Padding="20,15"
+        HorizontalAlignment="Stretch"
+        HorizontalContentAlignment="Left"
+        FontSize="14"
+        FontWeight="SemiBold"
+        Cursor="Hand"
+        ToolTip.Tip="Logout and return to login screen">
+        <StackPanel>
+        <TextBlock Text="?? Logout"/>
+        </StackPanel>
+        </Button>
+        </StackPanel>
+        </Border>-->
 
         <!-- Main Content Area -->
         <Border Grid.Column="1"
@@ -174,105 +396,225 @@ WindowStartupLocation="CenterScreen">
 
                     <!-- Statistics Grid -->
                     <Grid ColumnDefinitions="*,*" RowDefinitions="Auto,Auto" ColumnSpacing="20" RowSpacing="20">
-                        
+
                         <!-- Total Students Card -->
-                        <Border Grid.Column="0" Grid.Row="0"
-                                Background="{StaticResource SurfaceBrush}"
-                                Padding="25"
-                                CornerRadius="8"
-                                BoxShadow="0 1 3 #00000010">
-                            <StackPanel Spacing="12">
-                                <StackPanel Orientation="Horizontal" Spacing="12">
-                                    <TextBlock Text="??" FontSize="32"/>
-                                    <TextBlock Text="Total Students"
-                                               FontSize="16"
-                                               FontWeight="SemiBold"
-                                               Foreground="{StaticResource TextPrimaryBrush}"
-                                               VerticalAlignment="Center"/>
-                                </StackPanel>
-                                <TextBlock Text="{Binding TotalStudents}"
-                                           FontSize="48"
-                                           FontWeight="Bold"
-                                           Foreground="{StaticResource PrimaryColor}"/>
-                                <TextBlock Text="Students registered in the system"
-                                           FontSize="12"
-                                           Foreground="{StaticResource TextSecondaryBrush}"/>
+                        <Border Grid.Row="0"
+                                Grid.Column="0"
+                                Background="White"
+                                CornerRadius="18"
+                                Padding="28"
+                                MinHeight="180"
+                                BorderBrush="#2563EB"
+                                BorderThickness="5,0,0,0"
+                                BoxShadow="0 10 30 #18000000">
+
+                            <StackPanel Spacing="18">
+
+                                <Grid ColumnDefinitions="Auto,*">
+
+                                    <Border Width="55"
+                                            Height="55"
+                                            Background="#DBEAFE"
+                                            CornerRadius="28">
+
+                                        <TextBlock
+                                            Text="👨‍🎓"
+                                            FontSize="26"
+                                            HorizontalAlignment="Center"
+                                            VerticalAlignment="Center"/>
+
+                                    </Border>
+
+                                    <StackPanel Grid.Column="1"
+                                                Margin="15,0,0,0">
+
+                                        <TextBlock
+                                            Text="Total Students"
+                                            FontSize="18"
+                                            FontWeight="SemiBold"/>
+
+                                        <TextBlock
+                                            Text="Registered Students"
+                                            FontSize="12"
+                                            Foreground="Gray"/>
+
+                                    </StackPanel>
+
+                                </Grid>
+
+                                <TextBlock
+                                    Text="{Binding TotalStudents}"
+                                    FontSize="52"
+                                    FontWeight="Bold"
+                                    Foreground="#2563EB"/>
+
                             </StackPanel>
+
                         </Border>
 
                         <!-- Students Assessed Card -->
-                        <Border Grid.Column="1" Grid.Row="0"
-                                Background="{StaticResource SurfaceBrush}"
-                                Padding="25"
-                                CornerRadius="8"
-                                BoxShadow="0 1 3 #00000010">
-                            <StackPanel Spacing="12">
-                                <StackPanel Orientation="Horizontal" Spacing="12">
-                                    <TextBlock Text="?" FontSize="32" Foreground="{StaticResource AccentColor}"/>
-                                    <TextBlock Text="Students Assessed"
-                                               FontSize="16"
-                                               FontWeight="SemiBold"
-                                               Foreground="{StaticResource TextPrimaryBrush}"
-                                               VerticalAlignment="Center"/>
-                                </StackPanel>
-                                <TextBlock Text="{Binding StudentsAssessed}"
-                                           FontSize="48"
-                                           FontWeight="Bold"
-                                           Foreground="{StaticResource AccentColor}"/>
-                                <TextBlock Text="Students who have completed the assessment"
-                                           FontSize="12"
-                                           Foreground="{StaticResource TextSecondaryBrush}"/>
+                        <Border Grid.Row="0"
+                                Grid.Column="1"
+                                Background="White"
+                                CornerRadius="18"
+                                Padding="28"
+                                MinHeight="180"
+                                BorderBrush="#10B981"
+                                BorderThickness="5,0,0,0"
+                                BoxShadow="0 10 30 #18000000">
+
+                            <StackPanel Spacing="18">
+
+                                <Grid ColumnDefinitions="Auto,*">
+
+                                    <Border Width="55"
+                                            Height="55"
+                                            Background="#D1FAE5"
+                                            CornerRadius="28">
+
+                                        <TextBlock
+                                            Text="✅"
+                                            FontSize="24"
+                                            HorizontalAlignment="Center"
+                                            VerticalAlignment="Center"/>
+
+                                    </Border>
+
+                                    <StackPanel Grid.Column="1"
+                                                Margin="15,0,0,0">
+
+                                        <TextBlock
+                                            Text="Students Assessed"
+                                            FontSize="18"
+                                            FontWeight="SemiBold"/>
+
+                                        <TextBlock
+                                            Text="Completed Assessment"
+                                            FontSize="12"
+                                            Foreground="Gray"/>
+
+                                    </StackPanel>
+
+                                </Grid>
+
+                                <TextBlock
+                                    Text="{Binding StudentsAssessed}"
+                                    FontSize="52"
+                                    FontWeight="Bold"
+                                    Foreground="#10B981"/>
+
                             </StackPanel>
+
                         </Border>
 
                         <!-- Total Questions Card -->
-                        <Border Grid.Column="0" Grid.Row="1"
-                                Background="{StaticResource SurfaceBrush}"
-                                Padding="25"
-                                CornerRadius="8"
-                                BoxShadow="0 1 3 #00000010">
-                            <StackPanel Spacing="12">
-                                <StackPanel Orientation="Horizontal" Spacing="12">
-                                    <TextBlock Text="?" FontSize="32"/>
-                                    <TextBlock Text="Total Questions"
-                                               FontSize="16"
-                                               FontWeight="SemiBold"
-                                               Foreground="{StaticResource TextPrimaryBrush}"
-                                               VerticalAlignment="Center"/>
-                                </StackPanel>
-                                <TextBlock Text="{Binding TotalQuestions}"
-                                           FontSize="48"
-                                           FontWeight="Bold"
-                                           Foreground="#F59E0B"/>
-                                <TextBlock Text="Questions available in the system"
-                                           FontSize="12"
-                                           Foreground="{StaticResource TextSecondaryBrush}"/>
+                        <Border Grid.Row="1"
+                                Grid.Column="0"
+                                Background="White"
+                                CornerRadius="18"
+                                Padding="28"
+                                MinHeight="180"
+                                BorderBrush="#F59E0B"
+                                BorderThickness="5,0,0,0"
+                                BoxShadow="0 10 30 #18000000">
+
+                            <StackPanel Spacing="18">
+
+                                <Grid ColumnDefinitions="Auto,*">
+
+                                    <Border Width="55"
+                                            Height="55"
+                                            Background="#FEF3C7"
+                                            CornerRadius="28">
+
+                                        <TextBlock
+                                            Text="❓"
+                                            FontSize="24"
+                                            HorizontalAlignment="Center"
+                                            VerticalAlignment="Center"/>
+
+                                    </Border>
+
+                                    <StackPanel Grid.Column="1"
+                                                Margin="15,0,0,0">
+
+                                        <TextBlock
+                                            Text="Total Questions"
+                                            FontSize="18"
+                                            FontWeight="SemiBold"/>
+
+                                        <TextBlock
+                                            Text="Assessment Questions"
+                                            FontSize="12"
+                                            Foreground="Gray"/>
+
+                                    </StackPanel>
+
+                                </Grid>
+
+                                <TextBlock
+                                    Text="{Binding TotalQuestions}"
+                                    FontSize="52"
+                                    FontWeight="Bold"
+                                    Foreground="#F59E0B"/>
+
                             </StackPanel>
+
                         </Border>
 
                         <!-- Total Categories Card -->
-                        <Border Grid.Column="1" Grid.Row="1"
-                                Background="{StaticResource SurfaceBrush}"
-                                Padding="25"
-                                CornerRadius="8"
-                                BoxShadow="0 1 3 #00000010">
-                            <StackPanel Spacing="12">
-                                <StackPanel Orientation="Horizontal" Spacing="12">
-                                    <TextBlock Text="??" FontSize="32"/>
-                                    <TextBlock Text="Total Categories"
-                                               FontSize="16"
-                                               FontWeight="SemiBold"
-                                               Foreground="{StaticResource TextPrimaryBrush}"
-                                               VerticalAlignment="Center"/>
-                                </StackPanel>
-                                <TextBlock Text="{Binding TotalCategories}"
-                                           FontSize="48"
-                                           FontWeight="Bold"
-                                           Foreground="{StaticResource PrimaryLightColor}"/>
-                                <TextBlock Text="Career categories available"
-                                           FontSize="12"
-                                           Foreground="{StaticResource TextSecondaryBrush}"/>
+                        <Border Grid.Row="1"
+                                Grid.Column="1"
+                                Background="White"
+                                CornerRadius="18"
+                                Padding="28"
+                                MinHeight="180"
+                                BorderBrush="#8B5CF6"
+                                BorderThickness="5,0,0,0"
+                                BoxShadow="0 10 30 #18000000">
+
+                            <StackPanel Spacing="18">
+
+                                <Grid ColumnDefinitions="Auto,*">
+
+                                    <Border Width="55"
+                                            Height="55"
+                                            Background="#EDE9FE"
+                                            CornerRadius="28">
+
+                                        <TextBlock
+                                            Text="📂"
+                                            FontSize="24"
+                                            HorizontalAlignment="Center"
+                                            VerticalAlignment="Center"/>
+
+                                    </Border>
+
+                                    <StackPanel Grid.Column="1"
+                                                Margin="15,0,0,0">
+
+                                        <TextBlock
+                                            Text="Total Categories"
+                                            FontSize="18"
+                                            FontWeight="SemiBold"/>
+
+                                        <TextBlock
+                                            Text="Career Categories"
+                                            FontSize="12"
+                                            Foreground="Gray"/>
+
+                                    </StackPanel>
+
+                                </Grid>
+
+                                <TextBlock
+                                    Text="{Binding TotalCategories}"
+                                    FontSize="52"
+                                    FontWeight="Bold"
+                                    Foreground="#8B5CF6"/>
+
                             </StackPanel>
+
                         </Border>
 
                     </Grid>
