@@ -28,9 +28,10 @@ public class QuestionOptionManagementViewModel : INotifyPropertyChanged
             {
                 OptionText = value.OptionText;
                 Score = value.Score;
-
+                OptionTextMalayalam = value.OptionTextMalayalam;
                 OnPropertyChanged(nameof(OptionText));
                 OnPropertyChanged(nameof(Score));
+                OnPropertyChanged(nameof(OptionTextMalayalam));
             }
 
             OnPropertyChanged(nameof(SelectedOption));
@@ -49,6 +50,17 @@ public class QuestionOptionManagementViewModel : INotifyPropertyChanged
         {
             _optionText = value;
             OnPropertyChanged(nameof(OptionText));
+        }
+    }
+    private string optionTextMalayalam;
+
+    public string OptionTextMalayalam
+    {
+        get { return optionTextMalayalam; }
+        set 
+        { 
+            optionTextMalayalam = value; 
+            OnPropertyChanged(nameof(OptionTextMalayalam));
         }
     }
 
@@ -94,6 +106,7 @@ public class QuestionOptionManagementViewModel : INotifyPropertyChanged
 
         option.OptionText = OptionText;
         option.Score = Score;
+        option.OptionTextMalayalam = OptionTextMalayalam;
 
         db.SaveChanges();
 
@@ -146,7 +159,8 @@ public class QuestionOptionManagementViewModel : INotifyPropertyChanged
         {
             QuestionId = _question.Id,
             OptionText = OptionText,
-            Score = Score
+            Score = Score,
+            OptionTextMalayalam = OptionTextMalayalam
         });
 
         db.SaveChanges();

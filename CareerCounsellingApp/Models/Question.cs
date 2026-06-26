@@ -11,7 +11,7 @@ namespace CareerCounsellingApp.Models
         public int Id { get; set; }
 
         public string QuestionText { get; set; } = "";
-
+        public string QuestionTextMalayalam { get; set; } = "";
         public int CategoryId { get; set; }
 
         public Category? Category { get; set; }

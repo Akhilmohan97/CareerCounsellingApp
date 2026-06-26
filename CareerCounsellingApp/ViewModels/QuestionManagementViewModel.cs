@@ -29,9 +29,10 @@ public class QuestionManagementViewModel : INotifyPropertyChanged
             {
                 QuestionText = value.QuestionText;
                 SelectedCategory = Categories.FirstOrDefault(c => c.Id == value.CategoryId);
-               
+               QuestionTextMalayalam = value.QuestionTextMalayalam;
                 OnPropertyChanged(nameof(QuestionText));
                 OnPropertyChanged(nameof(SelectedCategory));
+                OnPropertyChanged(nameof(QuestionTextMalayalam));
             }
             OnPropertyChanged(nameof(SelectedQuestion));
         }
@@ -43,6 +44,17 @@ public class QuestionManagementViewModel : INotifyPropertyChanged
         {
             _questionText = value;
             OnPropertyChanged(nameof(QuestionText));
+        }
+    }
+    private string _questionTextMalayalam;
+
+    public string QuestionTextMalayalam
+    {
+        get { return _questionTextMalayalam; }
+        set 
+        {
+            _questionTextMalayalam = value;
+            OnPropertyChanged(nameof(QuestionTextMalayalam));
         }
     }
 
@@ -109,7 +121,9 @@ public class QuestionManagementViewModel : INotifyPropertyChanged
         db.Questions.Add(new Question
         {
             QuestionText = QuestionText,
-            CategoryId = SelectedCategory.Id
+            CategoryId = SelectedCategory.Id,
+            QuestionTextMalayalam = QuestionTextMalayalam
+
         });
 
         db.SaveChanges();
