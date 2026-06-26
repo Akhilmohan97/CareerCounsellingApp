@@ -13,6 +13,7 @@ public class QuestionOption
     public int QuestionId { get; set; }
 
     public string OptionText { get; set; } = "";
+    public string OptionTextMalayalam { get; set; } = "";
 
     public int Score { get; set; }
 
