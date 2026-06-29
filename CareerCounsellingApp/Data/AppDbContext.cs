@@ -18,6 +18,9 @@ namespace CareerCounsellingApp.Data
 
         public DbSet<StudentAnswer> StudentAnswers => Set<StudentAnswer>();
         public DbSet<ParentCategory> ParentCategories => Set<ParentCategory>();
+        public DbSet<AssessmentResult> AssessmentResults { get; set; }
+        public DbSet<ParentCategoryAssessmentResult> ParentCategoryAssessmentResults { get; set; }
+        public DbSet<CategoryAssessmentResult> CategoryAssessmentResults { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {

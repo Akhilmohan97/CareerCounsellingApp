@@ -4,16 +4,16 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CareerCounsellingApp.DTO
+namespace CareerCounsellingApp.Models
 {
-    public class CategoryResult
+    public class ParentCategoryAssessmentResult
     {
-        public int CategoryId { get; set; }
+        public int Id { get; set; }
 
-        public string CategoryName { get; set; } = "";
+        public int AssessmentResultId { get; set; }
+
         public int ParentCategoryId { get; set; }
 
-        public string ParentCategoryName { get; set; } = string.Empty;
         public decimal ObtainedScore { get; set; }
 
         public decimal MaximumScore { get; set; }
@@ -21,5 +21,9 @@ namespace CareerCounsellingApp.DTO
         public decimal Percentage { get; set; }
 
         public string Band { get; set; } = "";
+
+        public AssessmentResult AssessmentResult { get; set; } = null!;
+
+        public ParentCategory ParentCategory { get; set; } = null!;
     }
 }
