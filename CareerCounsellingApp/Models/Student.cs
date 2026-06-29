@@ -16,7 +16,7 @@ public class Student
 
     public string FullName { get; set; } = "";
 
-    public DateTime? DateOfBirth { get; set; }
+    public DateTime DateOfBirth { get; set; }= DateTime.Now;
 
     public string Gender { get; set; } = "";
 

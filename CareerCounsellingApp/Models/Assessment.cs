@@ -15,8 +15,9 @@ public class Assessment
         public DateTime AssessmentDate { get; set; }
 
         public Student? Student { get; set; }
+        public AssessmentResult? AssessmentResult { get; set; }
 
-        public ICollection<StudentAnswer> Answers { get; set; }
+    public ICollection<StudentAnswer> Answers { get; set; }
             = new List<StudentAnswer>();
     
 }

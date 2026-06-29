@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace CareerCounsellingApp.DTO
 {
-    public class AssessmentResult
+    public class AssessmentReportDto
     {
-        public int AssessmentId { get; set; }
+        public StudentInfoDto Student { get; set; } = new();
 
         public decimal OverallScore { get; set; }
 
@@ -18,10 +18,10 @@ namespace CareerCounsellingApp.DTO
 
         public string OverallBand { get; set; } = "";
 
-        public List<CategoryResult> CategoryResults { get; set; }
-            = new();
+        public List<ParentCategoryResultDto> ParentCategories { get; set; } = new();
 
-        public List<ParentCategoryResult> ParentCategoryResults { get; set; }
-            = new();
+        public List<CategoryResultDto> Categories { get; set; } = new();
+
+        public string Remarks { get; set; } = "";
     }
 }

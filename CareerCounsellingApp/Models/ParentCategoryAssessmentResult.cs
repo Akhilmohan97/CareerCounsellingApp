@@ -13,7 +13,7 @@ namespace CareerCounsellingApp.Models
         public int AssessmentResultId { get; set; }
 
         public int ParentCategoryId { get; set; }
-
+        public string ParentCategoryName { get; set; }
         public decimal ObtainedScore { get; set; }
 
         public decimal MaximumScore { get; set; }

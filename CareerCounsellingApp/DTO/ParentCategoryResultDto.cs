@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CareerCounsellingApp.Services.Assessment
+namespace CareerCounsellingApp.DTO
 {
-    public class ParentCategoryResult
+    public class ParentCategoryResultDto
     {
         public int ParentCategoryId { get; set; }
 
@@ -20,7 +20,7 @@ namespace CareerCounsellingApp.Services.Assessment
 
         public string Band { get; set; } = "";
 
-        public List<CategoryResult> Categories { get; set; }
+        public List<CategoryResultDto> Categories { get; set; }
             = new();
     }
 }

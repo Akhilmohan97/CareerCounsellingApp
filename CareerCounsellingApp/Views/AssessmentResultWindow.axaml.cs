@@ -5,11 +5,12 @@ using CareerCounsellingApp.ViewModels;
 
 namespace CareerCounsellingApp;
 
-public partial class AssessmentResultsWindow : Window
+public partial class AssessmentResultWindow : Window
 {
-    public AssessmentResultsWindow()
+    public AssessmentResultWindow(int assessmentId)
     {
         InitializeComponent();
-        DataContext= new AssessmentResultsViewModel();
+
+        DataContext = new AssessmentResultViewModel(assessmentId);
     }
 }

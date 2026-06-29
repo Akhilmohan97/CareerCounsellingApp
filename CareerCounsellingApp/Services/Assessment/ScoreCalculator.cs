@@ -10,7 +10,7 @@ namespace CareerCounsellingApp.Services.Assessment
 {
     public class ScoreCalculator : IScoreCalculator
     {
-        public CategoryResult CalculateCategory(Category category, IEnumerable<StudentAnswer> answers)
+        public CategoryResultDto CalculateCategory(Category category, IEnumerable<StudentAnswer> answers)
         {
             var categoryAnswers = answers
                 .Where(a => a.Question!.CategoryId == category.Id)
@@ -27,7 +27,7 @@ namespace CareerCounsellingApp.Services.Assessment
                     (obtainedScore / maximumScore) * 100,
                     2);
             }
-            return new CategoryResult
+            return new CategoryResultDto
             {
                 CategoryId = category.Id,
 
@@ -48,7 +48,7 @@ namespace CareerCounsellingApp.Services.Assessment
 
         }
 
-        public ParentCategoryResult CalculateParentCategory(ParentCategory parentCategory, IEnumerable<CategoryResult> categoryResults)
+        public ParentCategoryResultDto CalculateParentCategory(ParentCategory parentCategory, IEnumerable<CategoryResultDto> categoryResults)
         {
             var categories = categoryResults
                 .Where(c => c.ParentCategoryId == parentCategory.Id)
@@ -65,7 +65,7 @@ namespace CareerCounsellingApp.Services.Assessment
                     (obtainedScore / maximumScore) * 100,
                     2);
             }
-            return new ParentCategoryResult
+            return new ParentCategoryResultDto
             {
                 ParentCategoryId = parentCategory.Id,
 

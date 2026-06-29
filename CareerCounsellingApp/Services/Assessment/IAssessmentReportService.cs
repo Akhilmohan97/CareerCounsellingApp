@@ -7,8 +7,8 @@ using System.Threading.Tasks;
 
 namespace CareerCounsellingApp.Services.Assessment
 {
-    public interface IAssessmentEngine
+    public interface IAssessmentReportService
     {
-        Task<AssessmentResultDto> CalculateAsync(int assessmentId);
+        AssessmentReportDto GetReport(int assessmentId);
     }
 }

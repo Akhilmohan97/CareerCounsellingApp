@@ -1,6 +1,7 @@
 ﻿using CareerCounsellingApp.Data;
 using CareerCounsellingApp.Helpers;
 using CareerCounsellingApp.Models;
+using CareerCounsellingApp.Services.Assessment;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -77,7 +78,7 @@ public class AssessmentViewModel : INotifyPropertyChanged
         }
     }
 
-    private void SubmitAssessment()
+    private async void SubmitAssessment()
     {
         using var db = new AppDbContext();
 
@@ -105,8 +106,12 @@ public class AssessmentViewModel : INotifyPropertyChanged
                 });
         }
 
-        db.SaveChanges();
-        
+        await db.SaveChangesAsync();
+        var assessmentEngine = new AssessmentEngine(
+                                db,
+                                new ScoreCalculator());
+
+        await assessmentEngine.CalculateAsync(assessment.Id);
         var thankYou = new ThankYouWindow(_onAssessmentSubmitted);
         thankYou.Show();
     }

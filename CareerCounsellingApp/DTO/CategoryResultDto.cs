@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace CareerCounsellingApp.DTO
 {
-    public class CategoryResult
+    public class CategoryResultDto
     {
         public int CategoryId { get; set; }
 

@@ -10,13 +10,13 @@ namespace CareerCounsellingApp.Services.Assessment
 {
     public interface IScoreCalculator
     {
-        CategoryResult CalculateCategory(
+        CategoryResultDto CalculateCategory(
         Category category,
         IEnumerable<StudentAnswer> answers);
 
-        ParentCategoryResult CalculateParentCategory(
+        ParentCategoryResultDto CalculateParentCategory(
             ParentCategory parentCategory,
-            IEnumerable<CategoryResult> categoryResults);
+            IEnumerable<CategoryResultDto> categoryResults);
 
         string GetBand(decimal percentage);
     }

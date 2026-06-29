@@ -1,5 +1,6 @@
 ﻿using CareerCounsellingApp.Data;
 using CareerCounsellingApp.DTO;
+using CareerCounsellingApp.Models;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -20,7 +21,7 @@ public class AssessmentEngine : IAssessmentEngine
         _context = context;
         _scoreCalculator = scoreCalculator;
     }
-    public async Task<AssessmentResult> CalculateAsync(int assessmentId)
+    public async Task<AssessmentResultDto> CalculateAsync(int assessmentId)
     {
         var assessment = await _context.Assessments
                         .Include(a => a.Answers)
@@ -61,7 +62,7 @@ public class AssessmentEngine : IAssessmentEngine
         decimal percentage = maximum == 0
             ? 0
             : Math.Round((obtained / maximum) * 100, 2);
-        return new AssessmentResult
+        var resultDto= new AssessmentResultDto
         {
             AssessmentId = assessment.Id,
 
@@ -77,5 +78,60 @@ public class AssessmentEngine : IAssessmentEngine
 
             ParentCategoryResults = parentResults
         };
+        await SaveAssessmentResultAsync(assessment, resultDto);
+        return resultDto;
+    }
+    private async Task SaveAssessmentResultAsync(
+    Models.Assessment assessment,
+    AssessmentResultDto result)
+    {
+        var entity = new Models.AssessmentResult
+        {
+            AssessmentId = assessment.Id,
+
+            ObtainedScore = result.OverallScore,
+
+            MaximumScore = result.MaximumScore,
+
+            Percentage = result.OverallPercentage,
+
+            Band = result.OverallBand,
+
+            GeneratedOn = DateTime.UtcNow
+        };
+        foreach (var category in result.CategoryResults)
+        {
+            entity.CategoryResults.Add(
+                new CategoryAssessmentResult
+                {
+                    CategoryId = category.CategoryId,
+
+                    ObtainedScore = category.ObtainedScore,
+
+                    MaximumScore = category.MaximumScore,
+
+                    Percentage = category.Percentage,
+
+                    Band = category.Band
+                });
+        }
+        foreach (var parent in result.ParentCategoryResults)
+        {
+            entity.ParentCategoryResults.Add(
+                new ParentCategoryAssessmentResult
+                {
+                    ParentCategoryId = parent.ParentCategoryId,
+
+                    ObtainedScore = parent.ObtainedScore,
+
+                    MaximumScore = parent.MaximumScore,
+
+                    Percentage = parent.Percentage,
+
+                    Band = parent.Band
+                });
+        }
+        _context.AssessmentResults.Add(entity);
+        await _context.SaveChangesAsync();
     }
 }
