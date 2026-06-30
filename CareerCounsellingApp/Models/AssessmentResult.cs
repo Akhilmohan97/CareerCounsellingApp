@@ -29,5 +29,6 @@ namespace CareerCounsellingApp.Models
 
         public ICollection<ParentCategoryAssessmentResult> ParentCategoryResults { get; set; }
             = new List<ParentCategoryAssessmentResult>();
+        public AIInterpretation? AIInterpretation { get; set; }
     }
 }

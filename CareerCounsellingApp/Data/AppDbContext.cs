@@ -21,13 +21,14 @@ namespace CareerCounsellingApp.Data
         public DbSet<AssessmentResult> AssessmentResults { get; set; }
         public DbSet<ParentCategoryAssessmentResult> ParentCategoryAssessmentResults { get; set; }
         public DbSet<CategoryAssessmentResult> CategoryAssessmentResults { get; set; }
+        public DbSet<AIInterpretation> AIInterpretations { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             string folder = Path.Combine(
                 Environment.GetFolderPath(
                     Environment.SpecialFolder.LocalApplicationData),
-                "CareerCounselling_v1");
+                "CareerCounselling_v2");
 
             Directory.CreateDirectory(folder);
 

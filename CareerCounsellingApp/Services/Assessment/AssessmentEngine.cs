@@ -105,7 +105,7 @@ public class AssessmentEngine : IAssessmentEngine
                 new CategoryAssessmentResult
                 {
                     CategoryId = category.CategoryId,
-
+                    CategoryName = category.CategoryName,
                     ObtainedScore = category.ObtainedScore,
 
                     MaximumScore = category.MaximumScore,
@@ -121,7 +121,7 @@ public class AssessmentEngine : IAssessmentEngine
                 new ParentCategoryAssessmentResult
                 {
                     ParentCategoryId = parent.ParentCategoryId,
-
+                    ParentCategoryName = parent.ParentCategoryName,
                     ObtainedScore = parent.ObtainedScore,
 
                     MaximumScore = parent.MaximumScore,

@@ -6,6 +6,7 @@ using Avalonia.Markup.Xaml;
 using CareerCounsellingApp.Data;
 using CareerCounsellingApp.ViewModels;
 using CareerCounsellingApp.Views;
+using Microsoft.EntityFrameworkCore;
 using System.Linq;
 
 namespace CareerCounsellingApp
@@ -21,7 +22,7 @@ namespace CareerCounsellingApp
         {
             using var db = new AppDbContext();
 
-            db.Database.EnsureCreated();
+            db.Database.Migrate();
             DbInitializer.Seed(db);
             if (ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
             {

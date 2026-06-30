@@ -20,8 +20,15 @@ namespace CareerCounsellingApp.DTO
 
         public List<ParentCategoryResultDto> ParentCategories { get; set; } = new();
 
-        public List<CategoryResultDto> Categories { get; set; } = new();
 
-        public string Remarks { get; set; } = "";
+        public string OverallRemark =>
+    OverallPercentage switch
+    {
+        >= 90 => "Outstanding overall performance.",
+        >= 75 => "Very good overall performance.",
+        >= 60 => "Good performance with room for improvement.",
+        >= 40 => "Needs additional guidance in several areas.",
+        _ => "Requires significant counselling support."
+    };
     }
 }

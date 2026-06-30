@@ -56,7 +56,6 @@ public class AssessmentReportService : IAssessmentReportService
 
             ParentCategories = BuildParentCategories(result),
 
-            Categories = BuildCategories(result)
         };
     }
     private StudentInfoDto BuildStudent(AssessmentResult result)
