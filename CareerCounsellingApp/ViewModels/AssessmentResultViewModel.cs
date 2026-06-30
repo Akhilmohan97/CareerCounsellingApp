@@ -73,24 +73,13 @@ namespace CareerCounsellingApp.ViewModels
             _workflow = new AIInterpretationWorkflowService(context,_reportService,geminiService);
             HasAIInterpretation = _workflow.HasInterpretation(assessmentId);
             Report = _reportService.GetReport(assessmentId);
+            TestGeminiCommand=new AsyncRelayCommand(async () => await TestGeminiAsync(assessmentId));
         }
 
         public event PropertyChangedEventHandler? PropertyChanged;
-        private async Task TestGeminiAsync(AssessmentReportDto report)
+        private async Task TestGeminiAsync(int assessmentId)
         {
-            var settings = new GeminiSettings
-            {
-                ApiKey = "...",
-                Model = "gemini-2.5-flash"
-            };
-
-            var service = new GeminiAIService(
-                new GeminiPromptBuilder(),
-                settings);
-
-            var result = await service.GenerateAsync(report);
-
-            Console.WriteLine(result);
+            await _workflow.GenerateInterpretationAsync(assessmentId);
         }
     }
 }
