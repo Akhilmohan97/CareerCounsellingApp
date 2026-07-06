@@ -25,7 +25,7 @@ namespace CareerCounsellingApp.Services.AI
         }
         public async Task<AIInterpretationDto> GenerateAsync(AssessmentReportDto report)
         {
-            var endpoint = $"https://generativelanguage.googleapis.com/v1beta/models/{_settings.Model}:generateContent?key=AQ.Ab8RN6ITNPgIZCajGspKqZ1rw_XEgJxmrReL4rlqHUYkr6zVgw";
+            var endpoint = $"https://generativelanguage.googleapis.com/v1beta/models/{_settings.Model}:generateContent?key={_settings.ApiKey}";
             var prompt = _promptBuilder.Build(report);
             var request = new
             {

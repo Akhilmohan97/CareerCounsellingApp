@@ -64,9 +64,10 @@ namespace CareerCounsellingApp.ViewModels
         {
              var context = new AppDbContext();
             _reportService = new AssessmentReportService(context);
+            string apiKey = Environment.GetEnvironmentVariable("GEMINI_API_KEY") ?? string.Empty;
             var settings = new GeminiSettings
             {
-                ApiKey = "AQ.Ab8RN6ITNPgIZCajGspKqZ1rw_XEgJxmrReL4rlqHUYkr6zVgw",
+                ApiKey = apiKey,
                 Model = "gemini-2.5-flash"
             };
             var geminiService = new GeminiAIService(new GeminiPromptBuilder(),settings);
