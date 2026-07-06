@@ -1,208 +1,417 @@
-<Window xmlns="https://github.com/avaloniaui"
+﻿<Window xmlns="https://github.com/avaloniaui"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:model="using:CareerCounsellingApp.Models"
-        mc:Ignorable="d" d:DesignWidth="1200" d:DesignHeight="700"
+        xmlns:viewmodels="using:CareerCounsellingApp.ViewModels"
+        mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="1000"
         x:Class="CareerCounsellingApp.AssessmentResultsWindow"
         xmlns:vm="using:CareerCounsellingApp.ViewModels"
+        xmlns:dto="using:CareerCounsellingApp.DTO"
         x:DataType="vm:AssessmentResultsViewModel"
-        Width="1400"
-        Height="800"
-        Title="Assessment Results"
-        Background="{StaticResource BackgroundBrush}"
-        WindowStartupLocation="CenterScreen">
+        WindowState="Maximized"
+        x:Name="ResultsWindow"
+        Title="Assessment Results">
+    <Grid RowDefinitions="Auto,Auto,*">
 
-    <Grid RowDefinitions="Auto,*">
         <!-- Header -->
         <Border Grid.Row="0"
-                Background="{StaticResource PrimaryBrush}"
-                Padding="30,20">
-            <TextBlock Text="Assessment Results"
-                       FontSize="28"
-                       FontWeight="Bold"
-                       Foreground="White"/>
+                Background="#2563EB"
+                Padding="35,25">
+
+            <Grid ColumnDefinitions="*,Auto">
+
+                <StackPanel>
+
+                    <TextBlock
+                        Text="Assessment Results"
+                        FontSize="32"
+                        FontWeight="Bold"
+                        Foreground="White"/>
+
+                    <TextBlock
+                        Margin="0,6,0,0"
+                        Text="Career Counselling Assessment Dashboard"
+                        FontSize="15"
+                        Foreground="#DCEBFF"/>
+
+                </StackPanel>
+
+                <Border Grid.Column="1"
+                        CornerRadius="14"
+                        Padding="18,10">
+
+                    <StackPanel>
+
+                        <TextBlock
+                            Text="Total Reports"
+                            FontSize="12"
+                            Foreground="White"
+                            HorizontalAlignment="Center"/>
+
+                        <TextBlock
+                            Text="{Binding Results.Count}"
+                            FontSize="30"
+                            FontWeight="Bold"
+                            Foreground="White"
+                            HorizontalAlignment="Center"/>
+
+                    </StackPanel>
+
+                </Border>
+
+            </Grid>
+
         </Border>
 
-        <!-- Content -->
         <Grid Grid.Row="1"
-              Margin="30"
-              ColumnDefinitions="380,*"
-              ColumnSpacing="30">
+              Margin="25,30"
+              ColumnDefinitions="*,*,*,*"
+              ColumnSpacing="20">
 
-            <!-- Left Panel - Students List -->
+            <!-- Total Reports -->
+
             <Border Grid.Column="0"
-                    Background="{StaticResource SurfaceBrush}"
-                    Padding="25"
-                    CornerRadius="8"
-                    BoxShadow="0 1 3 #00000010">
+                    Background="White"
+                    CornerRadius="16"
+                    Padding="20"
+                    BoxShadow="0 6 20 #14000000">
 
-                <Grid RowDefinitions="Auto,*">
+                <StackPanel>
 
-                    <TextBlock Grid.Row="0"
-                               Text="Students"
-                               FontSize="18"
-                               FontWeight="Bold"
-                               Foreground="{StaticResource TextPrimaryBrush}"/>
+                    <TextBlock
+                        Text="📄"
+                        FontSize="30"/>
 
-                    <ListBox Grid.Row="1"
-                             Margin="0,15,0,0"
-                             ItemsSource="{Binding Results}"
-                             SelectedItem="{Binding SelectedResult}"
-                             Background="{StaticResource BackgroundBrush}">
+                    <TextBlock
+                        Margin="0,10,0,0"
+                        Text="Total Reports"
+                        Foreground="Gray"/>
 
-                        <ListBox.ItemTemplate>
+                    <TextBlock
+                        Text="{Binding Results.Count}"
+                        FontSize="34"
+                        FontWeight="Bold"/>
 
-                            <DataTemplate x:DataType="model:StudentAssessmentResult">
-
-                                <Border Margin="0,5"
-                                        Padding="15"
-                                        Background="{StaticResource BackgroundBrush}"
-                                        BorderBrush="{StaticResource BorderBrush}"
-                                        BorderThickness="1"
-                                        CornerRadius="4">
-
-                                    <StackPanel Spacing="5">
-
-                                        <TextBlock Text="{Binding StudentName}"
-                                                   FontWeight="Bold"
-                                                   FontSize="14"
-                                                   Foreground="{StaticResource TextPrimaryBrush}"/>
-
-                                        <TextBlock Text="{Binding AssessmentDate}"
-                                                   FontSize="12"
-                                                   Foreground="{StaticResource TextSecondaryBrush}"/>
-
-                                    </StackPanel>
-
-                                </Border>
-
-                            </DataTemplate>
-
-                        </ListBox.ItemTemplate>
-
-                    </ListBox>
-
-                </Grid>
+                </StackPanel>
 
             </Border>
 
-            <!-- Right Panel - Scores Details -->
+            <!-- Completed -->
+
             <Border Grid.Column="1"
-                    Background="{StaticResource SurfaceBrush}"
-                    Padding="25"
-                    CornerRadius="8"
-                    BoxShadow="0 1 3 #00000010">
+                    Background="White"
+                    CornerRadius="16"
+                    Padding="20"
+                    BoxShadow="0 6 20 #14000000">
 
-                <Grid RowDefinitions="Auto,*,Auto">
+                <StackPanel>
 
-                    <TextBlock Grid.Row="0"
-                               Text="Category Scores"
-                               FontSize="18"
-                               FontWeight="Bold"
-                               Foreground="{StaticResource TextPrimaryBrush}"/>
+                    <TextBlock
+                        Text="✅"
+                        FontSize="30"/>
 
-                    <ScrollViewer Grid.Row="1"
-                                  Margin="0,15,0,0">
-                        <ItemsControl ItemsSource="{Binding CategoryScores}">
-                            <ItemsControl.ItemTemplate>
-                                <DataTemplate x:DataType="model:ParentCategoryScore">
-                                    <StackPanel>
-                                        <!-- Parent Category -->
-                                        <Border
-                                            Background="{StaticResource PrimaryBrush}"
-                                            CornerRadius="6"
-                                            Padding="15">
+                    <TextBlock
+                        Margin="0,10,0,0"
+                        Text="Completed"
+                        Foreground="Gray"/>
 
-                                            <TextBlock
-                                                Text="{Binding ParentCategoryName}"
-                                                FontWeight="Bold"
-                                                FontSize="18"
-                                                Foreground="White"/>
+                    <TextBlock
+                        Text="{Binding Results.Count}"
+                        FontSize="34"
+                        FontWeight="Bold"
+                        Foreground="#10B981"/>
 
-                                        </Border>
-                                        <ItemsControl
-                                            Margin="15,10,0,0"
-                                            ItemsSource="{Binding Categories}">
+                </StackPanel>
 
-                                            <ItemsControl.ItemTemplate>
+            </Border>
 
-                                                <DataTemplate x:DataType="model:CategoryScore">
+            <!-- High Performers -->
 
-                                                    <Border
-                                                        Margin="0,5"
-                                                        Padding="15"
-                                                        Background="{StaticResource BackgroundBrush}"
-                                                        BorderBrush="{StaticResource BorderBrush}"
-                                                        BorderThickness="1"
-                                                        CornerRadius="4">
+            <Border Grid.Column="2"
+                    Background="White"
+                    CornerRadius="16"
+                    Padding="20"
+                    BoxShadow="0 6 20 #14000000">
 
-                                                        <Grid ColumnDefinitions="*,100">
+                <StackPanel>
 
-                                                            <TextBlock
-                                                                Text="{Binding CategoryName}"
-                                                                FontWeight="SemiBold"
-                                                                VerticalAlignment="Center"/>
+                    <TextBlock
+                        Text="⭐"
+                        FontSize="30"/>
 
-                                                            <Border
-                                                                Grid.Column="1"
-                                                                Background="{StaticResource AccentBrush}"
-                                                                CornerRadius="4"
-                                                                Padding="10,5"
-                                                                HorizontalAlignment="Right">
+                    <TextBlock
+                        Margin="0,10,0,0"
+                        Text="High Performers"
+                        Foreground="Gray"/>
 
-                                                                <TextBlock
-                                                                    Text="{Binding Score}"
-                                                                    Foreground="White"
-                                                                    FontWeight="Bold"
-                                                                    HorizontalAlignment="Center"/>
+                    <TextBlock
+                        Text="{Binding HighPerformerCount}"
+                        FontSize="34"
+                        FontWeight="Bold"
+                        Foreground="#2563EB"/>
 
-                                                            </Border>
+                </StackPanel>
 
-                                                        </Grid>
+            </Border>
 
-                                                    </Border>
+            <!-- Average Score -->
 
-                                                </DataTemplate>
+            <Border Grid.Column="3"
+                    Background="White"
+                    CornerRadius="16"
+                    Padding="20"
+                    BoxShadow="0 6 20 #14000000">
 
-                                            </ItemsControl.ItemTemplate>
+                <StackPanel>
 
-                                        </ItemsControl>
-                                    </StackPanel>
-                                </DataTemplate>
-                            </ItemsControl.ItemTemplate>
-                        </ItemsControl>
+                    <TextBlock
+                        Text="📈"
+                        FontSize="30"/>
 
-                    </ScrollViewer>
+                    <TextBlock
+                        Margin="0,10,0,0"
+                        Text="Average Score"
+                        Foreground="Gray"/>
 
-                    <!-- Highest Category -->
-                    <Border Grid.Row="2"
-                            Margin="0,20,0,0"
-                            Padding="20"
-                            Background="{StaticResource PrimaryLightColor}"
-                            CornerRadius="6">
+                    <TextBlock
+                        Text="{Binding AverageScore, StringFormat='{}{0}%'}"
+                        FontSize="34"
+                        FontWeight="Bold"
+                        Foreground="#F59E0B"/>
 
-                        <StackPanel Spacing="8">
-
-                            <TextBlock Text="Highest Category"
-                                       FontSize="12"
-                                       FontWeight="SemiBold"
-                                       Foreground="White"
-                                       Opacity="0.9"/>
-
-                            <TextBlock Text="{Binding HighestCategory}"
-                                       FontSize="20"
-                                       FontWeight="Bold"
-                                       Foreground="White"/>
-
-                        </StackPanel>
-
-                    </Border>
-
-                </Grid>
+                </StackPanel>
 
             </Border>
 
         </Grid>
+
+        <Grid Grid.Row="2"
+              Margin="25,10,25,25"
+              RowDefinitions="Auto,*">
+
+            <!-- Search Header -->
+
+            <Grid ColumnDefinitions="*,Auto">
+
+                <StackPanel>
+
+                    <TextBlock
+                        Text="Assessment Reports"
+                        FontSize="24"
+                        FontWeight="Bold"/>
+
+                    <TextBlock
+                        Margin="0,5,0,0"
+                        Text="View and manage completed assessments."
+                        FontSize="14"
+                        Foreground="Gray"/>
+
+                </StackPanel>
+
+                <Border Grid.Column="1"
+                        Background="#DBEAFE"
+                        CornerRadius="20"
+                        Padding="18,8"
+                        VerticalAlignment="Center">
+
+                    <TextBlock
+                        Text="{Binding Results.Count, StringFormat='{}{0} Reports'}"
+                        Foreground="#2563EB"
+                        FontWeight="SemiBold"/>
+
+                </Border>
+
+            </Grid>
+
+            <!-- Search -->
+
+            <Border
+                Grid.Row="1"
+                Margin="0,25,0,0"
+                Background="White"
+                CornerRadius="18"
+                Padding="20"
+                BoxShadow="0 6 20 #14000000">
+
+                <StackPanel Spacing="15">
+
+                    <TextBox
+                        Height="42"
+                        PlaceholderText="🔍 Search by student name, admission number or course..."
+                        VerticalContentAlignment="Center"
+                        Text="" />
+
+                    <ScrollViewer VerticalScrollBarVisibility="Auto">
+
+                        <ItemsControl ItemsSource="{Binding Results}">
+
+                            <ItemsControl.ItemTemplate>
+
+                                <DataTemplate x:DataType="dto:StudentAssessmentSummary">
+
+                                    <Border
+                                        Margin="0,0,0,15"
+                                        Background="#FAFAFA"
+                                        BorderBrush="#E5E7EB"
+                                        BorderThickness="1"
+                                        CornerRadius="16"
+                                        Padding="20">
+
+                                        <Grid ColumnDefinitions="80,*,180">
+
+                                            <!-- Avatar -->
+
+                                            <Border
+                                                Width="60"
+                                                Height="60"
+                                                Background="#DBEAFE"
+                                                CornerRadius="30"
+                                                VerticalAlignment="Top">
+
+                                                <TextBlock
+                                                    Text="👤"
+                                                    FontSize="28"
+                                                    HorizontalAlignment="Center"
+                                                    VerticalAlignment="Center"/>
+
+                                            </Border>
+
+                                            <!-- Student Details -->
+
+                                            <StackPanel
+                                                Grid.Column="1"
+                                                Margin="20,0"
+                                                Spacing="6">
+
+                                                <TextBlock
+                                                    Text="{Binding StudentName}"
+                                                    FontSize="20"
+                                                    FontWeight="Bold"
+                                                    Foreground="#1E293B"/>
+
+                                                <Grid
+                                                    ColumnDefinitions="Auto,*"
+                                                    ColumnSpacing="8">
+
+                                                    <TextBlock
+                                                        Text="Admission No :"
+                                                        FontWeight="SemiBold"
+                                                        Foreground="Gray"/>
+
+                                                    <TextBlock
+                                                        Grid.Column="1"
+                                                        Text="{Binding AdmissionNo}"/>
+
+                                                </Grid>
+
+                                                <Grid
+                                                    ColumnDefinitions="Auto,*"
+                                                    ColumnSpacing="8">
+
+                                                    <TextBlock
+                                                        Text="Course :"
+                                                        FontWeight="SemiBold"
+                                                        Foreground="Gray"/>
+
+                                                    <TextBlock
+                                                        Grid.Column="1"
+                                                        Text="{Binding Course}"/>
+
+                                                </Grid>
+
+                                                <Grid
+                                                    ColumnDefinitions="Auto,*"
+                                                    ColumnSpacing="8">
+
+                                                    <TextBlock
+                                                        Text="Assessment Date :"
+                                                        FontWeight="SemiBold"
+                                                        Foreground="Gray"/>
+
+                                                    <TextBlock
+                                                        Grid.Column="1"
+                                                        Text="{Binding AssessmentDate,
+                                                        StringFormat='{}{0:dd-MMM-yyyy}'}"/>
+
+                                                </Grid>
+
+                                            </StackPanel>
+
+                                            <!-- Actions -->
+
+                                            <StackPanel
+                                                Grid.Column="2"
+                                                HorizontalAlignment="Right"
+                                                VerticalAlignment="Center"
+                                                Spacing="8">
+
+                                                <Border
+                                                    Background="#EFF6FF"
+                                                    CornerRadius="20"
+                                                    Padding="15">
+
+                                                    <StackPanel
+                                                        HorizontalAlignment="Center"
+                                                        Spacing="5">
+
+                                                        <TextBlock
+                                                            Text="{Binding OverallBand}"
+                                                            FontWeight="Bold"
+                                                            FontSize="14"
+                                                            Foreground="#2563EB"
+                                                            HorizontalAlignment="Center"/>
+
+                                                        <TextBlock
+                                                            Text="{Binding OverallPercentage,
+                                                            StringFormat='{}{0}%'}"
+                                                            FontSize="28"
+                                                            FontWeight="Bold"
+                                                            Foreground="#1E40AF"
+                                                            HorizontalAlignment="Center"/>
+
+                                                    </StackPanel>
+
+                                                </Border>
+                                                <Button
+                                                    Margin="0,15,0,0"
+                                                    HorizontalAlignment="Center"
+                                                    Width="140"
+                                                    Height="38"
+                                                    Command="{Binding #ResultsWindow.DataContext.OpenReportCommand}"
+                                                    CommandParameter="{Binding}">
+
+                                                    <StackPanel
+                                                        Orientation="Horizontal"
+                                                        HorizontalAlignment="Center"
+                                                        Spacing="6">
+
+                                                        <TextBlock Text="👁"/>
+
+                                                        <TextBlock Text="View Report"/>
+
+                                                    </StackPanel>
+
+                                                </Button>
+
+                                            </StackPanel>
+
+                                        </Grid>
+
+                                    </Border>
+
+                                </DataTemplate>
+
+                            </ItemsControl.ItemTemplate>
+
+                        </ItemsControl>
+
+                    </ScrollViewer>
+
+                </StackPanel>
+
+            </Border>
+
+        </Grid>
+
     </Grid>
 </Window>

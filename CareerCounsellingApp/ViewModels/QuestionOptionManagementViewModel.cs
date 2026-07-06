@@ -107,9 +107,9 @@ public class QuestionOptionManagementViewModel : INotifyPropertyChanged
         option.OptionText = OptionText;
         option.Score = Score;
         option.OptionTextMalayalam = OptionTextMalayalam;
-
         db.SaveChanges();
-
+        RecalculateMaximumScore(db);
+        db.SaveChanges();
         LoadOptions();
     }
     private void DeleteOption()
@@ -128,9 +128,11 @@ public class QuestionOptionManagementViewModel : INotifyPropertyChanged
         db.QuestionOptions.Remove(option);
 
         db.SaveChanges();
-
+        RecalculateMaximumScore(db);
+        db.SaveChanges();
         OptionText = "";
         Score = 0;
+        OptionTextMalayalam = "";
         SelectedOption = null;
 
         LoadOptions();
@@ -162,16 +164,18 @@ public class QuestionOptionManagementViewModel : INotifyPropertyChanged
             Score = Score,
             OptionTextMalayalam = OptionTextMalayalam
         });
-
+        UpdateQuestionMaximumScore(db, Score);
         db.SaveChanges();
 
         OptionText = "";
         Score = 0;
+        OptionTextMalayalam = "";
 
         LoadOptions();
 
         OnPropertyChanged(nameof(OptionText));
         OnPropertyChanged(nameof(Score));
+        OnPropertyChanged(nameof(OptionTextMalayalam));
     }
 
     public event PropertyChangedEventHandler? PropertyChanged;
@@ -181,5 +185,39 @@ public class QuestionOptionManagementViewModel : INotifyPropertyChanged
         PropertyChanged?.Invoke(
             this,
             new PropertyChangedEventArgs(propertyName));
+    }
+    private void UpdateQuestionMaximumScore(AppDbContext db,decimal newScore)
+    {
+        var question = db.Questions
+            .FirstOrDefault(q => q.Id == _question.Id);
+
+        if (question == null)
+            return;
+
+        decimal currentMaximumScore = db.QuestionOptions
+            .Where(o => o.QuestionId == _question.Id)
+            .AsEnumerable()
+            .Select(o => (decimal?)o.Score)
+            .DefaultIfEmpty(0)
+            .Max() ?? 0;
+        if(newScore > currentMaximumScore)
+        {
+            question.MaximumScore = newScore;
+        }
+    }
+    private void RecalculateMaximumScore(AppDbContext db)
+    {
+        var question = db.Questions
+            .FirstOrDefault(q => q.Id == _question.Id);
+
+        if (question == null)
+            return;
+
+        question.MaximumScore = db.QuestionOptions
+            .Where(o => o.QuestionId == _question.Id)
+            .AsEnumerable()
+            .Select(o => (decimal?)o.Score)
+            .DefaultIfEmpty(0)
+            .Max() ?? 0;
     }
 }
