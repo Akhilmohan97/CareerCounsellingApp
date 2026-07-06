@@ -5,10 +5,9 @@
     x:Class="CareerCounsellingApp.Views.MainWindow"
     x:DataType="vm:MainWindowViewModel"
     Width="950"
-    Height="700"
+    Height="1000"
     Title="Career Counselling System"
     Background="#F4F7FC"
-    WindowState="Maximized"
     WindowStartupLocation="CenterScreen">
 
     <Grid ColumnDefinitions="2*,2.5*">
@@ -65,7 +64,7 @@
 
                     <TextBlock
                         Margin="0,5"
-                        Text="Version 1.0.1"
+                        Text="Version 2.0.0"
                         FontSize="13"
                         Foreground="White"
                         Opacity="0.7"
