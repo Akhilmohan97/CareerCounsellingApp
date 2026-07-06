@@ -1,4 +1,4 @@
-<Window xmlns="https://github.com/avaloniaui"
+﻿<Window xmlns="https://github.com/avaloniaui"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
@@ -27,16 +27,6 @@
                                FontSize="14"
                                Foreground="#DBEAFE"/>
                 </StackPanel>
-
-                <Border Grid.Column="1"
-                        Background="#FFFFFF20"
-                        CornerRadius="999"
-                        Padding="14,8"
-                        VerticalAlignment="Center">
-                    <TextBlock Text="??  Admin Workspace"
-                               FontWeight="SemiBold"
-                               Foreground="White"/>
-                </Border>
             </Grid>
         </Border>
 
@@ -181,7 +171,7 @@
                                     Height="44"
                                     Background="#DBEAFE"
                                     CornerRadius="22">
-                                <TextBlock Text="???"
+                                <TextBlock Text="📋"
                                            FontSize="20"
                                            HorizontalAlignment="Center"
                                            VerticalAlignment="Center"/>
@@ -219,7 +209,7 @@
                                                     Background="#E0E7FF"
                                                     CornerRadius="20"
                                                     VerticalAlignment="Top">
-                                                <TextBlock Text="??"
+                                                <TextBlock Text="📂"
                                                            FontSize="18"
                                                            HorizontalAlignment="Center"
                                                            VerticalAlignment="Center"/>
