@@ -1,11 +1,12 @@
-﻿using CareerCounsellingApp.Services;
+﻿using Avalonia.Controls;
+using Avalonia.Controls.ApplicationLifetimes;
+using CareerCounsellingApp.PhotoCapture.Services;
+using CareerCounsellingApp.Services;
 using CareerCounsellingApp.Views;
 using CommunityToolkit.Mvvm.Input;
 using System;
 using System.ComponentModel;
 using System.Windows.Input;
-using Avalonia.Controls;
-using Avalonia.Controls.ApplicationLifetimes;
 
 namespace CareerCounsellingApp.ViewModels;
 
@@ -78,6 +79,11 @@ public class MainWindowViewModel : INotifyPropertyChanged
 
     private void Login()
     {
+        var network = new NetworkService();
+
+        var url = network.BuildCaptureUrl(Guid.NewGuid());
+
+        Console.WriteLine(url);
         if (string.IsNullOrWhiteSpace(Username))
         {
             Message = "❌ Please enter a username";

@@ -24,6 +24,8 @@ namespace CareerCounsellingApp
 
             db.Database.Migrate();
             DbInitializer.Seed(db);
+            base.OnFrameworkInitializationCompleted();
+            AppServices.Provider = DependencyInjection.DependencyInjection.Configure();
             if (ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
             {
                 desktop.MainWindow = new MainWindow
@@ -32,7 +34,7 @@ namespace CareerCounsellingApp
                 };
             }
 
-            base.OnFrameworkInitializationCompleted();
+            
         }
     }
 }
