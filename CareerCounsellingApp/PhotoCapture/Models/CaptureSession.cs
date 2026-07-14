@@ -10,14 +10,9 @@ namespace CareerCounsellingApp.PhotoCapture.Models
     {
         public Guid SessionId { get; init; } = Guid.NewGuid();
         public CaptureState State { get; set; } = CaptureState.Created;
-        public int StudentId { get; init; }
-
         public DateTime CreatedAt { get; init; } = DateTime.UtcNow;
-
         public DateTime ExpiresAt => CreatedAt.AddMinutes(5);
-
         public bool IsExpired => DateTime.UtcNow > ExpiresAt;
-
         public string? PhotoPath { get; set; }
     }
 }

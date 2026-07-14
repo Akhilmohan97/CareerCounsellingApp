@@ -1,5 +1,7 @@
 ﻿using CareerCounsellingApp.PhotoCapture.Interfaces;
+using CareerCounsellingApp.PhotoCapture.Interfaces.Server;
 using CareerCounsellingApp.PhotoCapture.Services;
+using CareerCounsellingApp.PhotoCapture.Services.Server;
 using CareerCounsellingApp.ViewModels;
 using Microsoft.Extensions.DependencyInjection;
 using System;
@@ -19,7 +21,9 @@ namespace CareerCounsellingApp.DependencyInjection
             service.AddSingleton<INetworkService, NetworkService>();
             service.AddSingleton<IQRCodeService,QRCodeService>();
             service.AddTransient<PhotoCaptureWindow>();
+            service.AddSingleton<IPhotoCaptureCoordinator, PhotoCaptureCoordinator>();
             service.AddTransient<PhotoCaptureViewModel>();
+            service.AddTransient<IUploadServer, UploadServer>();
             return service.BuildServiceProvider();
         }
     }

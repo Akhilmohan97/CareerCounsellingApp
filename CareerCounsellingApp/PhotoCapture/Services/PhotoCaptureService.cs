@@ -38,12 +38,9 @@ namespace CareerCounsellingApp.PhotoCapture.Services
             return session;
         }
 
-        public Task<CaptureSession> StartSessionAsync(int studentId)
+        public Task<CaptureSession> StartSessionAsync()
         {
-            var session = new CaptureSession
-            {
-                StudentId = studentId
-            };
+            var session = new CaptureSession();
             _sessions[session.SessionId] = session;
             return Task.FromResult(session);
         }

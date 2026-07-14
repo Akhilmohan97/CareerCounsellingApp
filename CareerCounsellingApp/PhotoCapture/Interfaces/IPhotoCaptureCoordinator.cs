@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Avalonia.Controls;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,10 +7,8 @@ using System.Threading.Tasks;
 
 namespace CareerCounsellingApp.PhotoCapture.Interfaces
 {
-    public interface INetworkService
+    public interface IPhotoCaptureCoordinator
     {
-        string GetLocalIPAddress();
-
-        string BuildCaptureUrl(int port, Guid sessionId);
+        Task ShowCaptureWindowAsync(Window owner);
     }
 }

@@ -42,4 +42,9 @@
 	<ItemGroup>
 	  <Folder Include="PhotoCapture\wwwroot\" />
 	</ItemGroup>
+	<ItemGroup>
+		<Content Include="PhotoCapture\Web\**">
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+	</ItemGroup>
 </Project>

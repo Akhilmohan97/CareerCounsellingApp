@@ -79,11 +79,6 @@ public class MainWindowViewModel : INotifyPropertyChanged
 
     private void Login()
     {
-        var network = new NetworkService();
-
-        var url = network.BuildCaptureUrl(Guid.NewGuid());
-
-        Console.WriteLine(url);
         if (string.IsNullOrWhiteSpace(Username))
         {
             Message = "❌ Please enter a username";

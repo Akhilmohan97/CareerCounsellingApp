@@ -2,6 +2,8 @@ using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Markup.Xaml;
 using CareerCounsellingApp.Models;
+using CareerCounsellingApp.PhotoCapture.Interfaces;
+using CareerCounsellingApp.PhotoCapture.Interfaces.Server;
 using CareerCounsellingApp.ViewModels;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -17,8 +19,9 @@ public partial class StudentManagementWindow : Window
         var btn = this.FindControl<Button>("BrowsePhotoButton");
         btn.Click += (_, _) =>
         {
-            var window=AppServices.Provider.GetRequiredService<PhotoCaptureWindow>();
-            window.ShowDialog(this);
+            var _cordinator = AppServices.Provider.GetRequiredService<IPhotoCaptureCoordinator>();
+            _cordinator.ShowCaptureWindowAsync(this);
+    
         };
     }
 }

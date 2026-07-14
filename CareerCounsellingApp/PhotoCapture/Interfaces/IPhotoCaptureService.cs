@@ -7,9 +7,9 @@ using System.Threading.Tasks;
 
 namespace CareerCounsellingApp.PhotoCapture.Interfaces
 {
-    internal interface IPhotoCaptureService
+    public interface IPhotoCaptureService
     {
-        Task<CaptureSession> StartSessionAsync(int studentId);
+        Task<CaptureSession> StartSessionAsync();
 
         Task CompleteSessionAsync(Guid sessionId, string imagePath);
 

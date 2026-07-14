@@ -12,23 +12,23 @@ namespace CareerCounsellingApp.PhotoCapture.Services
 {
     public class NetworkService : INetworkService
     {
-        public string BuildCaptureUrl(Guid sessionId)
+        public string BuildCaptureUrl( int port, Guid sessionId)
         {
-            return $"http://{GetLocalIPAddress()}:{GetAvailablePort()}/capture?session={sessionId}";
+            return $"http://{GetLocalIPAddress()}:{port}/capture?session={sessionId}";
         }
 
-        public int GetAvailablePort()
-        {
-            var listener = new TcpListener(IPAddress.Loopback, 0);
+        //public int GetAvailablePort()
+        //{
+        //    var listener = new TcpListener(IPAddress.Loopback, 0);
 
-            listener.Start();
+        //    listener.Start();
 
-            int port = ((IPEndPoint)listener.LocalEndpoint).Port;
+        //    int port = ((IPEndPoint)listener.LocalEndpoint).Port;
 
-            listener.Stop();
+        //    listener.Stop();
 
-            return port;
-        }
+        //    return port;
+        //}
 
         public string GetLocalIPAddress()
         {
