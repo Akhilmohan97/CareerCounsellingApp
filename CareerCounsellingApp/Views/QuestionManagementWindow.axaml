@@ -108,6 +108,16 @@
               <TextBlock Text="Manage Options"/>
             </Button>
 
+            <Button Command="{Binding DeleteQuestionCommand}"
+                    Height="40"
+                    Foreground="White"
+                    FontWeight="SemiBold"
+                    Cursor="Hand"
+                    Classes="danger"
+                    IsVisible="{Binding SelectedQuestion, Converter={x:Static ObjectConverters.IsNotNull}}">
+              <TextBlock Text="Delete Selected Question"/>
+            </Button>
+
           </StackPanel>
 
         </Border>

@@ -16,8 +16,19 @@ public class QuestionManagementViewModel : INotifyPropertyChanged
 {
     private string _questionText = "";
     private Category? _selectedCategory;
+    private string _deleteMessage = "";
 
     private Question? _selectedQuestion;
+
+    public string DeleteMessage
+    {
+        get => _deleteMessage;
+        set
+        {
+            _deleteMessage = value;
+            OnPropertyChanged(nameof(DeleteMessage));
+        }
+    }
 
     public Question? SelectedQuestion
     {
@@ -75,10 +86,12 @@ public class QuestionManagementViewModel : INotifyPropertyChanged
         = new();
 
     public ICommand AddQuestionCommand { get; }
+    public ICommand DeleteQuestionCommand { get; }
 
     public QuestionManagementViewModel()
     {
         AddQuestionCommand = new RelayCommand(AddQuestion);
+        DeleteQuestionCommand = new RelayCommand(DeleteQuestion);
 
         LoadCategories();
         LoadQuestions();
@@ -129,6 +142,44 @@ public class QuestionManagementViewModel : INotifyPropertyChanged
         db.SaveChanges();
 
         QuestionText = "";
+
+        LoadQuestions();
+
+        OnPropertyChanged(nameof(QuestionText));
+    }
+
+    private void DeleteQuestion()
+    {
+        if (SelectedQuestion == null)
+            return;
+
+        using var db = new AppDbContext();
+
+        // Check if question has been answered by any student
+        var hasAnswers = db.StudentAnswers
+            .Any(sa => sa.QuestionId == SelectedQuestion.Id);
+
+        if (hasAnswers)
+        {
+            // Show error message - question cannot be deleted
+            DeleteMessage = $"❌ Cannot delete this question because {db.StudentAnswers.Count(sa => sa.QuestionId == SelectedQuestion.Id)} student(s) have already answered it.";
+            return;
+        }
+
+        var questionToDelete = db.Questions
+            .FirstOrDefault(q => q.Id == SelectedQuestion.Id);
+
+        if (questionToDelete != null)
+        {
+            db.Questions.Remove(questionToDelete);
+            db.SaveChanges();
+            DeleteMessage = "✓ Question deleted successfully!";
+        }
+
+        QuestionText = String.Empty;
+        SelectedCategory = null;
+        SelectedQuestion = null;
+        QuestionTextMalayalam = String.Empty;
 
         LoadQuestions();
 

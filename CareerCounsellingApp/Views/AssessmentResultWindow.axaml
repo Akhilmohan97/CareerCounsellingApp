@@ -1,4 +1,4 @@
-﻿<Window xmlns="https://github.com/avaloniaui"
+<Window xmlns="https://github.com/avaloniaui"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
@@ -51,8 +51,7 @@
                                     HorizontalAlignment="Center"/>
 
                                 <TextBlock
-                                    Text="{Binding Report.OverallPercentage,
-                                    StringFormat='{}{0}%'}"
+                                    Text="{Binding Report.OverallPercentage, StringFormat='{}{0}%'}"
                                     FontSize="32"
                                     FontWeight="Bold"
                                     Foreground="White"
@@ -84,8 +83,6 @@
                             ColumnDefinitions="170,*"
                             ColumnSpacing="30">
 
-                            <!-- Photo -->
-
                             <Border
                                 Width="150"
                                 Height="150"
@@ -95,14 +92,12 @@
                                 VerticalAlignment="Top">
 
                                 <TextBlock
-                                    Text="👤"
+                                    Text="??"
                                     FontSize="60"
                                     HorizontalAlignment="Center"
                                     VerticalAlignment="Center"/>
 
                             </Border>
-
-                            <!-- Details -->
 
                             <Grid
                                 Grid.Column="1"
@@ -173,8 +168,7 @@
                                         Foreground="#64748B"/>
 
                                     <TextBlock
-                                        Text="{Binding Report.Student.AssessmentDate,
-                                        StringFormat='{}{0:dd-MMM-yyyy}'}"
+                                        Text="{Binding Report.Student.AssessmentDate, StringFormat='{}{0:dd-MMM-yyyy}'}"
                                         FontSize="18"
                                         FontWeight="SemiBold"/>
 
@@ -246,8 +240,7 @@
                             Spacing="10">
 
                             <TextBlock
-                                Text="{Binding Report.OverallPercentage,
-                                StringFormat='{}{0}%'}"
+                                Text="{Binding Report.OverallPercentage, StringFormat='{}{0}%'}"
                                 FontSize="56"
                                 FontWeight="Bold"
                                 Foreground="#2563EB"/>
@@ -346,8 +339,7 @@
 
                                                 <TextBlock
                                                     Grid.Column="1"
-                                                    Text="{Binding Percentage,
-                                                    StringFormat='{}{0}%'}"
+                                                    Text="{Binding Percentage, StringFormat='{}{0}%'}"
                                                     FontSize="18"
                                                     FontWeight="Bold"
                                                     Foreground="#2563EB"/>
@@ -424,14 +416,10 @@
                                                         ColumnDefinitions="3*,Auto,Auto"
                                                         ColumnSpacing="20">
 
-                                                        <!-- Category Name -->
-
                                                         <TextBlock
                                                             Text="{Binding CategoryName}"
                                                             VerticalAlignment="Center"
                                                             FontSize="15"/>
-
-                                                        <!-- Percentage -->
 
                                                         <TextBlock
                                                             Grid.Column="1"
@@ -439,8 +427,6 @@
                                                             FontWeight="Bold"
                                                             Foreground="#2563EB"
                                                             VerticalAlignment="Center"/>
-
-                                                        <!-- Band -->
 
                                                         <Border
                                                             Grid.Column="2"
@@ -476,27 +462,234 @@
 
                 </Border>
 
-                <!-- Remarks -->
-                <Button
+                <StackPanel
                     Margin="0,15,0,0"
-                    HorizontalAlignment="Center"
-                    Height="38"
-                    Command="{Binding TestGeminiCommand}" 
-                    CommandParameter="{Binding Report}">
+                    Spacing="10"
+                    HorizontalAlignment="Center">
 
-                    <StackPanel
-                        Orientation="Horizontal"
+                    <Button
+                        Height="38"
+                        Command="{Binding TestGeminiCommand}" 
+                        CommandParameter="{Binding Report}"
+                        IsEnabled="{Binding !IsGeneratingAI}">
+
+                        <StackPanel
+                            Orientation="Horizontal"
+                            HorizontalAlignment="Center"
+                            Spacing="6">
+
+                            <TextBlock Text="?" IsVisible="{Binding IsGeneratingAI}"/>
+                            <TextBlock Text="??" IsVisible="{Binding !IsGeneratingAI}"/>
+
+                            <TextBlock Text="{Binding IsGeneratingAI, StringFormat='Generating...', TargetNullValue='Generate AI Counsellor Notes'}"/>
+
+                        </StackPanel>
+
+                    </Button>
+
+                    <TextBlock
+                        Text="{Binding GenerationMessage}"
+                        Foreground="#2563EB"
+                        FontSize="12"
                         HorizontalAlignment="Center"
-                        Spacing="6">
+                        IsVisible="{Binding GenerationMessage, Converter={x:Static StringConverters.IsNotNullOrEmpty}}"/>
 
-                        <TextBlock Text="👁"/>
+                </StackPanel>
 
-                        <TextBlock Text="Generate AI Counsellor Notes"
-                                   />
+                <Border
+                    IsVisible="{Binding HasAIInterpretation}"
+                    Background="White"
+                    CornerRadius="16"
+                    Padding="25"
+                    BoxShadow="0 4 15 #12000000"
+                    Margin="0,20,0,0">
+
+                    <StackPanel Spacing="20">
+
+                        <StackPanel Spacing="5">
+
+                            <TextBlock
+                                Text="AI Counsellor Interpretation"
+                                FontSize="24"
+                                FontWeight="SemiBold"/>
+
+                            <TextBlock
+                                Text="Professional insights generated by AI based on assessment results"
+                                Foreground="#64748B"
+                                FontSize="12"/>
+
+                        </StackPanel>
+
+                        <Border
+                            Background="#EFF6FF"
+                            CornerRadius="12"
+                            Padding="20"
+                            BorderBrush="#BFDBFE"
+                            BorderThickness="1">
+
+                            <StackPanel Spacing="10">
+
+                                <TextBlock
+                                    Text="Executive Summary"
+                                    FontSize="16"
+                                    FontWeight="SemiBold"
+                                    Foreground="#2563EB"/>
+
+                                <TextBlock
+                                    Text="{Binding AIInterpretation.ExecutiveSummary}"
+                                    TextWrapping="Wrap"
+                                    FontSize="14"
+                                    Foreground="#1E293B"/>
+
+                            </StackPanel>
+
+                        </Border>
+
+                        <StackPanel Spacing="10">
+
+                            <TextBlock
+                                Text="?? Strengths"
+                                FontSize="16"
+                                FontWeight="SemiBold"/>
+
+                            <ItemsControl
+                                ItemsSource="{Binding AIInterpretation.Strengths}">
+
+                                <ItemsControl.ItemTemplate>
+
+                                    <DataTemplate>
+
+                                        <Border
+                                            Margin="0,0,0,8"
+                                            Padding="16"
+                                            Background="#F0FDF4"
+                                            BorderBrush="#BBEF63"
+                                            BorderThickness="1"
+                                            CornerRadius="8">
+
+                                            <StackPanel Orientation="Horizontal" Spacing="12">
+
+                                                <TextBlock
+                                                    Text="?"
+                                                    FontSize="16"
+                                                    Foreground="#22C55E"
+                                                    VerticalAlignment="Top"/>
+
+                                                <TextBlock
+                                                    Text="{Binding}"
+                                                    TextWrapping="Wrap"
+                                                    Foreground="#1E293B"/>
+
+                                            </StackPanel>
+
+                                        </Border>
+
+                                    </DataTemplate>
+
+                                </ItemsControl.ItemTemplate>
+
+                            </ItemsControl>
+
+                        </StackPanel>
+
+                        <StackPanel Spacing="10">
+
+                            <TextBlock
+                                Text="?? Development Areas"
+                                FontSize="16"
+                                FontWeight="SemiBold"/>
+
+                            <ItemsControl
+                                ItemsSource="{Binding AIInterpretation.DevelopmentAreas}">
+
+                                <ItemsControl.ItemTemplate>
+
+                                    <DataTemplate>
+
+                                        <Border
+                                            Margin="0,0,0,8"
+                                            Padding="16"
+                                            Background="#FFFBEB"
+                                            BorderBrush="#FCD34D"
+                                            BorderThickness="1"
+                                            CornerRadius="8">
+
+                                            <StackPanel Orientation="Horizontal" Spacing="12">
+
+                                                <TextBlock
+                                                    Text="?"
+                                                    FontSize="16"
+                                                    Foreground="#F59E0B"
+                                                    VerticalAlignment="Top"/>
+
+                                                <TextBlock
+                                                    Text="{Binding}"
+                                                    TextWrapping="Wrap"
+                                                    Foreground="#1E293B"/>
+
+                                            </StackPanel>
+
+                                        </Border>
+
+                                    </DataTemplate>
+
+                                </ItemsControl.ItemTemplate>
+
+                            </ItemsControl>
+
+                        </StackPanel>
+
+                        <StackPanel Spacing="10">
+
+                            <TextBlock
+                                Text="?? Discussion Points for Counsellor"
+                                FontSize="16"
+                                FontWeight="SemiBold"/>
+
+                            <ItemsControl
+                                ItemsSource="{Binding AIInterpretation.DiscussionPoints}">
+
+                                <ItemsControl.ItemTemplate>
+
+                                    <DataTemplate>
+
+                                        <Border
+                                            Margin="0,0,0,8"
+                                            Padding="16"
+                                            Background="#F5F3FF"
+                                            BorderBrush="#D8B4FE"
+                                            BorderThickness="1"
+                                            CornerRadius="8">
+
+                                            <StackPanel Orientation="Horizontal" Spacing="12">
+
+                                                <TextBlock
+                                                    Text="�"
+                                                    FontSize="16"
+                                                    Foreground="#8B5CF6"
+                                                    VerticalAlignment="Top"/>
+
+                                                <TextBlock
+                                                    Text="{Binding}"
+                                                    TextWrapping="Wrap"
+                                                    Foreground="#1E293B"/>
+
+                                            </StackPanel>
+
+                                        </Border>
+
+                                    </DataTemplate>
+
+                                </ItemsControl.ItemTemplate>
+
+                            </ItemsControl>
+
+                        </StackPanel>
 
                     </StackPanel>
 
-                </Button>
+                </Border>
+
             </StackPanel>
 
         </ScrollViewer>
