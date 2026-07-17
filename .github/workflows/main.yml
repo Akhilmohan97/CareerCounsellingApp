@@ -40,7 +40,7 @@ jobs:
         run: |
           vpk pack \
             --packId CareerCounsellingApp \
-            --packVersion 2.0.0 \
+            --packVersion 2.0.1 \
             --packAuthors "Akhil Mohan" \
             --packTitle "Career Counselling App" \
             --mainExe CareerCounsellingApp \
