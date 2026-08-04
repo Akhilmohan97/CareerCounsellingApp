@@ -22,7 +22,7 @@ namespace CareerCounsellingApp
         {
             using var db = new AppDbContext();
 
-            db.Database.Migrate();
+            db.Database.EnsureCreated();
             DbInitializer.Seed(db);
             base.OnFrameworkInitializationCompleted();
             AppServices.Provider = DependencyInjection.DependencyInjection.Configure();

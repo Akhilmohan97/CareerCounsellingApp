@@ -5,6 +5,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Avalonia.Media.Imaging;
 
 namespace CareerCounsellingApp.Models;
 
@@ -28,6 +29,10 @@ public class AssessmentQuestion : INotifyPropertyChanged
                 new PropertyChangedEventArgs(nameof(SelectedOption)));
         }
     }
+
+    public Bitmap? QuestionImage => Question.ImageBitmap;
+
+    public bool HasQuestionImage => Question.HasImage;
 
     public event PropertyChangedEventHandler? PropertyChanged;
 }

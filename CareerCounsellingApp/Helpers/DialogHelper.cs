@@ -12,8 +12,12 @@ public static class DialogHelper
     /// <summary>
     /// Shows a confirmation dialog
     /// </summary>
-    public static async Task<bool> ShowConfirmationAsync(Window owner, string title, string message)
+    public static async Task<bool> ShowConfirmationAsync(Window? owner, string title, string message)
     {
+        owner ??= GetMainWindow();
+        if (owner == null)
+            throw new InvalidOperationException("No owner window available to display the dialog.");
+
         var dialog = new Window
         {
             Title = title,
@@ -101,11 +105,30 @@ public static class DialogHelper
         return result;
     }
 
+    private static Window? GetMainWindow()
+    {
+        var lifetime = Application.Current?.ApplicationLifetime as IClassicDesktopStyleApplicationLifetime;
+        
+        // Try to get the focused/active window first
+        if (lifetime?.Windows.Count > 0)
+        {
+            // Return the last window in the collection (typically the most recently active one)
+            return lifetime.Windows[lifetime.Windows.Count - 1];
+        }
+
+        // Fallback to main window if no other windows are open
+        return lifetime?.MainWindow;
+    }
+
     /// <summary>
     /// Shows an information dialog
     /// </summary>
-    public static async Task ShowInfoAsync(Window owner, string title, string message)
+    public static async Task ShowInfoAsync(Window? owner, string title, string message)
     {
+        owner ??= GetMainWindow();
+        if (owner == null)
+            throw new InvalidOperationException("No owner window available to display the dialog.");
+
         var dialog = new Window
         {
             Title = title,
@@ -166,8 +189,12 @@ public static class DialogHelper
     /// <summary>
     /// Shows an error dialog
     /// </summary>
-    public static async Task ShowErrorAsync(Window owner, string title, string message)
+    public static async Task ShowErrorAsync(Window? owner, string title, string message)
     {
+        owner ??= GetMainWindow();
+        if (owner == null)
+            throw new InvalidOperationException("No owner window available to display the dialog.");
+
         var dialog = new Window
         {
             Title = title,

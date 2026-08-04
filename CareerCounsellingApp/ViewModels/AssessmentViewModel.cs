@@ -10,6 +10,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using Microsoft.EntityFrameworkCore;
 
 namespace CareerCounsellingApp.ViewModels;
 
@@ -50,7 +51,7 @@ public class AssessmentViewModel : INotifyPropertyChanged
 
         Questions.Clear();
 
-        foreach (var question in db.Questions)
+        foreach (var question in db.Questions.Include(q => q.Image))
         {
             var assessmentQuestion =
                 new AssessmentQuestion
