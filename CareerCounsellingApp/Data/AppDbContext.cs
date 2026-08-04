@@ -1,12 +1,12 @@
 ﻿using CareerCounsellingApp.Models;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using System;
 
 namespace CareerCounsellingApp.Data
 {
     public class AppDbContext: DbContext
     {
-        private const string NeonConnectionStringEnvironmentVariable = "NEON_CONNECTION_STRING";
 
         public DbSet<User> Users => Set<User>();
 
@@ -27,18 +27,20 @@ namespace CareerCounsellingApp.Data
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            if (optionsBuilder.IsConfigured)
-            {
-                return;
-            }
+           
 
-            var connectionString = "postgresql://neondb_owner:npg_3kiop2vtJxcA@ep-nameless-mud-azz2h6ja-pooler.c-3.ap-southeast-1.aws.neon.tech/neondb?sslmode=require&channel_binding=require";
+            // Priority: environment variable -> appsettings.json (ConnectionStrings:Default)
+           
 
-            if (string.IsNullOrWhiteSpace(connectionString))
-            {
-                throw new InvalidOperationException(
-                    $"Set the '{NeonConnectionStringEnvironmentVariable}' environment variable with the Neon PostgreSQL connection string.");
-            }
+            // Try to load from appsettings.json in the application base directory
+            var config = new ConfigurationBuilder()
+                .SetBasePath(AppContext.BaseDirectory)
+                .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true)
+                .AddEnvironmentVariables()
+                .Build();
+
+            var connectionString = config.GetConnectionString("Default");
+
 
             optionsBuilder.UseNpgsql(connectionString);
         }
