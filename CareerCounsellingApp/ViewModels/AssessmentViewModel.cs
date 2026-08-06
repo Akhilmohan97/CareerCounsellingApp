@@ -10,6 +10,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using Microsoft.EntityFrameworkCore;
 
 namespace CareerCounsellingApp.ViewModels;
 
@@ -50,7 +51,14 @@ public class AssessmentViewModel : INotifyPropertyChanged
 
         Questions.Clear();
 
-        foreach (var question in db.Questions)
+        // Buffer the outer query and eager-load the options to avoid nested commands
+        var questions = db.Questions
+            .Include(q => q.Image)
+            .Include(q => q.Options)
+            .AsNoTracking()
+            .ToList();
+
+        foreach (var question in questions)
         {
             var assessmentQuestion =
                 new AssessmentQuestion
@@ -68,8 +76,7 @@ public class AssessmentViewModel : INotifyPropertyChanged
                 }
             };
 
-            foreach (var option in db.QuestionOptions
-                         .Where(x => x.QuestionId == question.Id))
+            foreach (var option in question.Options)
             {
                 assessmentQuestion.Options.Add(option);
             }

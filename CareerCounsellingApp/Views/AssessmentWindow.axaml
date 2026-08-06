@@ -151,6 +151,17 @@
                                  Foreground="{StaticResource TextPrimaryBrush}"
                                  TextWrapping="Wrap"
                                  LineHeight="24"/>
+
+                      <Border Background="{StaticResource BackgroundBrush}"
+                              BorderBrush="{StaticResource BorderBrush}"
+                              BorderThickness="1"
+                              CornerRadius="4"
+                              Padding="8"
+                              IsVisible="{Binding HasQuestionImage}">
+                        <Image Source="{Binding QuestionImage}"
+                               MaxHeight="240"
+                               Stretch="Uniform"/>
+                      </Border>
                     </StackPanel>
 
                     <!-- Radio Button Options -->

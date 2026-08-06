@@ -2,31 +2,200 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        mc:Ignorable="d" d:DesignWidth="400" d:DesignHeight="400"
+        mc:Ignorable="d" d:DesignWidth="900" d:DesignHeight="600"
         xmlns:vm="clr-namespace:CareerCounsellingApp.ViewModels"
         x:DataType="vm:ParentCategoryManagementViewModel"
-        Height="400" Width="400"
+        Height="600" Width="900"
         x:Class="CareerCounsellingApp.ParentCategoryManagementWindow"
         Background="{StaticResource BackgroundBrush}"
         WindowStartupLocation="CenterScreen"
-        Title="ParentCategoryManagementWindow">
-    <StackPanel Margin="25"
-                Spacing="15">
+        Title="Parent Category Management">
+    <Grid RowDefinitions="Auto,*">
+        <!-- Header -->
+        <Border Grid.Row="0"
+                Background="{StaticResource PrimaryBrush}"
+                Padding="32,24">
+            <Grid ColumnDefinitions="*,Auto">
+                <StackPanel Spacing="6">
+                    <TextBlock Text="Parent Category Management"
+                               FontSize="28"
+                               FontWeight="Bold"
+                               Foreground="White"/>
+                    <TextBlock Text="Create, update and manage parent categories for organizing assessment categories"
+                               FontSize="14"
+                               Foreground="#DBEAFE"/>
+                </StackPanel>
+            </Grid>
+        </Border>
 
-        <TextBlock Text="Parent Category Name"
-                   FontWeight="Bold"/>
+        <!-- Content -->
+        <Border Grid.Row="1"
+                Padding="30"
+                Background="{StaticResource BackgroundBrush}">
+            <Grid ColumnDefinitions="380,*"
+                  ColumnSpacing="24">
 
-        <TextBox
-            PlaceholderText="Enter parent category"
-            Text="{Binding ParentCategory}"/>
+                <!-- Left Panel -->
+                <Border Grid.Column="0"
+                        Background="{StaticResource SurfaceBrush}"
+                        Padding="24"
+                        CornerRadius="20"
+                        BoxShadow="0 10 30 #18000000">
 
-        <Button
-            HorizontalAlignment="Right"
-            Command="{Binding AddParentCategoryCommand}"
-            Width="100"
-            Classes="accent">
-            <TextBlock Text="Add"/>
-            </Button>
+                    <StackPanel Spacing="18">
+                        <Border Background="#EFF6FF"
+                                Padding="14,12"
+                                CornerRadius="12"
+                                BorderBrush="#BFDBFE"
+                                BorderThickness="1">
+                            <StackPanel Spacing="4">
+                                <TextBlock Text="Category Details"
+                                           FontSize="16"
+                                           FontWeight="Bold"
+                                           Foreground="{StaticResource TextPrimaryBrush}"/>
+                                <TextBlock Text="Add a new parent category, or select an existing one to edit or delete."
+                                           FontSize="13"
+                                           Foreground="{StaticResource TextSecondaryBrush}"
+                                           TextWrapping="Wrap"/>
+                            </StackPanel>
+                        </Border>
 
-    </StackPanel>
+                        <Border Background="#F8FAFC"
+                                Padding="16"
+                                CornerRadius="14"
+                                BorderBrush="{StaticResource BorderBrush}"
+                                BorderThickness="1">
+                            <StackPanel Spacing="12">
+                                <StackPanel Spacing="4">
+                                    <TextBlock Text="Parent Category Name"
+                                               FontSize="12"
+                                               FontWeight="SemiBold"
+                                               Foreground="{StaticResource TextPrimaryBrush}"/>
+                                    <TextBox PlaceholderText="Enter parent category name"
+                                             Text="{Binding ParentCategory}"
+                                             Height="44"
+                                             Padding="12" />
+                                </StackPanel>
+
+                                <StackPanel Orientation="Horizontal"
+                                            Spacing="10">
+                                    <Button Command="{Binding AddParentCategoryCommand}"
+                                            Height="44"
+                                            Foreground="White"
+                                            FontWeight="SemiBold"
+                                            Cursor="Hand"
+                                            Classes="accent"
+                                            MinWidth="140">
+                                        <TextBlock Text="Add"/>
+                                    </Button>
+                                    <Button Command="{Binding UpdateParentCategoryCommand}"
+                                            Height="44"
+                                            Foreground="White"
+                                            FontWeight="SemiBold"
+                                            Cursor="Hand"
+                                            Classes="primary"
+                                            MinWidth="120">
+                                        <TextBlock Text="Update"/>
+                                    </Button>
+                                </StackPanel>
+
+                                <Button Command="{Binding DeleteParentCategoryCommand}"
+                                        Height="44"
+                                        Foreground="White"
+                                        FontWeight="SemiBold"
+                                        Cursor="Hand"
+                                        Classes="error"
+                                        HorizontalAlignment="Stretch">
+                                    <TextBlock Text="Delete Selected"/>
+                                </Button>
+                            </StackPanel>
+                        </Border>
+
+                    </StackPanel>
+
+                </Border>
+
+                <!-- Right Panel -->
+                <Border Grid.Column="1"
+                        Background="{StaticResource SurfaceBrush}"
+                        Padding="24"
+                        CornerRadius="20"
+                        BoxShadow="0 10 30 #18000000">
+
+                    <Grid RowDefinitions="Auto,*">
+                        <StackPanel Grid.Row="0"
+                                    Orientation="Horizontal"
+                                    Spacing="12"
+                                    Margin="0,0,0,16">
+                            <Border Width="44"
+                                    Height="44"
+                                    Background="#DBEAFE"
+                                    CornerRadius="22">
+                                <TextBlock Text="??"
+                                           FontSize="20"
+                                           HorizontalAlignment="Center"
+                                           VerticalAlignment="Center"/>
+                            </Border>
+                            <StackPanel>
+                                <TextBlock Text="Parent Categories"
+                                           FontSize="18"
+                                           FontWeight="Bold"
+                                           Foreground="{StaticResource TextPrimaryBrush}"/>
+                                <TextBlock Text="Select a parent category to edit or delete"
+                                           FontSize="13"
+                                           Foreground="{StaticResource TextSecondaryBrush}"/>
+                            </StackPanel>
+                        </StackPanel>
+
+                        <ListBox Grid.Row="1"
+                                 Margin="0,4,0,0"
+                                 ItemsSource="{Binding ParentCategories}"
+                                 SelectedItem="{Binding SelectedParentCategory}"
+                                 Background="Transparent"
+                                 BorderThickness="0"
+                                 Padding="0">
+                            <ListBox.ItemTemplate>
+                                <DataTemplate>
+                                    <Border Margin="0,6"
+                                            Padding="16"
+                                            Background="#F8FAFC"
+                                            BorderBrush="{StaticResource BorderBrush}"
+                                            BorderThickness="1"
+                                            CornerRadius="14">
+                                        <Grid ColumnDefinitions="Auto,*"
+                                              ColumnSpacing="12">
+                                            <Border Width="40"
+                                                    Height="40"
+                                                    Background="#E0E7FF"
+                                                    CornerRadius="20"
+                                                    VerticalAlignment="Top">
+                                                <TextBlock Text="??"
+                                                           FontSize="18"
+                                                           HorizontalAlignment="Center"
+                                                           VerticalAlignment="Center"/>
+                                            </Border>
+
+                                            <StackPanel Grid.Column="1"
+                                                        Spacing="4">
+                                                <TextBlock Text="{Binding Name}"
+                                                           FontWeight="Bold"
+                                                           FontSize="14"
+                                                           Foreground="{StaticResource TextPrimaryBrush}"/>
+                                                <TextBlock Text="{Binding Categories.Count, StringFormat='Contains {0} categories'}"
+                                                           FontSize="12"
+                                                           Foreground="{StaticResource TextSecondaryBrush}"/>
+                                            </StackPanel>
+                                        </Grid>
+                                    </Border>
+                                </DataTemplate>
+                            </ListBox.ItemTemplate>
+                        </ListBox>
+
+                    </Grid>
+
+                </Border>
+
+            </Grid>
+        </Border>
+    </Grid>
 </Window>

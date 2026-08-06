@@ -88,6 +88,45 @@
               </ComboBox>
             </StackPanel>
 
+            <StackPanel Spacing="8">
+              <TextBlock Text="Question Image"
+                         FontSize="12"
+                         FontWeight="SemiBold"
+                         Foreground="{StaticResource TextPrimaryBrush}"/>
+
+              <StackPanel Orientation="Horizontal" Spacing="10">
+                <Button Command="{Binding SelectImageCommand}"
+                        Height="40"
+                        Foreground="White"
+                        FontWeight="SemiBold"
+                        Cursor="Hand"
+                        Classes="primary">
+                  <TextBlock Text="Choose Image"/>
+                </Button>
+
+                <Button Command="{Binding RemoveImageCommand}"
+                        Height="40"
+                        Foreground="White"
+                        FontWeight="SemiBold"
+                        Cursor="Hand"
+                        Classes="danger"
+                        IsVisible="{Binding HasQuestionImage}">
+                  <TextBlock Text="Remove Image"/>
+                </Button>
+              </StackPanel>
+
+              <Border Background="{StaticResource BackgroundBrush}"
+                      BorderBrush="{StaticResource BorderBrush}"
+                      BorderThickness="1"
+                      CornerRadius="4"
+                      Padding="8"
+                      IsVisible="{Binding HasQuestionImage}">
+                <Image Source="{Binding QuestionImagePreview}"
+                       Height="140"
+                       Stretch="Uniform"/>
+              </Border>
+            </StackPanel>
+
             <StackPanel Orientation="Horizontal" Spacing="10">
               <Button Command="{Binding AddQuestionCommand}"
                       Height="40"
@@ -154,10 +193,16 @@
                           BorderThickness="1"
                           CornerRadius="4">
 
-                    <TextBlock Text="{Binding QuestionText}"
-                               FontSize="13"
-                               Foreground="{StaticResource TextPrimaryBrush}"
-                               TextWrapping="Wrap"/>
+                    <StackPanel Spacing="10">
+                      <TextBlock Text="{Binding QuestionText}"
+                                 FontSize="13"
+                                 Foreground="{StaticResource TextPrimaryBrush}"
+                                 TextWrapping="Wrap"/>
+                      <Image Source="{Binding ImageBitmap}"
+                             Height="100"
+                             Stretch="Uniform"
+                             IsVisible="{Binding HasImage}"/>
+                    </StackPanel>
 
                   </Border>
 
