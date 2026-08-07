@@ -12,9 +12,9 @@ public class Assessment
 
         public int StudentId { get; set; }
 
-        public DateTime AssessmentDate { get; set; }
+        public DateTime AssessmentDate { get; set; }=DateTime.SpecifyKind(DateTime.UtcNow, DateTimeKind.Utc);
 
-        public Student? Student { get; set; }
+    public Student? Student { get; set; }
         public AssessmentResult? AssessmentResult { get; set; }
 
     public ICollection<StudentAnswer> Answers { get; set; }

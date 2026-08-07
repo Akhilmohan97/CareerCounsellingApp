@@ -20,7 +20,7 @@ namespace CareerCounsellingApp.Models
 
         public string Band { get; set; } = "";
 
-        public DateTime GeneratedOn { get; set; }
+        public DateTime GeneratedOn { get; set; } = DateTime.SpecifyKind(DateTime.UtcNow, DateTimeKind.Utc);
 
         public Assessment Assessment { get; set; } = null!;
 

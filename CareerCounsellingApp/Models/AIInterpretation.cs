@@ -22,7 +22,7 @@ namespace CareerCounsellingApp.Models
 
         public string ModelName { get; set; } = "";
 
-        public DateTime GeneratedOn { get; set; }
+        public DateTime GeneratedOn { get; set; }=DateTime.SpecifyKind(DateTime.UtcNow, DateTimeKind.Utc);
 
         public AssessmentResult AssessmentResult { get; set; } = null!;
     }

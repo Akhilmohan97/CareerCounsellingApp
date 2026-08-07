@@ -28,7 +28,7 @@ public class AIInterpretationMapper
 
             DiscussionPointsJson = JsonSerializer.Serialize(dto.DiscussionPoints),
 
-            GeneratedOn = DateTime.Now,
+            GeneratedOn = DateTime.UtcNow,
 
             ModelName = modelName
         };

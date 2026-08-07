@@ -92,7 +92,7 @@ public class AssessmentViewModel : INotifyPropertyChanged
         var assessment = new Assessment
         {
             StudentId = _student.Id,
-            AssessmentDate = DateTime.Now
+            AssessmentDate = DateTime.UtcNow
         };
 
         db.Assessments.Add(assessment);

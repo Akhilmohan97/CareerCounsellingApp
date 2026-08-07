@@ -1,13 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Text.Json.Serialization;
 
 namespace CareerCounsellingApp.Services.AI.Models
 {
     public class Part
     {
-        public string Text { get; set; } = "";
+        [JsonPropertyName("text")]
+        public string Text { get; set; } = string.Empty;
     }
 }
