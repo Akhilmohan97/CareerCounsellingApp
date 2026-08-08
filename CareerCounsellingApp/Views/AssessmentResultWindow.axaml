@@ -462,39 +462,41 @@
 
                 </Border>
 
-                <StackPanel
-                    Margin="0,15,0,0"
-                    Spacing="10"
-                    HorizontalAlignment="Center">
+                    <StackPanel
+                        Margin="0,15,0,0"
+                        Spacing="10"
+                        HorizontalAlignment="Center">
 
-                    <Button
-                        Height="38"
-                        Command="{Binding TestGeminiCommand}" 
-                        CommandParameter="{Binding Report}"
-                        IsEnabled="{Binding !IsGeneratingAI}">
+                        <Button
+                            Height="38"
+                            Width="260"
+                            Command="{Binding TestGeminiCommand}"
+                            CommandParameter="{Binding Report}"
+                            IsEnabled="{Binding CanGenerate}">
 
-                        <StackPanel
-                            Orientation="Horizontal"
+                            <StackPanel
+                                Orientation="Horizontal"
+                                HorizontalAlignment="Center"
+                                Spacing="8">
+
+                                <TextBlock Text="??"
+                                           FontFamily="Segoe UI Emoji, Noto Color Emoji, Apple Color Emoji"
+                                           FontSize="16"/>
+
+                                <TextBlock Text="{Binding GenerateButtonText}"/>
+
+                            </StackPanel>
+
+                        </Button>
+
+                        <TextBlock
+                            Text="{Binding GenerationMessage}"
+                            Foreground="#2563EB"
+                            FontSize="12"
                             HorizontalAlignment="Center"
-                            Spacing="6">
+                            IsVisible="{Binding GenerationMessage, Converter={x:Static StringConverters.IsNotNullOrEmpty}}"/>
 
-                            <TextBlock Text="?" IsVisible="{Binding IsGeneratingAI}"/>
-                            <TextBlock Text="??" IsVisible="{Binding !IsGeneratingAI}"/>
-
-                            <TextBlock Text="{Binding IsGeneratingAI, StringFormat='Generating...', TargetNullValue='Generate AI Counsellor Notes'}"/>
-
-                        </StackPanel>
-
-                    </Button>
-
-                    <TextBlock
-                        Text="{Binding GenerationMessage}"
-                        Foreground="#2563EB"
-                        FontSize="12"
-                        HorizontalAlignment="Center"
-                        IsVisible="{Binding GenerationMessage, Converter={x:Static StringConverters.IsNotNullOrEmpty}}"/>
-
-                </StackPanel>
+                    </StackPanel>
 
                 <Border
                     IsVisible="{Binding HasAIInterpretation}"

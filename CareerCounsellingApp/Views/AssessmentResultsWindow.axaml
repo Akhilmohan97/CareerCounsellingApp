@@ -233,15 +233,16 @@
                 Padding="20"
                 BoxShadow="0 6 20 #14000000">
 
-                <StackPanel Spacing="15">
+                <Grid RowDefinitions="Auto,*" RowSpacing="15">
 
                     <TextBox
+                        Grid.Row="0"
                         Height="42"
                         PlaceholderText="🔍 Search by student name, admission number or course..."
                         VerticalContentAlignment="Center"
                         Text="" />
 
-                    <ScrollViewer VerticalScrollBarVisibility="Auto">
+                    <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto">
 
                         <ItemsControl ItemsSource="{Binding Results}">
 
@@ -407,7 +408,7 @@
 
                     </ScrollViewer>
 
-                </StackPanel>
+                </Grid>
 
             </Border>
 

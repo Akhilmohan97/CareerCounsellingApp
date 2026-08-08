@@ -18,10 +18,23 @@ public class AssessmentViewModel : INotifyPropertyChanged
 {
     private readonly Student _student;
     private readonly Action? _onAssessmentSubmitted;
+    private bool _useMalayalam;
 
     public ObservableCollection<AssessmentQuestion>
         Questions
     { get; } = new();
+
+    public bool UseMalayalam
+    {
+        get => _useMalayalam;
+        set
+        {
+            if (_useMalayalam == value) return;
+            _useMalayalam = value;
+            OnPropertyChanged(nameof(UseMalayalam));
+            UpdateAllQuestionsLanguage();
+        }
+    }
 
     public int AnsweredCount => Questions.Count(q => q.SelectedOption != null);
     
@@ -66,6 +79,9 @@ public class AssessmentViewModel : INotifyPropertyChanged
                     Question = question
                 };
 
+            // assign sequential number starting from 1
+            assessmentQuestion.Number = Questions.Count + 1;
+
             assessmentQuestion.PropertyChanged += (s, e) =>
             {
                 if (e.PropertyName == nameof(AssessmentQuestion.SelectedOption))
@@ -78,10 +94,22 @@ public class AssessmentViewModel : INotifyPropertyChanged
 
             foreach (var option in question.Options)
             {
-                assessmentQuestion.Options.Add(option);
+                var assessmentOption = new AssessmentOption(option)
+                {
+                    UseMalayalam = _useMalayalam
+                };
+                assessmentQuestion.Options.Add(assessmentOption);
             }
 
             Questions.Add(assessmentQuestion);
+        }
+    }
+
+    private void UpdateAllQuestionsLanguage()
+    {
+        foreach (var question in Questions)
+        {
+            question.UseMalayalam = _useMalayalam;
         }
     }
 

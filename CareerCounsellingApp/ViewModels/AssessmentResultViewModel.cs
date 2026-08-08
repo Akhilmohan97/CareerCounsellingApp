@@ -41,6 +41,8 @@ namespace CareerCounsellingApp.ViewModels
             {
                 _isGeneratingAI = value;
                 OnPropertyChanged(nameof(IsGeneratingAI));
+                OnPropertyChanged(nameof(CanGenerate));
+                OnPropertyChanged(nameof(GenerateButtonText));
             }
         }
         private AIInterpretationDto? _aiInterpretation;
@@ -73,6 +75,9 @@ namespace CareerCounsellingApp.ViewModels
         }
 
         public bool ShowGenerateButton => !HasAIInterpretation;
+        public bool CanGenerate => !IsGeneratingAI && !HasAIInterpretation;
+
+        public string GenerateButtonText => IsGeneratingAI ? "Generating..." : "Generate AI Counsellor Notes";
         private readonly AssessmentReportService _reportService;
         public ICommand TestGeminiCommand { get; }
         public AssessmentReportDto Report { get; }

@@ -49,9 +49,9 @@ public class MessageNotifier : IMessageNotifier
         {
             MessageType.Success => "?",
             MessageType.Error => "?",
-            MessageType.Warning => "?",
-            MessageType.Info => "?",
-            _ => ""
+            MessageType.Warning => "??",
+            MessageType.Info => "??",
+            _ => string.Empty
         };
     }
 
