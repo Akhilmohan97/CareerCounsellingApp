@@ -18,7 +18,7 @@
                         MaxWidth="500">
 
                 <StackPanel HorizontalAlignment="Center" Spacing="10">
-                    <TextBlock Text="?"
+                    <TextBlock Text="🔒"
                                FontSize="80"
                                Foreground="{StaticResource WarningColor}"
                                HorizontalAlignment="Center"/>

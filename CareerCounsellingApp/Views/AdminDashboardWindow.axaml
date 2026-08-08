@@ -634,7 +634,7 @@
                                        Foreground="{StaticResource TextSecondaryBrush}"
                                        TextWrapping="Wrap"/>
                             <Separator Height="1" Background="{StaticResource BorderBrush}" Margin="0,10,0,0"/>
-                            <TextBlock Text="?? Tip: Ensure all required data is properly configured before students begin their assessments."
+                            <TextBlock Text="💡 Tip: Ensure all required data is properly configured before students begin their assessments."
                                        FontSize="13"
                                        Foreground="{StaticResource PrimaryColor}"
                                        TextWrapping="Wrap"

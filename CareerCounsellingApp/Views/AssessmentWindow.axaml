@@ -44,27 +44,60 @@
           </StackPanel>
 
           <!-- Language Toggle -->
-          <StackPanel Grid.Column="1"
-                      Orientation="Horizontal"
-                      Spacing="10"
-                      VerticalAlignment="Center"
-                      Margin="20,0">
-            <TextBlock Text="Language:"
-                       FontSize="12"
-                       Foreground="White"
+         <Border Grid.Column="1"
+        Width="150"
+        Height="36"
+        CornerRadius="18"
+        Background="#202938"
+        BorderBrush="#3A4659"
+        BorderThickness="1"
+        Padding="3">
+
+    <Grid ColumnDefinitions="*,*">
+
+        <!-- Selected background -->
+        <Border Grid.Column="0"
+                CornerRadius="15"
+                Background="#2563EB">
+            <Border.IsVisible>
+                <Binding Path="UseMalayalam"/>
+            </Border.IsVisible>
+        </Border>
+
+        <Border Grid.Column="1"
+                CornerRadius="15"
+                Background="#2563EB">
+            <Border.IsVisible>
+                <Binding Path="UseMalayalam"/>
+            </Border.IsVisible>
+        </Border>
+
+        <ToggleButton Grid.Column="0"
+                      IsChecked="{Binding !UseMalayalam}"
+                      Background="Transparent"
+                      BorderThickness="0"
+                      Foreground="White"
+                      FontSize="11"
+                      FontWeight="SemiBold">
+            <TextBlock Text="English"
+                       HorizontalAlignment="Center"
                        VerticalAlignment="Center"/>
-            <ToggleButton IsChecked="{Binding UseMalayalam}"
-                          Width="100"
-                          Height="32"
-                          Foreground="White"
-                          FontSize="11"
-                          FontWeight="SemiBold">
-              <TextBlock Text="{Binding UseMalayalam,Converter={StaticResource LanguageConverter}}"
-                         Foreground="White"
-                         FontSize="11"
-                         FontWeight="SemiBold"/>
-            </ToggleButton>
-          </StackPanel>
+        </ToggleButton>
+
+        <ToggleButton Grid.Column="1"
+                      IsChecked="{Binding UseMalayalam}"
+                      Background="Transparent"
+                      BorderThickness="0"
+                      Foreground="White"
+                      FontSize="11"
+                      FontWeight="SemiBold">
+            <TextBlock Text="മലയാളം"
+                       HorizontalAlignment="Center"
+                       VerticalAlignment="Center"/>
+        </ToggleButton>
+
+    </Grid>
+</Border>
           
           <Border Grid.Column="2"
                   Background="#2C3E50"
@@ -158,7 +191,7 @@
                                 Padding="8,6"
                                 IsVisible="{Binding SelectedOption, Converter={x:Static ObjectConverters.IsNotNull}}">
                           <StackPanel Orientation="Horizontal" Spacing="5">
-                            <TextBlock Text="?"
+                            <TextBlock Text="✓"
                                        FontSize="14"
                                        FontWeight="Bold"
                                        Foreground="White"/>

@@ -131,7 +131,7 @@
                                     Height="44"
                                     Background="#DBEAFE"
                                     CornerRadius="22">
-                                <TextBlock Text="??"
+                                <TextBlock Text="🗂️"
                                            FontSize="20"
                                            HorizontalAlignment="Center"
                                            VerticalAlignment="Center"/>
@@ -169,7 +169,7 @@
                                                     Background="#E0E7FF"
                                                     CornerRadius="20"
                                                     VerticalAlignment="Top">
-                                                <TextBlock Text="??"
+                                                <TextBlock Text="🧩"
                                                            FontSize="18"
                                                            HorizontalAlignment="Center"
                                                            VerticalAlignment="Center"/>

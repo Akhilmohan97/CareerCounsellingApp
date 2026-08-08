@@ -92,7 +92,7 @@
                                 VerticalAlignment="Top">
 
                                 <TextBlock
-                                    Text="??"
+                                    Text=""
                                     FontSize="60"
                                     HorizontalAlignment="Center"
                                     VerticalAlignment="Center"/>
@@ -479,7 +479,7 @@
                                 HorizontalAlignment="Center"
                                 Spacing="8">
 
-                                <TextBlock Text="??"
+                                <TextBlock Text="🧠"
                                            FontFamily="Segoe UI Emoji, Noto Color Emoji, Apple Color Emoji"
                                            FontSize="16"/>
 
@@ -550,7 +550,7 @@
                         <StackPanel Spacing="10">
 
                             <TextBlock
-                                Text="?? Strengths"
+                                Text="⭐ Strengths"
                                 FontSize="16"
                                 FontWeight="SemiBold"/>
 
@@ -597,7 +597,7 @@
                         <StackPanel Spacing="10">
 
                             <TextBlock
-                                Text="?? Development Areas"
+                                Text="🌱 Development Areas"
                                 FontSize="16"
                                 FontWeight="SemiBold"/>
 
@@ -644,7 +644,7 @@
                         <StackPanel Spacing="10">
 
                             <TextBlock
-                                Text="?? Discussion Points for Counsellor"
+                                Text="💬 Discussion Points for Counsellor"
                                 FontSize="16"
                                 FontWeight="SemiBold"/>
 
@@ -666,7 +666,7 @@
                                             <StackPanel Orientation="Horizontal" Spacing="12">
 
                                                 <TextBlock
-                                                    Text="�"
+                                                    Text="•"
                                                     FontSize="16"
                                                     Foreground="#8B5CF6"
                                                     VerticalAlignment="Top"/>

@@ -56,7 +56,7 @@
                       CornerRadius="4">
                 <TextBlock HorizontalAlignment="Center"
                            VerticalAlignment="Center"
-                           Text="?? Photo"
+                           Text="📷 Photo"
                            FontSize="14"
                            Foreground="{StaticResource TextSecondaryBrush}"/>
               </Border>
@@ -245,7 +245,7 @@
                               CornerRadius="4">
                         <TextBlock HorizontalAlignment="Center"
                                    VerticalAlignment="Center"
-                                   Text="??"
+                                   Text="--"
                                    FontSize="24"/>
                       </Border>
 
