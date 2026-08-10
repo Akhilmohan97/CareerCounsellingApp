@@ -51,6 +51,15 @@ public partial class AdminDashboardWindow : Window
             new AssessmentResultsWindow().Show();
         };
 
+        var reportsButton = this.FindControl<Button>("ReportsButton");
+        if (reportsButton != null)
+        {
+            reportsButton.Click += (_, _) =>
+            {
+                new ReportsWindow().Show();
+            };
+        }
+
         // Add logout button handler
         var logoutButton = this.FindControl<Button>("LogoutButton");
         if (logoutButton != null)

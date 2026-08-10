@@ -19,10 +19,23 @@ public class AssessmentViewModel : INotifyPropertyChanged
     private readonly Student _student;
     private readonly Action? _onAssessmentSubmitted;
     private bool _useMalayalam;
+    private int _currentQuestionIndex = 0;
 
     public ObservableCollection<AssessmentQuestion>
         Questions
     { get; } = new();
+
+    private AssessmentQuestion? _currentQuestion;
+    public AssessmentQuestion? CurrentQuestion
+    {
+        get => _currentQuestion;
+        set
+        {
+            if (_currentQuestion == value) return;
+            _currentQuestion = value;
+            OnPropertyChanged(nameof(CurrentQuestion));
+        }
+    }
 
     public bool UseMalayalam
     {
@@ -42,7 +55,15 @@ public class AssessmentViewModel : INotifyPropertyChanged
     
     public string ProgressText => $"{AnsweredCount} of {TotalQuestions} answered";
 
+    public int CurrentQuestionNumber => _currentQuestionIndex + 1;
+
+    public bool CanGoNext => _currentQuestionIndex < TotalQuestions - 1;
+    public bool CanGoPrevious => _currentQuestionIndex > 0;
+    public bool CanSubmit => AnsweredCount == TotalQuestions && _currentQuestionIndex == TotalQuestions - 1;
+
     public ICommand SubmitAssessmentCommand { get; }
+    public ICommand NextQuestionCommand { get; }
+    public ICommand PreviousQuestionCommand { get; }
 
     public AssessmentViewModel(Student student, Action? onAssessmentSubmitted = null)
     {
@@ -50,13 +71,43 @@ public class AssessmentViewModel : INotifyPropertyChanged
         _onAssessmentSubmitted = onAssessmentSubmitted;
 
         SubmitAssessmentCommand =
-            new RelayCommand(SubmitAssessment, CanSubmitAssessment);
+            new RelayCommand(SubmitAssessment, () => CanSubmit);
+        NextQuestionCommand =
+            new RelayCommand(GoToNextQuestion, () => CanGoNext);
+        PreviousQuestionCommand =
+            new RelayCommand(GoToPreviousQuestion, () => CanGoPrevious);
 
         LoadQuestions();
     }
-    private bool CanSubmitAssessment()
+    private void GoToNextQuestion()
     {
-        return AnsweredCount == TotalQuestions;
+        if (CanGoNext)
+        {
+            _currentQuestionIndex++;
+            CurrentQuestion = Questions[_currentQuestionIndex];
+            UpdateNavigationCommands();
+        }
+    }
+
+    private void GoToPreviousQuestion()
+    {
+        if (CanGoPrevious)
+        {
+            _currentQuestionIndex--;
+            CurrentQuestion = Questions[_currentQuestionIndex];
+            UpdateNavigationCommands();
+        }
+    }
+
+    private void UpdateNavigationCommands()
+    {
+        OnPropertyChanged(nameof(CanGoNext));
+        OnPropertyChanged(nameof(CanGoPrevious));
+        OnPropertyChanged(nameof(CanSubmit));
+        OnPropertyChanged(nameof(CurrentQuestionNumber));
+        ((RelayCommand)NextQuestionCommand).RaiseCanExecuteChanged();
+        ((RelayCommand)PreviousQuestionCommand).RaiseCanExecuteChanged();
+        ((RelayCommand)SubmitAssessmentCommand).RaiseCanExecuteChanged();
     }
     private void LoadQuestions()
     {
@@ -88,7 +139,7 @@ public class AssessmentViewModel : INotifyPropertyChanged
                 {
                     OnPropertyChanged(nameof(AnsweredCount));
                     OnPropertyChanged(nameof(ProgressText));
-                    ((RelayCommand)SubmitAssessmentCommand).RaiseCanExecuteChanged();
+                    UpdateNavigationCommands();
                 }
             };
 
@@ -102,6 +153,14 @@ public class AssessmentViewModel : INotifyPropertyChanged
             }
 
             Questions.Add(assessmentQuestion);
+        }
+
+        // Set the first question as current
+        if (Questions.Count > 0)
+        {
+            _currentQuestionIndex = 0;
+            CurrentQuestion = Questions[0];
+            UpdateNavigationCommands();
         }
     }
 

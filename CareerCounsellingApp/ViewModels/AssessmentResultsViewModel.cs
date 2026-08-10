@@ -40,7 +40,7 @@ public class AssessmentResultsViewModel : INotifyPropertyChanged
 
     public AssessmentResultsViewModel()
     {
-        OpenReportCommand = new RelayCommand<StudentAssessmentSummary?>(OpenReport);
+        OpenReportCommand = new Helpers.RelayCommand<StudentAssessmentSummary?>(OpenReport);
         LoadResults();
     }
     private void OpenReport(StudentAssessmentSummary? summary)

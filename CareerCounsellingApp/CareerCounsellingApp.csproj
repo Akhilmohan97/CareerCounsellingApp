@@ -35,12 +35,14 @@
     <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="8.0.11" />
     <PackageReference Include="QRCoder" Version="1.8.0" />
     <PackageReference Include="Velopack" Version="1.2.0" />
+    <PackageReference Include="itext7" Version="8.1.0" />
   </ItemGroup>
 	<ItemGroup>
 		<FrameworkReference Include="Microsoft.AspNetCore.App" />
 	</ItemGroup>
 	<ItemGroup>
 	  <Folder Include="PhotoCapture\wwwroot\" />
+	  <Folder Include="Services\Reports\" />
 	</ItemGroup>
 	<ItemGroup>
     <Content Include="PhotoCapture\Web\**">
