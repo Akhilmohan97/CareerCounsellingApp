@@ -109,7 +109,7 @@ public class AssessmentViewModel : INotifyPropertyChanged
         ((RelayCommand)PreviousQuestionCommand).RaiseCanExecuteChanged();
         ((RelayCommand)SubmitAssessmentCommand).RaiseCanExecuteChanged();
     }
-    private void LoadQuestions()
+    private async Task LoadQuestions()
     {
         using var db = new AppDbContext();
 
@@ -133,13 +133,21 @@ public class AssessmentViewModel : INotifyPropertyChanged
             // assign sequential number starting from 1
             assessmentQuestion.Number = Questions.Count + 1;
 
-            assessmentQuestion.PropertyChanged += (s, e) =>
+            assessmentQuestion.PropertyChanged += async (s, e) =>
             {
                 if (e.PropertyName == nameof(AssessmentQuestion.SelectedOption))
                 {
                     OnPropertyChanged(nameof(AnsweredCount));
                     OnPropertyChanged(nameof(ProgressText));
+
                     UpdateNavigationCommands();
+
+                    if (assessmentQuestion.SelectedOption != null &&
+                        _currentQuestionIndex < Questions.Count - 1)
+                    {
+                        await Task.Delay(200);
+                        GoToNextQuestion();
+                    }
                 }
             };
 
