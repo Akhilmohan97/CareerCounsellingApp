@@ -86,6 +86,9 @@ public class AssessmentViewModel : INotifyPropertyChanged
             _currentQuestionIndex++;
             CurrentQuestion = Questions[_currentQuestionIndex];
             UpdateNavigationCommands();
+            
+            // Force visual update by triggering PropertyChanged
+            OnPropertyChanged(nameof(CurrentQuestion));
         }
     }
 
@@ -96,6 +99,9 @@ public class AssessmentViewModel : INotifyPropertyChanged
             _currentQuestionIndex--;
             CurrentQuestion = Questions[_currentQuestionIndex];
             UpdateNavigationCommands();
+            
+            // Force visual update by triggering PropertyChanged
+            OnPropertyChanged(nameof(CurrentQuestion));
         }
     }
 

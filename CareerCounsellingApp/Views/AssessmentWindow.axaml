@@ -19,7 +19,7 @@
 	<converters:LanguageConverter x:Key="LanguageConverter"/>
 </Window.Resources>
     
-<DockPanel>
+<DockPanel Name="DockPanelMain">
       <!-- Header -->
       <Border DockPanel.Dock="Top"
               Background="{StaticResource PrimaryBrush}"
