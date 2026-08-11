@@ -8,17 +8,18 @@
         x:DataType="vm:AdminDashboardViewModel"
         Title="Admin Dashboard"
         WindowState="Maximized"
-        Background="{StaticResource BackgroundBrush}"
+        Background="#E8EEF7"
         WindowStartupLocation="CenterScreen">
 
-    <Grid ColumnDefinitions="250,*" RowDefinitions="Auto,*">
-        <!-- Header -->
+    <Grid ColumnDefinitions="280,*" RowDefinitions="Auto,*">
+        <!-- Header - Modern Glass -->
         <Border Grid.ColumnSpan="2"
                 Grid.Row="0"
-                Background="{StaticResource SurfaceBrush}"
-                BorderBrush="{StaticResource BorderBrush}"
+                Background="#FFFFFF"
+                BorderBrush="#E2E8F0"
                 BorderThickness="0,0,0,1"
-                Padding="30,20">
+                Padding="30,20"
+                BoxShadow="0 4 12 #00000008">
             <Grid
                 ColumnDefinitions="*,Auto"
                 Margin="10">
@@ -28,34 +29,50 @@
                     <TextBlock
                         Text="Admin Dashboard"
                         FontSize="30"
-                        FontWeight="Bold"/>
+                        FontWeight="Bold"
+                        Foreground="#1A202C"
+                        LetterSpacing="0.3"/>
 
                     <TextBlock
                         Text="Manage students, questions and assessments"
-                        Foreground="Gray"
-                        FontSize="14"/>
+                        Foreground="#718096"
+                        FontSize="14"
+                        Margin="0,4,0,0"/>
 
                 </StackPanel>
 
                 <Button
                     Grid.Column="1"
-                    CornerRadius="22">
+                    CornerRadius="12"
+                    Width="46"
+                    Height="46"
+                    Background="#F7FAFC"
+                    BorderBrush="#E2E8F0"
+                    BorderThickness="1"
+                    VerticalAlignment="Center">
 
                     <TextBlock
                         Text="🔄"
-                        FontSize="18"/>
+                        FontSize="20"/>
 
                 </Button>
 
             </Grid>
         </Border>
 
-        <!-- Sidebar -->
+        <!-- Sidebar - Modern Glass Dark -->
         <Border
             Grid.Column="0"
             Grid.RowSpan="2"
             Grid.Row="1"
-            Background="#1E3A8A">
+            Background="#1A3A5C">
+
+            <Border.Background>
+                <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+                    <GradientStop Offset="0" Color="#1E3A5C"/>
+                    <GradientStop Offset="1" Color="#152847"/>
+                </LinearGradientBrush>
+            </Border.Background>
 
             <Grid RowDefinitions="Auto,*,Auto">
 
@@ -63,42 +80,46 @@
                 <StackPanel
                     Margin="20"
                     HorizontalAlignment="Center"
-                    Spacing="5">
+                    Spacing="8">
 
                     <Image
                         Source="/Assets/logo.png"
                         Width="120"
-                        Height="150"/>
+                        Height="150"
+                        Opacity="0.95"/>
 
                     <TextBlock
                         Text="Career Counselling"
                         FontSize="20"
                         FontWeight="Bold"
                         Foreground="White"
-                        HorizontalAlignment="Center"/>
+                        HorizontalAlignment="Center"
+                        LetterSpacing="0.2"/>
 
                     <TextBlock
                         Text="Administration"
                         FontSize="13"
-                        Foreground="#D1D5DB"
+                        Foreground="#A0AEC0"
                         HorizontalAlignment="Center"/>
 
                 </StackPanel>
 
                 <!-- Navigation -->
                 <StackPanel Grid.Row="1"
-                            Margin="10"
+                            Margin="10,20,10,0"
                             Spacing="8">
-                    <StackPanel Spacing="2">
+                    <StackPanel Spacing="3">
                         <Button
                             Name="CategoryButton"
                             Height="52"
-                            Width="230"
+                            Width="260"
                             Background="Transparent"
                             BorderThickness="0"
                             CornerRadius="12"
                             HorizontalContentAlignment="Left"
-                            Padding="18,0">
+                            Padding="18,0"
+                            Foreground="White"
+                            Cursor="Hand">
 
                             <StackPanel
                                 Orientation="Horizontal"
@@ -122,7 +143,7 @@
                                 Height="52"
                                 Background="Transparent"
                                 CornerRadius="12"
-                                Width="230"
+                                Width="260"
                                 Foreground="White"
                                 BorderThickness="0"
                                 Margin="0"
@@ -156,6 +177,8 @@
                                 Padding="18,0"
                                 HorizontalContentAlignment="Left"
                                 Cursor="Hand"
+                                CornerRadius="12"
+                                Width="260"
                                 ToolTip.Tip="Manage student information">
                             <StackPanel
                                 Orientation="Horizontal"
@@ -176,13 +199,14 @@
 
                         <Button Name="AssessmentResultsButton"
                                 Height="52"
-                                Width="230"
+                                Width="260"
                                 Foreground="White"
                                 Background="Transparent"
                                 BorderThickness="0"
                                 Padding="18,0"
                                 HorizontalContentAlignment="Left"
                                 Cursor="Hand"
+                                CornerRadius="12"
                                 ToolTip.Tip="View student assessment results and scores">
                             <StackPanel
                                 Orientation="Horizontal"
@@ -206,11 +230,12 @@
                                 BorderThickness="0"
                                 Padding="18,0"
                                 Background="Transparent"
-                                Width="230"
+                                Width="260"
                                 HorizontalAlignment="Stretch"
                                 HorizontalContentAlignment="Left"
                                 Cursor="Hand"
                                 Name="ReportsButton"
+                                CornerRadius="12"
                                 ToolTip.Tip="Generate system reports">
                             <StackPanel
                                 Orientation="Horizontal"
@@ -229,12 +254,12 @@
                             </StackPanel>
                         </Button>
 
-                        <Separator Height="1" Background="White" Opacity="0.2" Margin="0,20"/>
+                        <Separator Height="1" Background="White" Opacity="0.15" Margin="0,20"/>
 
                         <Button Name="LogoutButton"
                                 Height="52"
                                 Background="Transparent"
-                                Width="230"
+                                Width="260"
                                 Foreground="White"
                                 BorderThickness="0"
                                 Margin="0"
@@ -242,6 +267,7 @@
                                 HorizontalContentAlignment="Left"
                                 FontWeight="SemiBold"
                                 Cursor="Hand"
+                                CornerRadius="12"
                                 ToolTip.Tip="Logout and return to login screen">
                             <StackPanel
                                 Orientation="Horizontal"
@@ -260,127 +286,17 @@
                             </StackPanel>
                         </Button>
                     </StackPanel>
-                    <!-- Buttons here -->
 
                 </StackPanel>
 
             </Grid>
 
         </Border>
-        <!-- <Border Grid.Column="0"
-        Grid.Row="1"
-        Background="{StaticResource PrimaryDarkColor}"
-        Padding="0">
-        <StackPanel Spacing="2">
-        <Button Name="CategoryButton"
-        Height="60"
-        Foreground="White"
-        BorderThickness="0"
-        Margin="0"
-        Padding="20,15"
-        HorizontalAlignment="Stretch"
-        HorizontalContentAlignment="Left"
-        FontSize="14"
-        FontWeight="SemiBold"
-        Cursor="Hand"
-        ToolTip.Tip="Manage career categories">
-        <StackPanel>
-        <TextBlock Text="?? Manage Categories"/>
-        </StackPanel>
-        </Button>
 
-        <Button Name="QuestionButton"
-        Height="60"
-        Foreground="White"
-        BorderThickness="0"
-        Margin="0"
-        Padding="20,15"
-        HorizontalAlignment="Stretch"
-        HorizontalContentAlignment="Left"
-        FontSize="14"
-        FontWeight="SemiBold"
-        Cursor="Hand"
-        ToolTip.Tip="Add and manage assessment questions">
-        <StackPanel>
-        <TextBlock Text="? Manage Questions"/>
-        </StackPanel>
-        </Button>
-
-        <Button Name="StudentButton"
-        Height="60"
-        Foreground="White"
-        BorderThickness="0"
-        Margin="0"
-        Padding="20,15"
-        HorizontalAlignment="Stretch"
-        HorizontalContentAlignment="Left"
-        FontSize="14"
-        FontWeight="SemiBold"
-        Cursor="Hand"
-        ToolTip.Tip="Manage student information">
-        <StackPanel>
-        <TextBlock Text="?? Manage Students"/>
-        </StackPanel>
-        </Button>
-
-        <Button Name="AssessmentResultsButton"
-        Height="60"
-        Foreground="White"
-        BorderThickness="0"
-        Margin="0"
-        Padding="20,15"
-        HorizontalAlignment="Stretch"
-        HorizontalContentAlignment="Left"
-        FontSize="14"
-        FontWeight="SemiBold"
-        Cursor="Hand"
-        ToolTip.Tip="View student assessment results and scores">
-        <StackPanel>
-        <TextBlock Text="?? Assessment Results"/>
-        </StackPanel>
-        </Button>
-
-        <Button Height="60"
-        Foreground="White"
-        BorderThickness="0"
-        Margin="0"
-        Padding="20,15"
-        HorizontalAlignment="Stretch"
-        HorizontalContentAlignment="Left"
-        FontSize="14"
-        FontWeight="SemiBold"
-        Cursor="Hand"
-        ToolTip.Tip="Generate system reports">
-        <StackPanel>
-        <TextBlock Text="?? Reports"/>
-        </StackPanel>
-        </Button>
-
-        <Separator Height="1" Background="White" Opacity="0.2" Margin="0,20"/>
-
-        <Button Name="LogoutButton"
-        Height="60"
-        Foreground="White"
-        BorderThickness="0"
-        Margin="0"
-        Padding="20,15"
-        HorizontalAlignment="Stretch"
-        HorizontalContentAlignment="Left"
-        FontSize="14"
-        FontWeight="SemiBold"
-        Cursor="Hand"
-        ToolTip.Tip="Logout and return to login screen">
-        <StackPanel>
-        <TextBlock Text="?? Logout"/>
-        </StackPanel>
-        </Button>
-        </StackPanel>
-        </Border>-->
-
-        <!-- Main Content Area -->
+        <!-- Main Content Area - Modern Glass -->
         <Border Grid.Column="1"
                 Grid.Row="1"
-                Background="{StaticResource BackgroundBrush}"
+                Background="#E8EEF7"
                 Padding="40">
             <ScrollViewer>
                 <StackPanel Spacing="30">
@@ -389,10 +305,12 @@
                         <TextBlock Text="Welcome to Admin Dashboard"
                                    FontSize="32"
                                    FontWeight="Bold"
-                                   Foreground="{StaticResource TextPrimaryBrush}"/>
+                                   Foreground="#1A202C"
+                                   LetterSpacing="0.3"/>
                         <TextBlock Text="Here's an overview of your Career Counselling System"
                                    FontSize="16"
-                                   Foreground="{StaticResource TextSecondaryBrush}"/>
+                                   Foreground="#718096"
+                                   LineHeight="1.4"/>
                     </StackPanel>
 
                     <!-- Statistics Grid -->
@@ -402,12 +320,12 @@
                         <Border Grid.Row="0"
                                 Grid.Column="0"
                                 Background="White"
-                                CornerRadius="18"
+                                CornerRadius="16"
                                 Padding="28"
                                 MinHeight="180"
-                                BorderBrush="#2563EB"
-                                BorderThickness="5,0,0,0"
-                                BoxShadow="0 10 30 #18000000">
+                                BorderBrush="#E2E8F0"
+                                BorderThickness="1"
+                                BoxShadow="0 10 30 #2563EB08, 0 2 4 #00000006">
 
                             <StackPanel Spacing="18">
 
@@ -415,8 +333,8 @@
 
                                     <Border Width="55"
                                             Height="55"
-                                            Background="#DBEAFE"
-                                            CornerRadius="28">
+                                            Background="#EFF6FF"
+                                            CornerRadius="14">
 
                                         <TextBlock
                                             Text="👨‍🎓"
@@ -432,12 +350,13 @@
                                         <TextBlock
                                             Text="Total Students"
                                             FontSize="18"
-                                            FontWeight="SemiBold"/>
+                                            FontWeight="SemiBold"
+                                            Foreground="#1A202C"/>
 
                                         <TextBlock
                                             Text="Registered Students"
                                             FontSize="12"
-                                            Foreground="Gray"/>
+                                            Foreground="#A0AEC0"/>
 
                                     </StackPanel>
 
@@ -457,12 +376,12 @@
                         <Border Grid.Row="0"
                                 Grid.Column="1"
                                 Background="White"
-                                CornerRadius="18"
+                                CornerRadius="16"
                                 Padding="28"
                                 MinHeight="180"
-                                BorderBrush="#10B981"
-                                BorderThickness="5,0,0,0"
-                                BoxShadow="0 10 30 #18000000">
+                                BorderBrush="#E2E8F0"
+                                BorderThickness="1"
+                                BoxShadow="0 10 30 #10B98108, 0 2 4 #00000006">
 
                             <StackPanel Spacing="18">
 
@@ -470,8 +389,8 @@
 
                                     <Border Width="55"
                                             Height="55"
-                                            Background="#D1FAE5"
-                                            CornerRadius="28">
+                                            Background="#F0FDF4"
+                                            CornerRadius="14">
 
                                         <TextBlock
                                             Text="✅"
@@ -487,12 +406,13 @@
                                         <TextBlock
                                             Text="Students Assessed"
                                             FontSize="18"
-                                            FontWeight="SemiBold"/>
+                                            FontWeight="SemiBold"
+                                            Foreground="#1A202C"/>
 
                                         <TextBlock
                                             Text="Completed Assessment"
                                             FontSize="12"
-                                            Foreground="Gray"/>
+                                            Foreground="#A0AEC0"/>
 
                                     </StackPanel>
 
@@ -512,12 +432,12 @@
                         <Border Grid.Row="1"
                                 Grid.Column="0"
                                 Background="White"
-                                CornerRadius="18"
+                                CornerRadius="16"
                                 Padding="28"
                                 MinHeight="180"
-                                BorderBrush="#F59E0B"
-                                BorderThickness="5,0,0,0"
-                                BoxShadow="0 10 30 #18000000">
+                                BorderBrush="#E2E8F0"
+                                BorderThickness="1"
+                                BoxShadow="0 10 30 #F59E0B08, 0 2 4 #00000006">
 
                             <StackPanel Spacing="18">
 
@@ -525,8 +445,8 @@
 
                                     <Border Width="55"
                                             Height="55"
-                                            Background="#FEF3C7"
-                                            CornerRadius="28">
+                                            Background="#FFFBEB"
+                                            CornerRadius="14">
 
                                         <TextBlock
                                             Text="📝"
@@ -542,12 +462,13 @@
                                         <TextBlock
                                             Text="Total Questions"
                                             FontSize="18"
-                                            FontWeight="SemiBold"/>
+                                            FontWeight="SemiBold"
+                                            Foreground="#1A202C"/>
 
                                         <TextBlock
                                             Text="Assessment Questions"
                                             FontSize="12"
-                                            Foreground="Gray"/>
+                                            Foreground="#A0AEC0"/>
 
                                     </StackPanel>
 
@@ -567,12 +488,12 @@
                         <Border Grid.Row="1"
                                 Grid.Column="1"
                                 Background="White"
-                                CornerRadius="18"
+                                CornerRadius="16"
                                 Padding="28"
                                 MinHeight="180"
-                                BorderBrush="#8B5CF6"
-                                BorderThickness="5,0,0,0"
-                                BoxShadow="0 10 30 #18000000">
+                                BorderBrush="#E2E8F0"
+                                BorderThickness="1"
+                                BoxShadow="0 10 30 #8B5CF608, 0 2 4 #00000006">
 
                             <StackPanel Spacing="18">
 
@@ -580,8 +501,8 @@
 
                                     <Border Width="55"
                                             Height="55"
-                                            Background="#EDE9FE"
-                                            CornerRadius="28">
+                                            Background="#F3E8FF"
+                                            CornerRadius="14">
 
                                         <TextBlock
                                             Text="📂"
@@ -597,12 +518,13 @@
                                         <TextBlock
                                             Text="Total Categories"
                                             FontSize="18"
-                                            FontWeight="SemiBold"/>
+                                            FontWeight="SemiBold"
+                                            Foreground="#1A202C"/>
 
                                         <TextBlock
                                             Text="Career Categories"
                                             FontSize="12"
-                                            Foreground="Gray"/>
+                                            Foreground="#A0AEC0"/>
 
                                     </StackPanel>
 
@@ -621,25 +543,29 @@
                     </Grid>
 
                     <!-- Additional Info Section -->
-                    <Border Background="{StaticResource SurfaceBrush}"
-                            Padding="25"
-                            CornerRadius="8"
-                            BoxShadow="0 1 3 #00000010">
-                        <StackPanel Spacing="15">
+                    <Border Background="White"
+                            Padding="28"
+                            CornerRadius="16"
+                            BorderBrush="#E2E8F0"
+                            BorderThickness="1"
+                            BoxShadow="0 4 12 #00000008">
+                        <StackPanel Spacing="18">
                             <TextBlock Text="Quick Actions"
                                        FontSize="18"
                                        FontWeight="Bold"
-                                       Foreground="{StaticResource TextPrimaryBrush}"/>
+                                       Foreground="#1A202C"/>
                             <TextBlock Text="Use the navigation menu on the left to manage categories, questions, students, and view assessment results."
                                        FontSize="14"
-                                       Foreground="{StaticResource TextSecondaryBrush}"
-                                       TextWrapping="Wrap"/>
-                            <Separator Height="1" Background="{StaticResource BorderBrush}" Margin="0,10,0,0"/>
+                                       Foreground="#718096"
+                                       TextWrapping="Wrap"
+                                       LineHeight="1.6"/>
+                            <Separator Height="1.5" Background="#E2E8F0" Margin="0,5,0,0"/>
                             <TextBlock Text="💡 Tip: Ensure all required data is properly configured before students begin their assessments."
                                        FontSize="13"
-                                       Foreground="{StaticResource PrimaryColor}"
+                                       Foreground="#2563EB"
                                        TextWrapping="Wrap"
-                                       FontWeight="SemiBold"/>
+                                       FontWeight="SemiBold"
+                                       LineHeight="1.5"/>
                         </StackPanel>
                     </Border>
 

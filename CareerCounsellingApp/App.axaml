@@ -9,6 +9,7 @@
     </Application.DataTemplates>
 
     <Application.Resources>
+        <!-- Modern Glassy Color Palette -->
         <!-- Primary Colors -->
         <Color x:Key="PrimaryColor">#2563EB</Color>
         <Color x:Key="PrimaryDarkColor">#1E40AF</Color>
@@ -17,65 +18,164 @@
         <Color x:Key="ErrorColor">#EF4444</Color>
         <Color x:Key="WarningColor">#F59E0B</Color>
         
-        <!-- Neutral Colors -->
-        <Color x:Key="BackgroundColor">#F9FAFB</Color>
-        <Color x:Key="SurfaceColor">#FFFFFF</Color>
-        <Color x:Key="TextPrimaryColor">#111827</Color>
-        <Color x:Key="TextSecondaryColor">#6B7280</Color>
-        <Color x:Key="BorderColor">#E5E7EB</Color>
+        <!-- Modern Background Colors -->
+        <Color x:Key="BackgroundColor">#F0F4F9</Color>
+        <Color x:Key="BackgroundAlt">#E8EEF7</Color>
+        <Color x:Key="GlassBackground">#FFFFFF</Color>
+        <Color x:Key="GlassBackgroundDark">#F8FAFC</Color>
         
-        <!-- Brushes -->
+        <!-- Text Colors -->
+        <Color x:Key="TextPrimaryColor">#1A202C</Color>
+        <Color x:Key="TextSecondaryColor">#718096</Color>
+        <Color x:Key="TextTertiaryColor">#A0AEC0</Color>
+        
+        <!-- Border & Divider Colors -->
+        <Color x:Key="BorderColor">#E2E8F0</Color>
+        <Color x:Key="BorderLight">#F1F5F9</Color>
+        <Color x:Key="DividerColor">#CBD5E0</Color>
+        
+        <!-- Glassy/Glass Morphism Colors -->
+        <Color x:Key="GlassOverlay">#FFFFFF</Color>
+        <Color x:Key="GlassOverlayDark">#F7FAFC</Color>
+        
+        <!-- Solid Brushes -->
         <SolidColorBrush x:Key="PrimaryBrush" Color="{StaticResource PrimaryColor}" />
         <SolidColorBrush x:Key="AccentBrush" Color="{StaticResource AccentColor}" />
         <SolidColorBrush x:Key="ErrorBrush" Color="{StaticResource ErrorColor}" />
         <SolidColorBrush x:Key="TextPrimaryBrush" Color="{StaticResource TextPrimaryColor}" />
         <SolidColorBrush x:Key="TextSecondaryBrush" Color="{StaticResource TextSecondaryColor}" />
+        <SolidColorBrush x:Key="TextTertiaryBrush" Color="{StaticResource TextTertiaryColor}" />
         <SolidColorBrush x:Key="BackgroundBrush" Color="{StaticResource BackgroundColor}" />
-        <SolidColorBrush x:Key="SurfaceBrush" Color="{StaticResource SurfaceColor}" />
+        <SolidColorBrush x:Key="SurfaceBrush" Color="{StaticResource GlassBackground}" />
         <SolidColorBrush x:Key="BorderBrush" Color="{StaticResource BorderColor}" />
+        <SolidColorBrush x:Key="DividerBrush" Color="{StaticResource DividerColor}" />
+        
+        <!-- Glass Morphism Brushes (Semi-transparent) -->
+        <SolidColorBrush x:Key="GlassBrush" Color="{StaticResource GlassBackground}" Opacity="0.85" />
+        <SolidColorBrush x:Key="GlassDarkBrush" Color="{StaticResource GlassBackgroundDark}" Opacity="0.80" />
+        <SolidColorBrush x:Key="GlassOverlayBrush" Color="{StaticResource GlassOverlay}" Opacity="0.9" />
     </Application.Resources>
   
     <Application.Styles>
         <FluentTheme />
         
-        <!-- Global Button Styles -->
+        <!-- Window Style - Glassy Background -->
+        <Style Selector="Window">
+            <Setter Property="Background" Value="{StaticResource BackgroundBrush}"/>
+            <Setter Property="Foreground" Value="{StaticResource TextPrimaryBrush}"/>
+        </Style>
+        
+        <!-- Global Button Styles - Modern Glass -->
         <Style Selector="Button">
-            <Setter Property="BorderThickness" Value="0"/>
-            <Setter Property="Padding" Value="16,8"/>
-            <Setter Property="CornerRadius" Value="4"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="Padding" Value="16,10"/>
+            <Setter Property="CornerRadius" Value="12"/>
             <Setter Property="FontWeight" Value="SemiBold"/>
             <Setter Property="HorizontalContentAlignment" Value="Center"/>
             <Setter Property="VerticalContentAlignment" Value="Center"/>
+            <Setter Property="BorderBrush" Value="{StaticResource BorderLight}"/>
+            <Setter Property="Foreground" Value="{StaticResource TextPrimaryBrush}"/>
+            <Setter Property="Transitions">
+                <Transitions>
+                    <BrushTransition Property="Background" Duration="0:0:0.2"/>
+                    <BrushTransition Property="BorderBrush" Duration="0:0:0.2"/>
+                </Transitions>
+            </Setter>
         </Style>
         
-        <!-- Primary Button Style -->
+        <!-- Primary Button Style - Modern Glass -->
         <Style Selector="Button.primary">
             <Setter Property="Background" Value="{StaticResource PrimaryBrush}"/>
             <Setter Property="Foreground" Value="White"/>
+            <Setter Property="BorderBrush" Value="{StaticResource PrimaryDarkColor}"/>
         </Style>
         
         <Style Selector="Button.primary:pointerover">
             <Setter Property="Background" Value="{StaticResource PrimaryDarkColor}"/>
         </Style>
         
-        <!-- Accent Button Style -->
+        <Style Selector="Button.primary:pressed">
+            <Setter Property="Background" Value="#1D3A9E"/>
+        </Style>
+        
+        <!-- Accent Button Style - Modern Glass -->
         <Style Selector="Button.accent">
             <Setter Property="Background" Value="{StaticResource AccentBrush}"/>
             <Setter Property="Foreground" Value="White"/>
+            <Setter Property="BorderBrush" Value="#059669"/>
         </Style>
         
         <Style Selector="Button.accent:pointerover">
             <Setter Property="Background" Value="#059669"/>
         </Style>
         
-        <!-- Error Button Style -->
+        <Style Selector="Button.accent:pressed">
+            <Setter Property="Background" Value="#047857"/>
+        </Style>
+        
+        <!-- Error Button Style - Modern Glass -->
         <Style Selector="Button.error">
             <Setter Property="Background" Value="{StaticResource ErrorBrush}"/>
             <Setter Property="Foreground" Value="White"/>
+            <Setter Property="BorderBrush" Value="#DC2626"/>
         </Style>
         
         <Style Selector="Button.error:pointerover">
             <Setter Property="Background" Value="#DC2626"/>
+        </Style>
+        
+        <Style Selector="Button.error:pressed">
+            <Setter Property="Background" Value="#B91C1C"/>
+        </Style>
+        
+        <!-- Glass Button Style (Default/Transparent Glass) -->
+        <Style Selector="Button.glass">
+            <Setter Property="Background" Value="{StaticResource GlassDarkBrush}"/>
+            <Setter Property="Foreground" Value="{StaticResource TextPrimaryBrush}"/>
+            <Setter Property="BorderBrush" Value="{StaticResource BorderLight}"/>
+        </Style>
+        
+        <Style Selector="Button.glass:pointerover">
+            <Setter Property="Background" Value="{StaticResource GlassBrush}"/>
+            <Setter Property="BorderBrush" Value="{StaticResource BorderColor}"/>
+        </Style>
+        
+        <!-- Border Style - Glass Morphism -->
+        <Style Selector="Border">
+            <Setter Property="Background" Value="{StaticResource GlassBrush}"/>
+            <Setter Property="BorderBrush" Value="{StaticResource BorderLight}"/>
+        </Style>
+        
+        <!-- TextBox Style - Modern Glass -->
+        <Style Selector="TextBox">
+            <Setter Property="Background" Value="{StaticResource GlassOverlayBrush}"/>
+            <Setter Property="Foreground" Value="{StaticResource TextPrimaryBrush}"/>
+            <Setter Property="BorderBrush" Value="{StaticResource BorderColor}"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="Padding" Value="12,10"/>
+            <Setter Property="CornerRadius" Value="8"/>
+            <Setter Property="Transitions">
+                <Transitions>
+                    <BrushTransition Property="BorderBrush" Duration="0:0:0.2"/>
+                    <BrushTransition Property="Background" Duration="0:0:0.2"/>
+                </Transitions>
+            </Setter>
+        </Style>
+        
+        <Style Selector="TextBox:focus">
+            <Setter Property="BorderBrush" Value="{StaticResource PrimaryBrush}"/>
+        </Style>
+        
+        <!-- ProgressBar Style - Modern Glass -->
+        <Style Selector="ProgressBar">
+            <Setter Property="Background" Value="{StaticResource BorderLight}"/>
+            <Setter Property="Foreground" Value="{StaticResource PrimaryBrush}"/>
+            <Setter Property="CornerRadius" Value="6"/>
+        </Style>
+        
+        <!-- Separator Style - Modern Glass -->
+        <Style Selector="Separator">
+            <Setter Property="Background" Value="{StaticResource BorderLight}"/>
         </Style>
     </Application.Styles>
 </Application>

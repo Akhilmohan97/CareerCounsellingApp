@@ -11,7 +11,7 @@
     Width="1000"
     Height="800"
     Title="Career Assessment"
-    Background="{StaticResource BackgroundBrush}"
+    Background="#E8EEF7"
     WindowStartupLocation="CenterScreen">
 
 <Window.Resources>
@@ -20,52 +20,58 @@
 </Window.Resources>
     
 <DockPanel Name="DockPanelMain">
-      <!-- Header -->
+      <!-- Header - Modern Glass -->
       <Border DockPanel.Dock="Top"
-              Background="{StaticResource PrimaryBrush}"
-              Padding="30,20">
+              Background="White"
+              BorderBrush="#E2E8F0"
+              BorderThickness="0,0,0,1"
+              Padding="30,20"
+              BoxShadow="0 4 12 #00000008">
         <Grid ColumnDefinitions="Auto,*,Auto,Auto">
           <!-- Previous Button -->
           <Button Grid.Column="0"
                   Command="{Binding PreviousQuestionCommand}"
-                  Width="45"
-                  Height="45"
-                  CornerRadius="4"
-                  Background="White"
-                  Foreground="{StaticResource PrimaryBrush}"
-                  BorderThickness="0"
+                  Width="46"
+                  Height="46"
+                  CornerRadius="12"
+                  Background="#F7FAFC"
+                  Foreground="#2563EB"
+                  BorderThickness="1"
+                  BorderBrush="#E2E8F0"
                   ToolTip.Tip="Previous Question"
                   Cursor="Hand">
             <TextBlock Text="◀" FontSize="18" FontWeight="Bold"/>
           </Button>
 
           <!-- Title and Progress Info -->
-          <StackPanel Grid.Column="1" Margin="20,0,20,0" VerticalAlignment="Center">
+          <StackPanel Grid.Column="1" Margin="30,0,20,0" VerticalAlignment="Center">
             <TextBlock Text="Career Assessment"
                        FontSize="28"
                        FontWeight="Bold"
-                       Foreground="White"/>
+                       Foreground="#1A202C"
+                       LetterSpacing="0.3"/>
             <TextBlock Text="{Binding CurrentQuestionNumber, StringFormat='Question {0} of '}"
                        FontSize="13"
-                       Foreground="White"
+                       Foreground="#718096"
                        Opacity="0.9"
-                       Margin="0,8,0,0"/>
+                       Margin="0,4,0,0"/>
           </StackPanel>
 
           <!-- Language Toggle -->
           <Border Grid.Column="2"
-                  Width="150"
-                  Height="36"
-                  CornerRadius="18"
-                  Background="#202938"
-                  BorderBrush="#3A4659"
+                  Width="160"
+                  Height="40"
+                  CornerRadius="12"
+                  Background="#F7FAFC"
+                  BorderBrush="#E2E8F0"
                   BorderThickness="1"
-                  Padding="3"
-                  VerticalAlignment="Center">
+                  Padding="4"
+                  VerticalAlignment="Center"
+                  BoxShadow="0 2 4 #00000008">
             <Grid ColumnDefinitions="*,*">
               <!-- Selected background -->
               <Border Grid.Column="0"
-                      CornerRadius="15"
+                      CornerRadius="10"
                       Background="#2563EB">
                 <Border.IsVisible>
                   <Binding Path="!UseMalayalam"/>
@@ -73,7 +79,7 @@
               </Border>
 
               <Border Grid.Column="1"
-                      CornerRadius="15"
+                      CornerRadius="10"
                       Background="#2563EB">
                 <Border.IsVisible>
                   <Binding Path="UseMalayalam"/>
@@ -84,8 +90,8 @@
                             IsChecked="{Binding !UseMalayalam}"
                             Background="Transparent"
                             BorderThickness="0"
-                            Foreground="White"
-                            FontSize="11"
+                            Foreground="#1A202C"
+                            FontSize="12"
                             FontWeight="SemiBold">
                 <TextBlock Text="English"
                            HorizontalAlignment="Center"
@@ -96,8 +102,8 @@
                             IsChecked="{Binding UseMalayalam}"
                             Background="Transparent"
                             BorderThickness="0"
-                            Foreground="White"
-                            FontSize="11"
+                            Foreground="#1A202C"
+                            FontSize="12"
                             FontWeight="SemiBold">
                 <TextBlock Text="മലയാളം"
                            HorizontalAlignment="Center"
@@ -109,12 +115,13 @@
           <!-- Next Button -->
           <Button Grid.Column="3"
                   Command="{Binding NextQuestionCommand}"
-                  Width="45"
-                  Height="45"
-                  CornerRadius="4"
-                  Background="White"
-                  Foreground="{StaticResource PrimaryBrush}"
-                  BorderThickness="0"
+                  Width="46"
+                  Height="46"
+                  CornerRadius="12"
+                  Background="#F7FAFC"
+                  Foreground="#2563EB"
+                  BorderThickness="1"
+                  BorderBrush="#E2E8F0"
                   ToolTip.Tip="Next Question"
                   Cursor="Hand"
                   Margin="20,0,0,0">
@@ -125,39 +132,41 @@
 
       <!-- Submit Button -->
       <Border DockPanel.Dock="Bottom"
-              Background="{StaticResource SurfaceBrush}"
-              BorderBrush="{StaticResource BorderBrush}"
+              Background="White"
+              BorderBrush="#E2E8F0"
               BorderThickness="0,1,0,0"
-              Padding="30,20">
+              Padding="30,20"
+              BoxShadow="0 -4 12 #00000008">
         <Grid ColumnDefinitions="*,*" ColumnSpacing="15">
           <!-- Progress Section -->
-          <StackPanel Grid.Column="0" VerticalAlignment="Center" Spacing="8">
+          <StackPanel Grid.Column="0" VerticalAlignment="Center" Spacing="10">
             <TextBlock Text="Overall Progress"
                        FontSize="12"
                        FontWeight="SemiBold"
-                       Foreground="{StaticResource TextPrimaryBrush}"/>
+                       Foreground="#1A202C"/>
             <TextBlock Text="{Binding ProgressText}"
                        FontSize="14"
                        FontWeight="Bold"
                        Foreground="#2563EB"/>
             <ProgressBar Value="{Binding AnsweredCount}"
                          Maximum="{Binding TotalQuestions}"
-                         Height="8"
-                         CornerRadius="4"
+                         Height="6"
+                         CornerRadius="3"
                          Foreground="#2563EB"
-                         Background="#E5E7EB"/>
+                         Background="#E8EEF7"/>
           </StackPanel>
 
           <!-- Submit Button -->
           <Button Grid.Column="1"
-                  Height="45"
+                  Height="46"
                   Foreground="White"
                   FontSize="15"
                   FontWeight="SemiBold"
                   Command="{Binding SubmitAssessmentCommand}"
                   Cursor="Hand"
-                  Classes="accent">
-            <TextBlock Text="Submit Assessment"/>
+                  Classes="primary"
+                  CornerRadius="12">
+            <TextBlock Text="✓ Submit Assessment"/>
           </Button>
         </Grid>
       </Border>
@@ -165,7 +174,8 @@
       <!-- Questions Content - Single Question at a Time -->
 	<!-- Questions Content -->
 	<Border DockPanel.Dock="Top"
-			Padding="30">
+			Padding="30"
+			Background="#E8EEF7">
 
 		<ScrollViewer
 			VerticalScrollBarVisibility="Auto"
@@ -177,10 +187,11 @@
 					<DataTemplate x:DataType="model:AssessmentQuestion">
 
 						<Border Padding="40"
-								Background="{StaticResource SurfaceBrush}"
-								BorderBrush="{StaticResource BorderBrush}"
+								Background="White"
+								BorderBrush="#E2E8F0"
 								BorderThickness="1"
-								CornerRadius="8">
+								CornerRadius="16"
+								BoxShadow="0 8 24 #2563EB08, 0 2 4 #00000006">
 
 							<StackPanel Spacing="25">
 

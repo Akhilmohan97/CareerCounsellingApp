@@ -7,19 +7,19 @@
     Width="950"
     Height="1000"
     Title="Career Counselling System"
-    Background="#F4F7FC"
+    Background="#E8EEF7"
     WindowStartupLocation="CenterScreen">
 
     <Grid ColumnDefinitions="2*,2.5*">
 
-        <!-- LEFT PANEL -->
+        <!-- LEFT PANEL - Modern Gradient -->
         <Border Grid.Column="0">
 
             <Border.Background>
                 <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
-                    <GradientStop Offset="0" Color="#2563EB"/>
-                    <GradientStop Offset="0.5" Color="#1D4ED8"/>
-                    <GradientStop Offset="1" Color="#1E3A8A"/>
+                    <GradientStop Offset="0" Color="#1E3A8A"/>
+                    <GradientStop Offset="0.5" Color="#2563EB"/>
+                    <GradientStop Offset="1" Color="#1D3A9E"/>
                 </LinearGradientBrush>
             </Border.Background>
 
@@ -33,7 +33,8 @@
                     <Image
                         Source="/Assets/logo.png"
                         Stretch="Uniform"
-                        Margin="0,0,0,25"/>
+                        Margin="0,0,0,25"
+                        Opacity="0.95"/>
 
                     <TextBlock
                         Text="Career Counselling System"
@@ -41,19 +42,22 @@
                         FontWeight="Bold"
                         Foreground="White"
                         TextAlignment="Center"
-                        TextWrapping="Wrap"/>
+                        TextWrapping="Wrap"
+                        LetterSpacing="0.5"/>
 
                     <TextBlock
                         Margin="0,10,0,0"
                         Text="Discover Your Future With Confidence"
                         FontSize="16"
-                        Foreground="#E5E7EB"
-                        TextAlignment="Center"/>
+                        Foreground="#E0E7FF"
+                        TextAlignment="Center"
+                        Opacity="0.95"/>
 
                     <Border
                         Margin="0,30"
                         Height="1"
-                        Background="#50FFFFFF"/>
+                        Background="White"
+                        Opacity="0.25"/>
 
                     <TextBlock
                         Text="Professional Career Guidance Platform"
@@ -67,7 +71,7 @@
                         Text="Version 3.0.1"
                         FontSize="13"
                         Foreground="White"
-                        Opacity="0.7"
+                        Opacity="0.75"
                         TextAlignment="Center"/>
 
                 </StackPanel>
@@ -90,7 +94,8 @@
                         HorizontalAlignment="Center"
                         Foreground="White"
                         FontWeight="SemiBold"
-                        FontSize="14"/>
+                        FontSize="14"
+                        Opacity="0.9"/>
 
                 </StackPanel>
 
@@ -98,66 +103,87 @@
 
         </Border>
 
-        <!-- RIGHT PANEL -->
+        <!-- RIGHT PANEL - Glass Morphism -->
 
-        <Grid Grid.Column="1">
+        <Grid Grid.Column="1" Background="#F0F4F9">
 
             <Border
                 Width="420"
                 Padding="40"
-                CornerRadius="18"
-                Background="White"
+                CornerRadius="20"
+                Background="#FFFFFF"
                 HorizontalAlignment="Center"
-                VerticalAlignment="Center">
+                VerticalAlignment="Center"
+                BoxShadow="0 20 40 #2563EB15, 0 2 8 #00000010"
+                BorderBrush="#E8EEF7"
+                BorderThickness="1">
 
-                <StackPanel Spacing="18">
+                <StackPanel Spacing="20">
 
                     <TextBlock
                         Text="Welcome 👋"
                         FontSize="30"
-                        FontWeight="Bold"/>
+                        FontWeight="Bold"
+                        Foreground="#1A202C"
+                        LetterSpacing="0.3"/>
 
                     <TextBlock
                         Text="Sign in to continue your assessment journey"
                         FontSize="14"
-                        Foreground="Gray"/>
+                        Foreground="#718096"
+                        LineHeight="1.5"/>
 
                     <Border
-                        Height="1"
-                        Background="#E5E7EB"/>
+                        Height="1.5"
+                        Background="#E8EEF7"
+                        Margin="0,5,0,10"/>
 
                     <!-- USERNAME -->
 
-                    <StackPanel Spacing="5">
+                    <StackPanel Spacing="6">
 
                         <TextBlock
                             Text="👤 Username"
-                            FontWeight="SemiBold"/>
+                            FontWeight="SemiBold"
+                            Foreground="#2D3748"
+                            FontSize="13"/>
 
                         <TextBox
                             Height="44"
-                            Padding="12"
+                            Padding="12,10"
                             FontSize="14"
                             Text="{Binding Username}"
-                            PlaceholderText="Enter username"/>
+                            PlaceholderText="Enter username"
+                            Background="#F7FAFC"
+                            Foreground="#1A202C"
+                            BorderBrush="#CBD5E0"
+                            BorderThickness="1"
+                            CornerRadius="10"/>
 
                     </StackPanel>
 
                     <!-- PASSWORD -->
 
-                    <StackPanel Spacing="5">
+                    <StackPanel Spacing="6">
 
                         <TextBlock
                             Text="🔒 Password"
-                            FontWeight="SemiBold"/>
+                            FontWeight="SemiBold"
+                            Foreground="#2D3748"
+                            FontSize="13"/>
 
                         <TextBox
                             Height="44"
-                            Padding="12"
+                            Padding="12,10"
                             PasswordChar="*"
                             FontSize="14"
                             Text="{Binding Password}"
-                            PlaceholderText="Enter password"/>
+                            PlaceholderText="Enter password"
+                            Background="#F7FAFC"
+                            Foreground="#1A202C"
+                            BorderBrush="#CBD5E0"
+                            BorderThickness="1"
+                            CornerRadius="10"/>
 
                     </StackPanel>
 
@@ -169,11 +195,15 @@
 
                         <TextBlock
                             Text="Signing in..."
-                            FontWeight="SemiBold"/>
+                            FontWeight="SemiBold"
+                            Foreground="#2D3748"/>
 
                         <ProgressBar
                             IsIndeterminate="True"
-                            Height="6"/>
+                            Height="4"
+                            CornerRadius="2"
+                            Foreground="#2563EB"
+                            Background="#E8EEF7"/>
 
                     </StackPanel>
 
@@ -181,7 +211,8 @@
 
                     <Grid
                         ColumnDefinitions="*,*"
-                        ColumnSpacing="12">
+                        ColumnSpacing="12"
+                        Margin="0,5,0,0">
 
                         <Button
                             Grid.Column="0"
@@ -191,7 +222,9 @@
                             Background="#2563EB"
                             Foreground="White"
                             FontWeight="Bold"
-                            CornerRadius="8">
+                            CornerRadius="10"
+                            BorderBrush="#1E40AF"
+                            BorderThickness="1">
                             <TextBlock Text="🔐 Sign In" HorizontalAlignment="Center" VerticalAlignment="Center"/>
                         </Button>
 
@@ -200,10 +233,12 @@
                             Height="46"
                             Command="{Binding ClearCommand}"
                             IsEnabled="{Binding !IsLoading}"
-                            Background="#ECEFF3"
-                            Foreground="#374151"
+                            Background="#F7FAFC"
+                            Foreground="#2D3748"
                             FontWeight="Bold"
-                            CornerRadius="8">
+                            CornerRadius="10"
+                            BorderBrush="#CBD5E0"
+                            BorderThickness="1">
                             <TextBlock Text="🗑 Clear" HorizontalAlignment="Center" VerticalAlignment="Center"/>
                         </Button>
 
@@ -212,11 +247,12 @@
                     <!-- Error -->
 
                     <TextBlock
-                        Foreground="Red"
+                        Foreground="#DC2626"
                         FontSize="13"
                         Text="{Binding Message}"
                         TextWrapping="Wrap"
-                        IsVisible="{Binding Message, Converter={x:Static StringConverters.IsNotNullOrEmpty}}"/>
+                        IsVisible="{Binding Message, Converter={x:Static StringConverters.IsNotNullOrEmpty}}"
+                        Opacity="0.9"/>
 
                 </StackPanel>
 
