@@ -498,6 +498,77 @@
 
                     </StackPanel>
 
+                    <!-- PDF Export Section -->
+                    <Border
+                        Background="White"
+                        CornerRadius="16"
+                        Padding="25"
+                        BoxShadow="0 4 15 #12000000"
+                        Margin="0,20,0,0">
+
+                        <StackPanel Spacing="20">
+
+                            <!-- Export Status Message -->
+                            <StackPanel 
+                                IsVisible="{Binding ExportMessage, Converter={x:Static StringConverters.IsNotNullOrEmpty}}"
+                                Spacing="10">
+
+                                <Border 
+                                    Background="#EFF6FF" 
+                                    BorderBrush="#2563EB" 
+                                    BorderThickness="1" 
+                                    CornerRadius="8" 
+                                    Padding="15">
+
+                                    <TextBlock 
+                                        Text="{Binding ExportMessage}" 
+                                        FontSize="13" 
+                                        Foreground="#1E40AF"
+                                        TextWrapping="Wrap"/>
+
+                                </Border>
+
+                            </StackPanel>
+
+                            <!-- Export Button -->
+                            <StackPanel Spacing="10" HorizontalAlignment="Center">
+
+                                <Button
+                                    Height="46"
+                                    Width="280"
+                                    Command="{Binding ExportPdfCommand}"
+                                    IsEnabled="{Binding !IsExportingPdf}"
+                                    Background="#2563EB"
+                                    Foreground="White"
+                                    FontWeight="Bold"
+                                    CornerRadius="10"
+                                    BorderBrush="#1E40AF"
+                                    BorderThickness="1">
+
+                                    <StackPanel 
+                                        Orientation="Horizontal" 
+                                        HorizontalAlignment="Center" 
+                                        Spacing="10">
+
+                                        <TextBlock 
+                                            Text="📄" 
+                                            FontSize="18"/>
+
+                                        <TextBlock 
+                                            Text="Export to PDF" 
+                                            FontSize="16"
+                                            FontWeight="SemiBold"/>
+
+                                    </StackPanel>
+
+                                </Button>
+
+                            </StackPanel>
+
+                        </StackPanel>
+
+                    </Border>
+
                 <Border
                     IsVisible="{Binding HasAIInterpretation}"
                     Background="White"

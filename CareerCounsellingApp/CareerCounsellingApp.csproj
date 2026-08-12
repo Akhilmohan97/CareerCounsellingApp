@@ -42,7 +42,6 @@
 	</ItemGroup>
 	<ItemGroup>
 	  <Folder Include="PhotoCapture\wwwroot\" />
-	  <Folder Include="Services\Reports\" />
 	</ItemGroup>
 	<ItemGroup>
     <Content Include="PhotoCapture\Web\**">

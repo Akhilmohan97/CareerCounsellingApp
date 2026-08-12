@@ -2,6 +2,7 @@
 using CareerCounsellingApp.DTO;
 using CareerCounsellingApp.Services.AI;
 using CareerCounsellingApp.Services.Assessment;
+using CareerCounsellingApp.Services.Reports;
 using CommunityToolkit.Mvvm.Input;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -20,7 +21,10 @@ namespace CareerCounsellingApp.ViewModels
         private readonly AIInterpretationWorkflowService _workflow;
         private readonly AppDbContext _context;
         private readonly int _assessmentId;
+        private readonly AssessmentPdfExportService _pdfExportService;
         private bool _hasAIInterpretation;
+        private bool _isExportingPdf;
+        private string _exportMessage = "";
 
         public bool HasAIInterpretation
         {
@@ -32,6 +36,7 @@ namespace CareerCounsellingApp.ViewModels
                 OnPropertyChanged(nameof(ShowGenerateButton));
             }
         }
+        
         private bool _isGeneratingAI;
 
         public bool IsGeneratingAI
@@ -45,6 +50,7 @@ namespace CareerCounsellingApp.ViewModels
                 OnPropertyChanged(nameof(GenerateButtonText));
             }
         }
+        
         private AIInterpretationDto? _aiInterpretation;
 
         public AIInterpretationDto? AIInterpretation
@@ -68,6 +74,26 @@ namespace CareerCounsellingApp.ViewModels
                 OnPropertyChanged(nameof(GenerationMessage));
             }
         }
+
+        public bool IsExportingPdf
+        {
+            get => _isExportingPdf;
+            set
+            {
+                _isExportingPdf = value;
+                OnPropertyChanged(nameof(IsExportingPdf));
+            }
+        }
+
+        public string ExportMessage
+        {
+            get => _exportMessage;
+            set
+            {
+                _exportMessage = value;
+                OnPropertyChanged(nameof(ExportMessage));
+            }
+        }
         
         private void OnPropertyChanged(string v)
         {
@@ -78,8 +104,10 @@ namespace CareerCounsellingApp.ViewModels
         public bool CanGenerate => !IsGeneratingAI && !HasAIInterpretation;
 
         public string GenerateButtonText => IsGeneratingAI ? "Generating..." : "Generate AI Counsellor Notes";
+        
         private readonly AssessmentReportService _reportService;
         public ICommand TestGeminiCommand { get; }
+        public ICommand ExportPdfCommand { get; }
         public AssessmentReportDto Report { get; }
 
         public AssessmentResultViewModel(int assessmentId)
@@ -87,6 +115,8 @@ namespace CareerCounsellingApp.ViewModels
             _assessmentId = assessmentId;
             _context = new AppDbContext();
             _reportService = new AssessmentReportService(_context);
+            _pdfExportService = new AssessmentPdfExportService();
+            
             string apiKey = Environment.GetEnvironmentVariable("GEMINI_API_KEY") ?? string.Empty;
             var settings = new GeminiSettings
             {
@@ -101,7 +131,8 @@ namespace CareerCounsellingApp.ViewModels
             // Try to load existing AI interpretation
             LoadAIInterpretation();
             
-            TestGeminiCommand=new AsyncRelayCommand(async () => await TestGeminiAsync(assessmentId));
+            TestGeminiCommand = new AsyncRelayCommand(async () => await TestGeminiAsync(assessmentId));
+            ExportPdfCommand = new AsyncRelayCommand(async () => await ExportPdfAsync());
         }
 
         public event PropertyChangedEventHandler? PropertyChanged;
@@ -156,6 +187,34 @@ namespace CareerCounsellingApp.ViewModels
             finally
             {
                 IsGeneratingAI = false;
+            }
+        }
+
+        private async Task ExportPdfAsync()
+        {
+            try
+            {
+                IsExportingPdf = true;
+                ExportMessage = "📄 Generating PDF report...";
+
+                var filePath = await _pdfExportService.ExportAssessmentToPdfAsync(Report);
+
+                ExportMessage = $"✓ Report saved successfully!";
+
+                // Try to open the PDF
+                _pdfExportService.OpenPdfFile(filePath);
+
+                // Clear message after 5 seconds
+                await Task.Delay(5000);
+                ExportMessage = "";
+            }
+            catch (Exception ex)
+            {
+                ExportMessage = $"✗ Error exporting PDF: {ex.Message}";
+            }
+            finally
+            {
+                IsExportingPdf = false;
             }
         }
     }
