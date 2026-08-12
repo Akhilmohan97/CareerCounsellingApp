@@ -3,6 +3,7 @@ using CareerCounsellingApp.DTO;
 using CareerCounsellingApp.Services.AI;
 using CareerCounsellingApp.Services.Assessment;
 using CareerCounsellingApp.Services.Reports;
+using CareerCounsellingApp.Services.Utilities;
 using CommunityToolkit.Mvvm.Input;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -22,9 +23,12 @@ namespace CareerCounsellingApp.ViewModels
         private readonly AppDbContext _context;
         private readonly int _assessmentId;
         private readonly AssessmentPdfExportService _pdfExportService;
+        private readonly GeminiPromptBuilder _promptBuilder;
         private bool _hasAIInterpretation;
         private bool _isExportingPdf;
         private string _exportMessage = "";
+        private string _currentPrompt = "";
+        private bool _isPromptCopied = false;
 
         public bool HasAIInterpretation
         {
@@ -94,6 +98,32 @@ namespace CareerCounsellingApp.ViewModels
                 OnPropertyChanged(nameof(ExportMessage));
             }
         }
+
+        public string CurrentPrompt
+        {
+            get => _currentPrompt;
+            set
+            {
+                _currentPrompt = value;
+                OnPropertyChanged(nameof(CurrentPrompt));
+                OnPropertyChanged(nameof(HasPromptToCopy));
+            }
+        }
+
+        public bool HasPromptToCopy => !string.IsNullOrEmpty(_currentPrompt);
+
+        public bool IsPromptCopied
+        {
+            get => _isPromptCopied;
+            set
+            {
+                _isPromptCopied = value;
+                OnPropertyChanged(nameof(IsPromptCopied));
+                OnPropertyChanged(nameof(CopyPromptButtonText));
+            }
+        }
+
+        public string CopyPromptButtonText => IsPromptCopied ? "✓ Copied!" : "📋 Copy Prompt";
         
         private void OnPropertyChanged(string v)
         {
@@ -108,6 +138,7 @@ namespace CareerCounsellingApp.ViewModels
         private readonly AssessmentReportService _reportService;
         public ICommand TestGeminiCommand { get; }
         public ICommand ExportPdfCommand { get; }
+        public ICommand CopyPromptCommand { get; }
         public AssessmentReportDto Report { get; }
 
         public AssessmentResultViewModel(int assessmentId)
@@ -116,6 +147,7 @@ namespace CareerCounsellingApp.ViewModels
             _context = new AppDbContext();
             _reportService = new AssessmentReportService(_context);
             _pdfExportService = new AssessmentPdfExportService();
+            _promptBuilder = new GeminiPromptBuilder();
             
             string apiKey = Environment.GetEnvironmentVariable("GEMINI_API_KEY") ?? string.Empty;
             var settings = new GeminiSettings
@@ -128,11 +160,15 @@ namespace CareerCounsellingApp.ViewModels
             
             Report = _reportService.GetReport(assessmentId);
             
+            // Generate the prompt for display/copying
+            CurrentPrompt = _promptBuilder.Build(Report);
+            
             // Try to load existing AI interpretation
             LoadAIInterpretation();
             
             TestGeminiCommand = new AsyncRelayCommand(async () => await TestGeminiAsync(assessmentId));
             ExportPdfCommand = new AsyncRelayCommand(async () => await ExportPdfAsync());
+            CopyPromptCommand = new AsyncRelayCommand(async () => await CopyPromptToClipboardAsync());
         }
 
         public event PropertyChangedEventHandler? PropertyChanged;
@@ -215,6 +251,36 @@ namespace CareerCounsellingApp.ViewModels
             finally
             {
                 IsExportingPdf = false;
+            }
+        }
+
+        private async Task CopyPromptToClipboardAsync()
+        {
+            try
+            {
+                if (!HasPromptToCopy)
+                    return;
+
+                // Use cross-platform clipboard service
+                bool success = await ClipboardService.CopyToClipboardAsync(CurrentPrompt);
+                
+                if (success)
+                {
+                    // Show feedback
+                    IsPromptCopied = true;
+
+                    // Reset after 2 seconds
+                    await Task.Delay(2000);
+                    IsPromptCopied = false;
+                }
+                else
+                {
+                    GenerationMessage = "✗ Clipboard not available on this platform";
+                }
+            }
+            catch (Exception ex)
+            {
+                GenerationMessage = $"✗ Error copying prompt: {ex.Message}";
             }
         }
     }
