@@ -98,13 +98,14 @@
                            FontSize="12"
                            FontWeight="SemiBold"
                            Foreground="{StaticResource TextPrimaryBrush}"/>
-                <ComboBox SelectedItem="{Binding Gender}"
-                          Height="40"
-                          Padding="12">
-                  <ComboBoxItem Content="Male"/>
-                  <ComboBoxItem Content="Female"/>
-                  <ComboBoxItem Content="Other"/>
-                </ComboBox>
+				 
+				  <ComboBox Height="44"
+                                              Padding="12"
+                                              ItemsSource="{Binding Genders}"
+                                              SelectedValue="{Binding SelectedGenderName}"
+                                              SelectedValueBinding="{Binding Name}"
+                                              SelectedItem="{Binding SelectedGender}"
+                                              DisplayMemberBinding="{Binding Name}"/>
               </StackPanel>
 
               <StackPanel Spacing="4">

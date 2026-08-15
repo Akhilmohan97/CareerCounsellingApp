@@ -34,3 +34,8 @@ public class Student
 
     public User? User { get; set; }
 }
+public class GenderModel
+{
+    public int Id { get; set; }
+    public string Name { get; set; }
+}

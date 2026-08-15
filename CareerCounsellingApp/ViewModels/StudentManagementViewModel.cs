@@ -23,7 +23,31 @@ namespace CareerCounsellingApp.ViewModels
         private string _username = "";
         private string _password = "";
         private string _photoPath = "";
+        public ObservableCollection<GenderModel> Genders { get; } = new()
+        {
+            new GenderModel { Id = 1, Name = "Male" },
+            new GenderModel { Id = 2, Name = "Female" },
+            new GenderModel { Id = 3, Name = "Other" }
+        };
+        private GenderModel selectedGender;     
 
+        public GenderModel SelectedGender
+        {
+            get { return selectedGender; }
+            set { selectedGender = value; 
+            OnPropertyChanged(nameof(SelectedGender)); }
+        }
+        private string selectedGenderName;
+
+        public string SelectedGenderName
+        {
+            get { return selectedGenderName; }
+            set
+            {
+                selectedGenderName = value;
+                OnPropertyChanged(nameof(SelectedGenderName));
+            }
+        }
         private Student? _selectedStudent;
 
         public string AdmissionNo
@@ -134,8 +158,20 @@ namespace CareerCounsellingApp.ViewModels
         {
             if (string.IsNullOrWhiteSpace(FullName))
                 return;
-
+            if (string.IsNullOrWhiteSpace(Email))
+                return;
+            if (string.IsNullOrWhiteSpace(Username))
+                return;
+            if (string.IsNullOrWhiteSpace(Password))
+                return;
             using var db = new AppDbContext();
+
+            var userExists = db.Users.Any(u => u.Username == Username);
+            if (userExists)
+            {
+                // Handle case where user already exists
+                return;
+            }
 
             var user = new User
             {
@@ -152,7 +188,7 @@ namespace CareerCounsellingApp.ViewModels
                 UserId = user.Id,
                 AdmissionNo = AdmissionNo,
                 FullName = FullName,
-                Gender = Gender,
+                Gender = SelectedGender?.Name ?? "",
                 Email = Email,
                 Course = Course,
                 Institution = Institution,
@@ -181,7 +217,7 @@ namespace CareerCounsellingApp.ViewModels
 
             student.AdmissionNo = AdmissionNo;
             student.FullName = FullName;
-            student.Gender = Gender;
+            student.Gender = SelectedGender?.Name ?? "";
             student.Email = Email;
             student.Course = Course;
             student.Institution = Institution;
@@ -208,6 +244,13 @@ namespace CareerCounsellingApp.ViewModels
             db.Students.Remove(student);
             db.SaveChanges();
 
+
+            var user = db.Users.FirstOrDefault(x => x.Id == student.UserId);
+            if (user != null)
+            {
+                db.Users.Remove(user);
+                db.SaveChanges();
+            }   
             ClearForm();
             LoadStudents();
         }
