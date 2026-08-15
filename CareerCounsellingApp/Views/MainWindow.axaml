@@ -68,7 +68,7 @@
 
                     <TextBlock
                         Margin="0,5"
-                        Text="Version 3.0.1"
+                        Text="Version 3.0.2"
                         FontSize="13"
                         Foreground="White"
                         Opacity="0.75"
